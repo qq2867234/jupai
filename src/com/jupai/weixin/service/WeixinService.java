@@ -1,8 +1,6 @@
 package com.jupai.weixin.service;
 
 import org.apache.log4j.Logger;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 
 import com.alibaba.fastjson.JSONObject;
@@ -13,9 +11,6 @@ import com.jupai.weixin.util.WeChatUrl;
 public class WeixinService {
 	
 	private Logger log = Logger.getLogger(WeixinService.class);
-
-	@Autowired
-	private RedisTemplate<String, Object> redisTemplate;
 
 	/**
 	 * 获取二维码 - 只用于微信绑定

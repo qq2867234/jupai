@@ -2,8 +2,6 @@ package com.jupai.weixin.util;
 
 import java.util.Map;
 
-import org.apache.lucene.index.TwoPhaseCommitTool.CommitFailException;
-
 import com.alibaba.fastjson.JSONObject;
 import com.jupai.weixin.domain.Menu;
 

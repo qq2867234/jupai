@@ -16,15 +16,12 @@
 	</classpathentry>
 	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/fastjson-1.1.36.jar"/>
 	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/bonecp-0.7.1.RELEASE.jar"/>
-	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/classes12.jar"/>
 	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/commons-beanutils-1.7.0.jar"/>
 	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/commons-collections.jar"/>
 	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/commons-fileupload-1.2.1.jar"/>
 	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/commons-io-1.4.jar"/>
 	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/commons-lang-2.3.jar"/>
 	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/dom4j-1.6.1.jar"/>
-	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/dwr.jar"/>
-	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/ehcache-core-2.5.1.jar"/>
 	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/ezmorph-1.0.3.jar"/>
 	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/jcaptcha-1.0-all.jar"/>
 	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/jstl.jar"/>
@@ -44,22 +41,10 @@
 	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/slf4j-log4j12-1.6.4.jar"/>
 	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/standard.jar"/>
 	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/stripes-1.5.6.jar"/>
-	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/lucene-analyzers-common-4.9.0.jar"/>
-	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/lucene-analyzers-smartcn-4.9.0.jar"/>
-	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/lucene-core-4.9.0.jar"/>
-	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/lucene-grouping-4.9.0.jar"/>
-	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/lucene-highlighter-4.9.0.jar"/>
-	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/lucene-memory-4.9.0.jar"/>
-	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/lucene-queries-4.9.0.jar"/>
-	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/IKAnalyzer2012FF_u1.jar"/>
 	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/junit-4.7.jar"/>
-	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/lucene-queryparser-4.9.0.jar"/>
-	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/im4java-1.4.0-1.5.jar"/>
 	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/httpcore-4.4.4.jar"/>
 	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/httpclient-4.5.1.jar"/>
 	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/commons-logging-1.2.jar"/>
-	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/itextpdf-5.5.8.jar"/>
-	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/itext-pdfa-5.5.8.jar"/>
 	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/gson-2.2.4.jar"/>
 	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/pingpp-java-2.0.10.jar"/>
 	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/joda-time-2.4.jar"/>

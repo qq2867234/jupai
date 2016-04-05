@@ -26,22 +26,6 @@
   <session-config>
     <session-timeout>30</session-timeout>
   </session-config>
-  <servlet>
-    <servlet-name>dwr-invoker</servlet-name>
-    <servlet-class>uk.ltd.getahead.dwr.DWRServlet</servlet-class>
-    <init-param>
-      <param-name>debug</param-name>
-      <param-value>true</param-value>
-    </init-param>
-    <init-param>
-      <param-name>crossDomainSessionSecurity</param-name>
-      <param-value>false</param-value>
-    </init-param>
-  </servlet>
-  <servlet-mapping>
-    <servlet-name>dwr-invoker</servlet-name>
-    <url-pattern>/dwr/*</url-pattern>
-  </servlet-mapping>
   <context-param>
     <param-name>log4jRefreshInterval</param-name>
     <param-value>6000</param-value>
@@ -65,7 +49,7 @@
     <filter-class>net.sourceforge.stripes.controller.StripesFilter</filter-class>
     <init-param>
       <param-name>ActionResolver.Packages</param-name>
-      <param-value>com.jupai.rentalhome.web,com.jupai.comm.web,com.jupai.account.web,com.jupai.salehome.web,com.jupai.talk.web,com.jupai.search.web,com.jupai.track.web,com.jupai.timesearch.web,com.jupai.entrusting.web,com.jupai.distributiongraph.web,com.jupai.weixin.web,com.jupai.mobile.web,com.jupai.ask.web,com.jupai.feednew.web,com.jupai.searchengine.web,com.jupai.coupon.web, com.jupai.thirdpart.web, com.jupai.guide.web, com.jupai.uhome.web,com.jupai.rent.web, com.jupai.smsutil.web,com.jupai.searchnew.web,com.jupai.usertrack.web,com.jupai.review.web,com.jupai.progress.web,com.jupai.pay.web,com.jupai.wap.web,com.jupai.message.web</param-value>
+      <param-value>com.jupai.comm.web, com.jupai.account.web, com.jupai.weixin.web, com.jupai.mobile.web, com.jupai.pay.web,com.jupai.wap.web</param-value>
     </init-param>
     <init-param>
       <param-name>Interceptor.Classes</param-name>
@@ -95,14 +79,6 @@
   <servlet-mapping>
     <servlet-name>StripesDispatcher</servlet-name>
     <url-pattern>*.action</url-pattern>
-  </servlet-mapping>
-   <servlet>
-      <servlet-name>DruidStatView</servlet-name>
-      <servlet-class>com.alibaba.druid.support.http.StatViewServlet</servlet-class>
-  </servlet>
-  <servlet-mapping>
-      <servlet-name>DruidStatView</servlet-name>
-      <url-pattern>/druid/*</url-pattern>
   </servlet-mapping>
   <error-page>
     <location>/error.jsp</location>
