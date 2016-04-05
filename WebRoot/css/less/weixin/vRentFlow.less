@@ -1,0 +1,184 @@
+@import "vFlowPublic.less";
+
+@import "../mixins/ulRadiobox.less";
+
+body{
+    background: #fff;
+}
+.weui_cells{
+    background: #fff !important;
+    width: 94%;
+    padding:0 3% !important;
+    position: relative;
+    .weui_cell{
+        width: 100% !important;
+        padding:5px 0 !important;
+        height: auto;
+        border-bottom:1px solid #ccc !important;
+        &.weui_cell_warn{
+            border-color: @brand-danger !important;
+            label.zgIcon{
+                color: @brand-danger !important;
+            }
+        }
+        .weui_cell_bd input{
+            color: @text-color;
+            padding:10px;
+
+        }
+        .weui_cell_bd{
+            line-height: 3;
+            display: block;
+            color: #000;
+            .zgIcon.zgIcon-warn{
+                color: @brand-danger;
+                line-height: 1;
+            }
+        }
+    }
+
+}
+.validform{
+    width:100%;
+    .clearfix;
+    span,b{
+        .fLeft;
+        color: @brand-danger;
+        font-weight: normal;
+        line-height: 2;
+    }
+    span{
+        width: 50px;
+        text-align: center;
+    }
+}
+
+ul.radioBox{
+    .createRadiobox(@liHeight: 20px,@liPaddingLeft: 10px,@liPaddingTop: 3px,@round:4px,@liFontSize:14px,@liMargin:12px,@borderColor:@gray-lighter);
+    .fLeft;
+    padding:12px 0 0 0;
+    li{
+        background: #dfdfdf;
+        color: @gray;
+        margin-bottom: 8px;
+        border:1px solid #dfdfdf;
+        &.on,&:hover{
+            background: @brand-danger;
+            color: #fff;
+            border-color: @brand-danger;
+        }
+    }
+}
+.weui_cells_title.label{
+    background: none;
+    color: #999;
+    font-size: 14px;
+    line-height: 20px;
+    margin:8px 0 0 0;
+    .clearfix;
+    b{
+        color: #000;
+        font-weight: normal;
+        font-size: @font-size-base;
+        .fRight;
+        padding-bottom: 5px;
+    }
+}
+.weui_cell_group{
+    padding:8px 0;
+    width: 94%;
+    margin:0 3%;
+    border-bottom: @mBorder;
+    .weui_cell{
+        padding:5px 15px;
+    }
+}
+.houseLink{
+    .clearfix;
+    a{
+        width: 94%;
+        display: block;
+        margin:10px 3% 0 0;
+        color: @text-color;
+        line-height: 2;
+        text-align: right;
+    }
+}
+.landlord_msg{
+    height: auto;
+    padding-top: 0;
+    .weui_icon_area{
+        height: auto;
+    }
+    img{
+        width: 120px;
+        height: 120px;
+        display: block;
+        margin:0 auto;
+        .round(50%,50%,50%,50%);
+    }
+    p.weui_msg_desc{
+        line-height: 2;
+        font-size: @font-size-base;
+    }
+}
+h3.title{
+    font-size: 18px;
+    line-height: 2;
+    border-bottom: 1px dotted #eee;
+    padding:5px 10px;
+}
+.weui_cell_bd{
+    font-size: @font-size-base;
+    a{
+        color: #000;
+    }
+    p{
+        line-height: 2;
+        text-indent: 15px;
+    }
+}
+.weui_btn_area.btn_block{
+    button.weui_btn{
+        display: block;
+        float: none;
+        width: 90%;
+        margin-left: 5%;
+        margin-top: 12px;
+    }
+}
+.weui_btn_area.weui_btn_float{
+    .clearfix;
+    margin:20px 0;
+    .weui_btn{
+        width: 49%;
+        margin: 10px 2% 10px 0;
+        .fLeft;
+        &:last-of-type{
+            margin: 10px 0 10px 0;
+        }
+    }
+}
+.tips{
+    background: lighten(@brand-success,50%);
+    border:1px dotted @gray;
+    color:  darken(@brand-success,25%);
+    width: 90%;
+    margin:20px 0 0 5% ;
+    padding:10px 2%;
+    font-size:14px;
+    line-height: 1.6;
+    text-align: left;
+    text-indent: 1em;
+    span{
+        margin-right: 5px;
+    }
+}
+
+.weui_cells_title{
+    color: @text-color;
+}
+.weui_cells_tips{
+    line-height: 1.4;
+    color: @gray;
+}

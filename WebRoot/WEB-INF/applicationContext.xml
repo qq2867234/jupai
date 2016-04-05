@@ -1,0 +1,230 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xmlns:context="http://www.springframework.org/schema/context" xmlns:p="http://www.springframework.org/schema/p"
+       xsi:schemaLocation="
+     http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.0.xsd
+     http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+     http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-3.0.xsd
+     http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-3.0.xsd">
+     
+	<bean id="propertyConfigurerRedis" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">  
+        <property name="order" value="1" />  
+        <property name="ignoreUnresolvablePlaceholders" value="true" />  
+        <property name="locations">  
+            <list>  
+                <value>classpath:redis-manager-config.properties</value>  
+            </list>  
+        </property>  
+    </bean>  
+    <bean id="jedisPoolConfig" class="redis.clients.jedis.JedisPoolConfig">  
+        <property  
+            name="maxTotal"  
+            value="${redis.pool.maxActive}" />  
+        <property  
+            name="maxIdle"  
+            value="${redis.pool.maxIdle}" />  
+        <property  
+            name="maxWaitMillis"  
+            value="${redis.pool.maxWait}" />  
+        <property  
+            name="testOnBorrow"  
+            value="${redis.pool.testOnBorrow}" />  
+    </bean>  
+    
+	<!-- Configure Redis Template -->
+	<bean id="jedisConnFactory" class="org.springframework.data.redis.connection.jedis.JedisConnectionFactory">
+	 	<property name="usePool" value="true"></property>
+		<property  
+       		name="hostName"  
+        	value="${redis.host}" />  
+    	<property  
+        	name="port"  
+        	value="${redis.port}" /> 
+        <property  
+        	name="password"  
+        	value="${redis.pass}" /> 
+        <property  
+        	name="poolConfig"  
+        	ref="jedisPoolConfig" />
+	</bean>
+	<!-- redis template definition  -->
+	<bean id="redisTemplate" class="org.springframework.data.redis.core.RedisTemplate" p:connection-factory-ref="jedisConnFactory"/>
+
+   
+    <bean class="com.jupai.util.MyApplicationContextUtil"></bean>
+    <!-- in-memory database and a datasource  -->
+    <bean id="myDataSource" class="com.jolbox.bonecp.BoneCPDataSource" destroy-method="close">
+        <property name="driverClass" value="com.mysql.jdbc.Driver"/>
+        <property name="jdbcUrl" value="jdbc:mysql://192.168.1.11:3307/mirror?characterEncoding=utf8"/>
+        <property name="username" value="app"/>
+        <property name="password" value="2015cHeckin"/>
+        <property name="IdleConnectionTestPeriodInMinutes" value="10"/>
+        <property name="idleMaxAgeInMinutes" value="5"/>
+        <property name="maxConnectionsPerPartition" value="5"/>
+        <property name="minConnectionsPerPartition" value="1"/>
+        <property name="partitionCount" value="3"/>
+        <property name="acquireIncrement" value="5"/>
+        <property name="statementsCacheSize" value="100"/>
+        <property name="releaseHelperThreads" value="3"/>
+        <property name="logStatementsEnabled"  value="true"/>
+        <property name="connectionTimeoutInMs"  value="30000"/>
+    </bean>
+    
+     <!-- <bean id="myDataSource" class="com.alibaba.druid.pool.DruidDataSource" init-method="init" destroy-method="close"> 
+	      基本属性 url、user、password
+	      <property name="url" value="jdbc:mysql://192.168.1.11:3307/mirror?characterEncoding=utf8" />
+	      <property name="username" value="app" />
+	      <property name="password" value="2015cHeckin" />
+	
+	      配置初始化大小、最小、最大
+	      <property name="initialSize" value="1" />
+	      <property name="minIdle" value="1" /> 
+	      <property name="maxActive" value="20" />
+	
+	      配置获取连接等待超时的时间
+	      <property name="maxWait" value="60000" />
+	
+	      配置间隔多久才进行一次检测，检测需要关闭的空闲连接，单位是毫秒
+	      <property name="timeBetweenEvictionRunsMillis" value="60000" />
+	
+	      配置一个连接在池中最小生存的时间，单位是毫秒
+	      <property name="minEvictableIdleTimeMillis" value="300000" />
+	
+	      <property name="validationQuery" value="SELECT 'x'" />
+	      <property name="testWhileIdle" value="true" />
+	      <property name="testOnBorrow" value="false" />
+	      <property name="testOnReturn" value="false" />
+	
+	      打开PSCache，并且指定每个连接上PSCache的大小
+	      <property name="poolPreparedStatements" value="false" />
+	      <property name="maxPoolPreparedStatementPerConnectionSize" value="20" />
+	
+	      配置监控统计拦截的filters
+	      <property name="filters" value="stat" /> 
+  	</bean> -->
+   
+    <!-- enable autowire 开启注解配置-->
+    <context:annotation-config />
+    
+    <!--  enable component scanning (beware that this does not enable mapper scanning!) 扫描service-->
+    <context:component-scan base-package="com.jupai.account.service"/>
+    <context:component-scan base-package="com.jupai.salehome.service"/>
+    <context:component-scan base-package="com.jupai.talk.service"/>
+    <context:component-scan base-package="com.jupai.track.service"/>
+    <context:component-scan base-package="com.jupai.search.service"/>
+    <context:component-scan base-package="com.jupai.track.service"/>
+    <context:component-scan base-package="com.jupai.rentalhome.service"/>
+    <context:component-scan base-package="com.jupai.timesearch.service"/>
+    <context:component-scan base-package="com.jupai.entrusting.service"/>
+    <context:component-scan base-package="com.jupai.distributiongraph.service"/>
+    <context:component-scan base-package="com.jupai.cache"/>
+    <context:component-scan base-package="com.jupai.weixin.service"/>
+    <context:component-scan base-package="com.jupai.mobile.service"/>
+    <context:component-scan base-package="com.jupai.ask.service"/>
+    <context:component-scan base-package="com.jupai.feednew.service"/>
+    <context:component-scan base-package="com.jupai.searchengine.service"/>
+    <context:component-scan base-package="com.jupai.page.service"/>
+    <context:component-scan base-package="com.jupai.coupon.service"/>
+    <context:component-scan base-package="com.jupai.guide.service"/>
+    <context:component-scan base-package="com.jupai.weixin.service"/>
+    <context:component-scan base-package="com.jupai.uhome.service"/>
+    <context:component-scan base-package="com.jupai.searchnew.service"/>
+    <context:component-scan base-package="com.jupai.rent.service"/>
+    <context:component-scan base-package="com.jupai.usertrack.service"/>
+    <context:component-scan base-package="com.jupai.review.service"/>
+    <context:component-scan base-package="com.jupai.progress.service"/>
+    <context:component-scan base-package="com.jupai.wap.service"/>
+    <context:component-scan base-package="com.jupai.pay.service"/>
+    <context:component-scan base-package="com.jupai.message.service"/>
+    
+    <!-- enable transaction demarcation with annotations 开启事务注解驱动 -->
+    <tx:annotation-driven />
+    
+    <!-- transaction manager, use JtaTransactionManager for global tx  事务管理器-->
+    <bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+        <property name="dataSource" ref="myDataSource" />
+    </bean>
+    <!--  创建SqlSessionFactory-->
+    <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+        <property name="dataSource" ref="myDataSource" />
+        <property name="typeAliasesPackage" value="com.jupai.rentalhome.domain,com.jupai.account.domain,com.jupai.salehome.domain,com.jupai.talk.domain,com.jupai.track.domain,com.jupai.search.domain,com.jupai.track.domain,com.jupai.timesearch.domain,com.jupai.entrusting.domain,com.jupai.distributiongraph.domain,com.jupai.weixin.domain,com.jupai.mobile.domain,com.jupai.ask.domain,com.jupai.feednew.domain,com.jupai.searchengine.domain,com.jupai.page.domain,com.jupai.coupon.domain,com.jupai.guide.domain,com.jupai.weixin.domain,com.jupai.uhome.domain,com.jupai.searchnew.domain,com.jupai.rent.domain,com.jupai.usertrack.domain,com.jupai.review.domain,com.jupai.progress.domain,com.jupai.wap.domain,com.jupai.pay.domain,com.jupai.message.domain" />
+    </bean>
+     <!-- 开启AOP配置 -->
+	<aop:aspectj-autoproxy />
+	<bean id="logAspect" class="com.jupai.comm.UserTrackingAspect" />  
+    
+    <!-- 自动扫描映射器 -->
+    <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer" p:basePackage="com.jupai.account.persistence"/>
+    <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer" p:basePackage="com.jupai.salehome.persistence"/>
+    <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer" p:basePackage="com.jupai.talk.persistence"/>
+    <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer" p:basePackage="com.jupai.search.persistence"/>
+    <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer" p:basePackage="com.jupai.track.persistence"/>
+    <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer" p:basePackage="com.jupai.rentalhome.persistence"/>
+    <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer" p:basePackage="com.jupai.timesearch.persistence"/>
+    <!-- <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer" p:basePackage="com.jupai.util"/>-->
+	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer" p:basePackage="com.jupai.entrusting.persistence"/>
+	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer" p:basePackage="com.jupai.distributiongraph.persistence"/>
+	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer" p:basePackage="com.jupai.mobile.persistence"/>
+	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer" p:basePackage="com.jupai.ask.persistence"/>
+	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer" p:basePackage="com.jupai.feednew.persistence"/>
+	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer" p:basePackage="com.jupai.searchengine.persistence"/>
+	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer" p:basePackage="com.jupai.page.onehand.persistence"/>
+	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer" p:basePackage="com.jupai.coupon.persistence"/>
+	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer" p:basePackage="com.jupai.guide.persistence"/>
+	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer" p:basePackage="com.jupai.weixin.persistence"/>
+	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer" p:basePackage="com.jupai.uhome.persistence"/>
+	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer" p:basePackage="com.jupai.searchnew.persistence"/>
+	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer" p:basePackage="com.jupai.rent.persistence"/>
+	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer" p:basePackage="com.jupai.usertrack.persistence"/>
+	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer" p:basePackage="com.jupai.review.persistence"/>
+	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer" p:basePackage="com.jupai.progress.persistence"/>
+	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer" p:basePackage="com.jupai.wap.persistence"/>
+	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer" p:basePackage="com.jupai.pay.persistence"/>
+	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer" p:basePackage="com.jupai.message.persistence"/>
+	
+    <bean class="com.jupai.comm.KeywordFilter" id="keyword"/>
+    
+    <bean id="configuration" class="com.corundumstudio.socketio.Configuration">
+	    <property name="port" value="9000" />
+	</bean>
+    
+    <bean id="zilensChatServer" class="com.jupai.talk.nettysocketio.server.ZilensChatServer">
+    	 <property name="configuration" ref="configuration" />
+    </bean>
+  
+	<!-- Dwr -->
+	<!-- <bean id="commonDwr"   class="com.jupai.web.Ajax.CommonDwr"></bean> -->
+	
+    <!-- 定时执行索引 -->
+    <bean id="GetWTokenAndJSTicketJob" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+        <property name="targetObject" ref="GetWTokenAndJSTicket" />
+        <property name="targetMethod">
+            <value>getAll</value>
+        </property>
+        <property name="concurrent" value="false" />
+    </bean> 
+    <!-- 任务调度计时器，进行定时设置。CronTriggerBean能进行非常精确的定时设置 -->
+    <bean id="cronQuartzClock" class="org.springframework.scheduling.quartz.CronTriggerFactoryBean" >
+        <property name="jobDetail" ref="GetWTokenAndJSTicketJob" />
+        <!-- cron表达式  -->
+        <property name="cronExpression">
+              <!-- 0 0 */2 * * ? 每两小时、整点触发
+              0 0/2 * * * ? 每两分钟 
+              0/5 * * * * ? 每五秒钟 
+              0 15 10 * * ? 每天Y分X点触发  -->
+            <value>0 0 */2 * * ?</value>
+        </property>
+    </bean>
+  <!--   调度任务触发器，启动定时任务 -->
+    <bean autowire="no" class="org.springframework.scheduling.quartz.SchedulerFactoryBean" destroy-method="stop">
+        <property name="triggers">
+            <list>
+                <ref bean="cronQuartzClock" />
+            </list>
+        </property>
+    </bean>
+</beans>

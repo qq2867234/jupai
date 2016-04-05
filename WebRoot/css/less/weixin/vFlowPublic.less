@@ -1,0 +1,102 @@
+@import "../mixins/reset.less";
+@import "../mixins/mixin.less";
+@import "../mixins/variables.less";
+@import "../mixins/zhengorIcon.less";
+@import "../mixins/weui.less";
+
+button{
+    background:none;
+}
+.main{
+    width: 100%;
+    h2{
+        width: 100%;
+        font-size: 18px;
+        line-height: 3;
+        text-align: center;
+        position: relative;
+        background:@brand-primary;
+        color: #fff;
+        a{
+            color: #fff;
+        }
+    }
+}
+a.btn{
+    display: block;
+    font-size: 14px;
+    line-height: 2;
+    padding:0 10px;
+    .border;
+    background: #fff;
+    text-align: center;
+    color: @text-color;
+    .round(2px,2px,2px,2px);
+    &.btn-primary{
+        background: @brand-primary;
+        color: #fff;
+        border-color: @brand-primary;
+    }
+}
+
+.weui_msg{
+    .weui_icon_area{
+        height: 80px;
+        padding-top: 30px;
+        i.zgIcon{
+            font-size: 80px;
+            line-height: 1;
+            display: block;
+        }
+        i.zgIcon-check,i.zgIcon-edit{
+            color: @brand-success;
+        }
+        i.zgIcon-warn-fill,i.zgIcon-info-circle{
+            color: @brand-warning;
+        }
+        i.zgIcon-check{
+            &:before { content:"\e61c"; }
+        }
+    }
+
+}
+
+.weui_btn_area{
+    margin-bottom: 20px;
+    .clearfix;
+    a.preview{
+        .fRight;
+    }
+    .weui_btn.btns{
+        .fLeft;
+        width: 48%;
+        margin:10px 0 10px 4%;
+        .boxSizing;
+        &:first-of-type{
+            margin-left:0;
+        }
+    }
+}
+.hide{
+    display:none !important;
+}
+.weui_text_area{
+    p a{
+        color:@text-color;
+    }
+}
+.tips{
+    width: 92%;
+    margin:10px 4%;
+    .boxSizing;
+    border:1px dotted @brand-danger;
+    padding:10px;
+    background: lighten(@brand-danger,34%);
+    color: darken(@brand-danger,20%);
+}
+
+#qrcodeImg{
+    width: 200px;
+    height: 200px;
+    margin:10px auto;
+}

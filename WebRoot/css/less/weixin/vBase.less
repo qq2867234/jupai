@@ -1,0 +1,286 @@
+@import "../mixins/variables.less";
+@import "../mixins/mixin.less";
+@import "../mixins/zhengorIcon.less";
+@import "../mixins/weui.less";
+@import "../plugIn/jquery-ui-1.10.4.custom.min.less";
+@import "../mixins/forms.less";
+body{
+    position: relative;
+}
+.header{
+    height: 54px;
+    background: #fff;
+    .boxSizing;
+}
+h1{
+    width: 16%;
+    background: url(/images/public/vSprite.png) no-repeat center;
+    text-indent: -9999em;
+    .fLeft;
+}
+a.header_search{
+    .clearfix;
+    width: 80%;
+    .fRight;
+    margin:7px 2% 0 0;
+    .border;
+    .boxSizing;
+}
+span.header_search_input{
+    width: 80%;
+    height: 40px;
+    background: #fff;
+    .fLeft;
+    text-align: center;
+    color: #aaa;
+    line-height: 40px;
+    font-size: 14px;
+    
+    border-right: 0;
+}
+span.header_search_btn{
+    width: 20%;
+    height: 40px;
+    background: none;
+    color: @gray;
+    .fLeft;
+    text-align: center;
+    line-height: 40px;
+}
+.main{
+   
+}
+
+.footer{
+    text-align: center;
+    line-height: 40px;
+    height: 40px;
+}
+.searchForm{
+    position: absolute;
+    display: none;
+    width: 100%;
+    height: 100%;
+    left: 0;
+    top: 0;
+    z-index: 1000;
+    background: #fff;
+    h2{
+        width: 100%;
+        height: 45px;
+        line-height: 45px;
+        border-bottom:1px solid #ddd;
+        text-align: center;
+        font-size: 16px;
+        position: relative;
+        background: #f8f8f8;
+        a.zgIcon{
+            position: absolute;
+            top: 2px;
+            right: 0;
+            width: 45px;
+            height: 45px;
+            text-align: center;
+        }
+    }
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button{
+    -webkit-appearance: none !important;
+    margin: 0; 
+}
+input[type="number"]{-moz-appearance:textfield;}
+
+.filter{
+    padding-top:5px;
+    padding-bottom:5px;
+    .clearfix;
+    li{
+        @liHeight:76px;
+        @liPadding:16px;
+        height: 36px;
+        width: 94%;
+        margin: 18px 3% 0 3%;
+         position: relative;
+        .clearfix;
+        .fLeft;
+        height: @liHeight - @liPadding*2 - 2;
+        .boxSizing;
+        input[type=text],input[type=number]{
+            height: @liHeight - @liPadding*2 - 4;
+            line-height: @liHeight - @liPadding*2 - 24;
+            padding:10px 5px;
+            border:none;
+            .boxSizing;
+            .fLeft;
+            margin:0 5px;
+            width: 90%;
+            font-size: 14px;
+        }
+        span.zgIcon{
+            position: absolute;
+            right: 2px;
+            top: 12px;
+            line-height: 16px;
+            height: 16px;
+        }
+        &.bedroomLi,&.priceLi{
+            width: 45.5%;
+        }
+        &.priceLi{
+            margin-left: 0;
+        }
+        &.bedroomLi,&.priceLi,&.locationLi{
+            .border;
+        }
+        &.bedroomLi{
+            select{
+                width: 100%;
+                height: 100%;
+                border:0;
+                background: none;
+                font-size: 14px;
+                .boxSizing;
+                padding:10px 5px;
+                color: @text-color;
+            }
+        }
+        &.showBrokersLi {
+            label,input{
+                .fRight;
+            }
+            input[type=checkbox]{
+                margin:5px;
+            }
+        }
+    }
+    button#innerSearchAnalysis{
+        width: 94%;
+        height: 46px;
+        line-height: 46px;
+        background: @brand-danger;
+        color: #fff;
+        text-align: center;
+        border:none;
+        margin-left: 3%;
+        font-size: 16px;
+        span.zgIcon{
+            margin-right: 5px;
+        }
+    }
+}
+
+#login{
+    @headerHeight:50px;
+    .modal-header{
+        height: @headerHeight;
+        line-height: @headerHeight;
+        padding:0;
+        border-bottom: 0;
+        position: relative;
+        margin-bottom: 12px;
+        .close{
+            position: absolute;
+            top: 5px;
+            right: 10px;
+        }
+    }
+    h4.modal-title{
+        font-size: 20px;
+        height: @headerHeight;
+        width: 100%;
+        a{
+            width: 40%;
+            height: @headerHeight - 3 ;
+            line-height: @headerHeight - 3 ;
+            text-align: center;
+            color: @gray;
+            margin-left: 4%;
+            font-weight: normal;
+            .fLeft;
+            &.on{
+                border-bottom:3px solid @brand-danger;
+                color: @text-color;
+            }
+        }
+    }
+    form{
+        .createForm( @formInputFontSize: 16px, @inputDefaultWidth: 80%, @inputHeight: 40px, @inputPadding: 12px, @inputUnit: 14px, @round:0);
+        .form-control{
+            border:1px solid #ddd;
+            position: relative;
+            margin:0 0 20px 0 !important;
+            label{
+                width: 12%;
+                height: 38px;
+                line-height: 38px !important;
+                margin:0 !important;
+                text-align: center;
+            }
+            input{
+                border:none !important;
+                &#validCode{
+                    width: 40% !important;
+                }
+            }
+            button#sendMobileValidCode{
+                width: 40%;
+                padding:10px 0;
+                font-size: 14px;
+                text-align: center;
+                .fRight;
+                .round(0,0,0,0);
+            }
+            span.Validform_checktip{
+                position: absolute;
+                left: 10%;
+                top: 42px;
+                z-index: 10;
+                width: 200px;
+                height: 27px !important;
+                line-height: 27px !important;
+            }
+            &.rankOpt{
+                border:none;
+                label{
+                    width: 100%;
+                    text-align: left;
+                }
+                .btn-group{
+                    width: 100%;
+                    button{
+                        width: 33.3333333%;
+                        .boxSizing;
+                        padding:10px !important;
+                    }
+                }
+                span.Validform_checktip{
+                    top: 84px;
+                }
+            }
+        }
+        .btn-group{
+            margin-top: 5px !important;
+            padding-top:0 !important;
+            padding-bottom:0 !important;
+            #logins,#reg{
+                width: 50%;
+                margin:0 25%;
+                background: @brand-danger;
+                line-height: 1.2;
+                padding:15px 0 !important;
+                color: #fff;
+            }
+        }
+    }
+    .modal-footer{
+        button{
+            display: block;
+            width: 40%;
+            margin:0 30%;
+        }
+    }
+}
+
+

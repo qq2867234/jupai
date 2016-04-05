@@ -1,0 +1,165 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<title>zResidenceName-真格租房</title>
+<meta charset="utf-8">
+<meta name="keywords" content="北京房屋出租，北京房屋租赁，真格租房，房地产，房产网，二手房，买房，租房，出租，整租，合租，新房，楼盘，别墅，家居，房贷，房价，业主，经纪人，中介，开发商"/>
+<meta name="description" content="连接您和房地产专业机构及人士，如开发商、经纪公司、经纪人，使您得到可信赖的房地产专业服务，让安居梦想成真。"/>
+
+<!--#include virtual="/zinclude/public.jsp"-->
+<link rel="stylesheet" type="text/css" href="/css/css/staticInfor/9a3bf590.community.css">
+
+</head>
+
+<body>
+<!--#include virtual="/zinclude/header.html"-->
+<div class="main">
+    <h2 class="title">zResidenceName</h2>
+    
+    <div class="w-33 prices">
+        <h3>租金参考</h3>
+        <div class="rentChart">
+        </div>
+    </div>
+    <div class="communityInfor w-33">
+        <h3>小区详情</h3>
+        <div class='detail zcommond'>
+            <div class='gl-7 circle'>
+                <div class="canvas">
+                    <input class="index" value="ZcommonIdx" readonly>
+                </div>
+                <h4>
+                    综合指数<br/>
+                    <span>cDesc</span>
+                </h4>
+            </div>
+            <div class="gr-26">
+                <div class="comment">ZcommonInfo</div>
+                <div class="communityPics">
+                    <input type='hidden' id='zrImage'>
+                </div>
+            </div>
+        </div>
+        <div class='detail ztrafficd'>
+            <div class='gl-7 circle'>
+                <div class="canvas">
+                    <input class="traffic" value="trafficIdx" readonly>
+                </div>
+                <h4>
+                    交通指数<br/>
+                    <span>tDesc</span>
+                </h4>
+            </div>
+            <div class="gr-26">
+                <ul>
+                    <input type='hidden' id='trafficInfo'/>
+                </ul>
+            </div>
+        </div>
+        <div class='detail zlivingd'>
+            <div class='gl-7 circle'>
+                <div class="canvas">
+                    <input class="living" value="livingIdx" readonly>
+                </div>
+                <h4>
+                    生活指数<br/>
+                    <span>lDesc</span>
+                </h4>
+            </div>
+            <div class="gr-26">
+                <ul>
+                    <input type='hidden' id='foodInfo'/>
+                    <input type='hidden' id='storeInfo'/>
+                </ul>
+            </div>
+        </div>
+        <div class='detail zedud'>
+            <div class='gl-7 circle'>
+                <div class="canvas">
+                    <input class="edu" value="eduIdx" readonly>
+                </div>
+                <h4>
+                    教育指数<br/>
+                  <span>eDesc</span>
+                </h4>
+            </div>
+            <div class="gr-26">
+                <ul>
+                    <input type='hidden' id='eduInfo'/>
+                </ul>
+            </div>
+        </div>
+        <div class='detail zfitd'>
+            <div class='gl-7 circle'>
+                <div class="canvas">
+                    <input class="fitness" value="fitIdx" readonly>
+                </div>
+                <h4>
+                    健身指数<br/>
+                    <span>fDesc</span>
+                </h4>
+            </div>
+            <div class="gr-26">
+                <ul>
+                     <input type='hidden' id='fitInfo'/>
+                </ul>
+            </div>
+        </div>
+        <div class='detail zplayd'>
+            <div class='gl-7 circle'>
+                <div class="canvas">
+                    <input class="funny" value="playIdx" readonly>
+                </div>
+                <h4>
+                    娱乐指数<br/>
+                     <span>pDesc</span>
+                </h4>
+            </div>
+            <div class="gr-26">
+                <ul>
+                    <input type='hidden' id='playInfo'/>
+                </ul>
+            </div>
+        </div>
+        <div class='detail zmedicald'>
+            <div class='gl-7 circle'>
+                <div class="canvas">
+                    <input class="hospital" value="medicalIdx" readonly>
+                </div>
+                <h4>
+                    医疗指数<br/>
+                    <span>mDesc</span>
+                </h4>
+            </div>
+            <div class="gr-26">
+                <ul>
+                    <input type='hidden' id='hospitalInfo'/>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+   <!--  <div class="w-33 houses">
+        <h3><span></span><b>有哪些房源？</b></h3>
+        <div class="rentHouses">
+            #include virtual="zRental"
+        </div>
+    </div> -->
+    
+    <!-- 有哪些房源 -->
+    <!--#include virtual="zRental"-->
+
+</div>
+<!--#include virtual="/zinclude/bottom.html"-->
+
+<script>
+	var layoutData;
+	var residenceId = "";
+</script>
+<script src="/scripts/staticInfor/bc5184d0.community.js" type="text/javascript"></script>
+<script src="/scripts/graph/e7af6aaf.highcharts.js" type="text/javascript"></script>
+<script src="/scripts/graph/55b497e6.highcharts-more.js" type="text/javascript"></script>
+<script type="text/javascript" src="/scripts/tools/e3ed915f.bdShare.js"></script>
+</body>
+</html>

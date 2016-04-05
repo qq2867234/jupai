@@ -1,0 +1,243 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta charset="UTF-8"> 
+<title>找房-真格租房</title>
+<meta name="keywords" content="北京房屋出租，北京房屋租赁，真格租房，房地产，房产网，租房，出租，整租，合租，别墅，住宅，租金，房东，经纪人，中介"/>
+<meta name="description" content="全实名租房平台，在租客、房东、经纪人间建立可信连接，提供租房相关服务，让你住得安心！"/>
+
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimum-scale=1.0, maximum-scale=1.0">
+<script type="text/javascript" src="/scripts/public/jquery-1.10.2.min.js"></script>
+<script type="text/javascript" src="/scripts/plugIn/jquery.touchSwipe.min.js"></script>
+<script type="text/javascript" src="/scripts/public/jquery-ui-1.10.4.custom.min.js"></script>
+<script type="text/javascript" src="/scripts/plugIn/bootstrap.min.js"></script>
+
+
+<link href="/css/css/weixin/base.css" rel="stylesheet" type="text/css">
+<link href="/css/css/weixin/rental.css" rel="stylesheet" type="text/css">
+<script type="text/javascript">
+
+</script>
+</head>
+<body>
+<nav class="navbar navbar-default navbar-fixed-top">
+    <div class="container-fluid">
+        <a id="dLabel" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="navbar-left menu">
+            <span class='glyphicon glyphicon-list'></span>
+        </a>
+        <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
+            <li><a href="/mobile/home">主页</a></li>
+            <li><a href="/mobile/fav">我的收藏</a></li>
+        </ul>
+        <div class="input-group searchDiv navbar-right" id="searchResidence">
+          <input name="cityCode" id="cityCode" type="hidden" value='${cityCode }'/>
+          <input name="residenceId" id="residenceId" type="hidden"/>
+          <input type="text" class="form-control" id="searcInput" placeholder="输入小区名或工作地点">
+          <span class="input-group-btn">
+            <button class="btn btn-default" type="button" id="searc">
+                <span class="glyphicon glyphicon-search"></span>
+            </button>
+          </span>
+        </div><!-- /input-group -->
+    </div>
+</nav>
+<div class="container form-inline">
+    <div class="condition row ">
+    	<div class="col-xs-2  select-group">
+            <select id="bedroom" class="form-control col-xs-3">
+              <option value="0">居室</option>
+              <option value="1">1 居</option>
+              <option value="2">2 居</option>
+              <option value="3">3 居</option>
+              <option value="4">4+居</option>
+            </select>
+        </div>
+        <div class="col-xs-2  select-group">
+            <select id="price" class="form-control col-xs-3">
+              <option value="0">居室</option>
+              <option value="3000">3000 元</option>
+              <option value="5000">5000 元</option>
+              <option value="8000">8000 元</option>
+            </select>
+        </div>
+        <div class="col-xs-3 select-group">
+            <select id="time" class="form-control col-xs-3">
+              <option value="1,15">步行,15分钟</option>
+              <option value="1,30">步行,30分钟</option>
+              <option value="2,15">公交,15分钟</option>
+              <option value="2,30">公交,30分钟</option>
+              <option value="2,60">公交,60分钟</option>
+            </select>
+        </div>
+        <div class="form-group col-xs-3">
+          <input type="text" class="form-control" id="keywords" placeholder="地点、小区名">
+        </div>
+        <button type="button" class="btn btn-default col-xs-2" id="search">搜索</button>
+    </div>
+</div>
+<div class="container communitys" id="content">
+    <div class='page row'><button type='button' class='btn btn-default col-xs-10 col-xs-offset-1' id='nextPage'>加载更多</button></div>
+</div>
+</body>
+<script type="text/javascript">
+    var lngLat;
+    var queryObj = {};
+    $(function() {
+    	// 事件绑定
+    	eventBind();
+    	// 初始搜索
+    	search();
+	});
+	
+	// 事件绑定
+	function eventBind() {
+	
+		// 绑定搜索点击事件
+    	$("#search").click(function() {
+    		 $(".msg").remove();
+    		 $(".residence").remove();
+    		 search();
+    	});
+    	
+    	// 绑定小区自动提示事件
+    	suggestion();
+	}
+   
+    // 搜索租单
+   	function search(){
+   		queryObj.keywords = $("#keywords").val() == $("#keywords").attr('placeholder') ? '' : encodeURIComponent($("#keywords").val());
+    	queryObj.budget = $("#price").val() == 0 ? null : $("#price").val();
+		queryObj.bedRoom = $("#bedroom").val() == 0 ? null : $("#bedroom").val().replace(/\D/g, "");
+		queryObj.mode = $("#time").val().split(',')[0];
+		queryObj.time = $("#time").val().split(',')[1];
+		queryObj.lngLat = lngLat;
+		
+		//分页初始化
+   		Pager.init({
+			url:"/HouseSearch.action?searchRentList",
+			data:{
+				budget : queryObj.budget,
+				keywords : queryObj.keywords,
+				bedRoom : queryObj.bedRoom,
+				cityCode : queryObj.cityCode || 110000,
+				// currPage: queryObj.currPage,
+				mapTag : 0,
+				mode: queryObj.mode,
+				time: queryObj.time,
+				lngLat: queryObj.lngLat || null,
+				searchType : 1
+			},
+			fillData: fillData
+		});
+   	}
+   
+    // 填充租单信息
+    function fillData(data) { 
+    	var content = "";
+    	
+    	switch (data.status) {
+    	  	case "0":
+    	  		showErrMsg($("#content"), data.info);
+    	  		break;
+			case "1": // 成功
+				$.each(data.pageModel.result, function(index, house) {
+					// 房源图片
+					house.default_pic = house.default_pic || "/images/public/defaultHome.jpg";
+		    		content += "<a class='col-xs-6 residence' href='" + house.url + "'>" +
+		    		"<img src='" + house.default_pic + "' alt='房源图片' onerror=\"showImgDelay(this,\'/images/public/defaultHome.jpg\',2)\" />"+
+		    		"<b>"+ house.price +" 元/月</b>"+
+		    		"<span>"+house.residence_name+"　"+house.beds+"室"+house.baths+"卫　"+house.area+"平米</span></a>";
+    			});
+    			$("#content").prepend(content);
+				break;
+			case "2": // 模糊结果
+				$("#keywords" ).autocomplete("search");
+	    		alert("无法成功定位到工作地点，请换一个关键词。");
+				break;
+			case "-1": // 异常
+				showErrMsg($("#content"), data.info);
+				break;
+			default:
+				showErrMsg($("#content"), "暂无符合条件的房屋");
+				break;
+		}
+    }
+    
+    // 小区搜索提示
+    function suggestion(){
+    	var cacheData = {};	//小区缓存
+		$("#keywords").autocomplete({
+			minLength: 0,
+			width: 318,
+			autoFocus: true,
+			source: function( request, response ) {
+				queryObj.lngLat = "";
+				var term = request.term;
+				if(term in cacheData) {
+					response($.map(cacheData[term], function(item, index) {
+						//alert(JSON.stringify(item));
+						return {
+							label: item.name,
+		                    value: item.lngLat
+						};
+		            }));	
+					return;
+				}
+		      	$.ajax({
+			          url: '/TimeSearch.action?suggestion',
+			          data: {destination: encodeURIComponent(request.term)},
+			          type: 'post',
+			          dataType: "json",
+			          success: function(data, status, xhr) {
+			          	  if(data.status == 1) {
+			          	  	cacheData[term] = data.list;
+							response($.map(data.list, function(item, index) {
+								return {
+									label: item.name,
+				                    value: item.lngLat
+				              	};
+			            	}));	
+			          	  }
+			        	  											
+			          },
+			          error: function(data) {
+			        	//alert(JSON.stringify(data));
+			          }
+				});
+			},
+			select: function( event, ui ) {
+				event.preventDefault();
+				this.value = ui.item.label;
+				queryObj.lngLat = ui.item.value;
+				$("#keywords").blur();
+			}
+		});
+    }
+    
+     //显示错误信息
+    function showErrMsg(id, msg) {
+        var content = "<div class='msg'>" + msg + "</div>";
+        id.append(content);
+    }
+    
+	// 当图片加载失败是指定默认图片
+	function showImgDelay(imgObj, imgSrc, maxErrorNum) {
+		if (maxErrorNum > 0) {
+			imgObj.onerror = function() {
+				showImgDelay(imgObj, imgSrc, maxErrorNum - 1);
+			};
+			setTimeout(function() {
+				imgObj.src = imgSrc;
+			}, 500);
+		} else {
+			imgObj.onerror = null;
+			imgObj.src = imgSrc;
+		}
+	}
+    
+</script>
+
+<script type="text/javascript" src="/scripts/public/pager.js"></script>
+
+</html>

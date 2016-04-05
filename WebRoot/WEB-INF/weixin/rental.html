@@ -1,0 +1,121 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta charset="UTF-8"> 
+<title>找房-真格租房</title>
+<meta name="keyword" content="北京房屋出租，北京房屋租赁，真格租房，房地产，房产网，租房，出租，整租，合租，别墅，住宅，租金，房东，经纪人，中介"/>
+<meta name="description" content="全实名租房平台，在租客、房东、经纪人间建立可信连接，提供租房相关服务，让你住得安心！"/>
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimum-scale=1.0, maximum-scale=1.0">
+
+<link href="/css/css/weixin/base.css" rel="stylesheet" type="text/css">
+<link href="/css/css/weixin/rental.css" rel="stylesheet" type="text/css">
+</head>
+
+<body>
+<nav class="navbar navbar-default navbar-fixed-top">
+    <div class="container-fluid">
+        <a type="button" class="back navbar-left" href="javascript:history.back(-1)"  >
+          <span class='zgIcon zgIcon-chevron-left'></span>
+        </a>
+        <div class="navbar-brand">真格租房</div>
+        <div class="dropdown navbar-right menu">
+          <a id="dLabel" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" >
+              <span class='zgIcon zgIcon-th-list'></span>
+          </a>
+          <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
+              <li><a href="/mobile/home">主页</a></li>
+              <li><a href="/mobile/fav">我的收藏</a></li>
+          </ul>
+        </div>
+    </div>
+</nav>
+
+<div class="container">
+	<!-- 关键词搜索 -->
+    <div class="searchForm">
+        <input type="text" id="keyword" placeholder="工作/学习地点"/>
+        <button type="button" class="btn btn-danger" id="search">
+            <span class="zgIcon zgIcon-search"></span>
+        </button>
+    </div>
+    <!-- 条件搜索 -->
+    <div class="btn-group section" role="group" aria-label="...">
+      <input type="hidden" id="beds">
+      <button type="button" class="btn btn-default" id="secBedBtn">
+        <b>居室</b><span class="caret"></span>
+      </button>
+      <input type="hidden" id="price">
+      <button type="button" class="btn btn-default" id="secPriceBtn" style='border-left:none;border-right:none;'>
+        <b>租金</b><span class="caret"></span>
+      </button>
+      <input type="hidden" id="filter">
+      <button type="button" class="btn btn-default" id="secFilterBtn">
+        <b>时间</b><span class="caret"></span>
+      </button>
+    </div>
+	<!-- 房源列表 -->
+    <div class="moreRents">
+      <button class="btn btn-primary loadMore sm-btn" id="nextPage" style="display: none;">加载更多</button>
+    </div>
+</div>
+
+<div class="modal fade" id="secModal" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+        <ul class="nav nav-pills" role="tablist">
+          <li role="presentation"><a href="#bedsTab" aria-controls="bedsTab" role="tab" data-toggle="tab" id="secBed">居室<span class="caret"></span></a></li>
+          <li role="presentation"><a href="#priceTab" aria-controls="priceTab" role="tab" data-toggle="tab" id="secPrice">租金<span class="caret"></span></a></li>
+          <li role="presentation"><a href="#filterTab" aria-controls="filterTab" role="tab" data-toggle="tab" id="secFilter">时间<span class="caret"></span></a></li>
+        </ul>
+        <!-- Tab panes -->
+        <div class="tab-content">
+          <div role="tabpanel" class="tab-pane" id="bedsTab">
+            <ul class="list-group" none="不限" default="居室">
+              <li class="list-group-item">不限</li>
+              <li class="list-group-item">1居</li>
+              <li class="list-group-item">2居</li>
+              <li class="list-group-item">3居</li>
+              <li class="list-group-item">4居及以上</li>
+            </ul>
+          </div>
+          <div role="tabpanel" class="tab-pane" id="priceTab">
+            <ul class="list-group" none="不限" default="租金">
+              <li class="list-group-item">不限</li>
+              <li class="list-group-item">1500元</li>
+              <li class="list-group-item">3000元</li>
+              <li class="list-group-item">5000元</li>
+              <li class="list-group-item">8000元</li>
+              <li class="list-group-item inputPrice">
+                <input type="text" placeholder="输入租金" id="inputPrice" />
+                <button type="button">确定</button>
+              </li>
+            </ul>
+          </div>
+          <div role="tabpanel" class="tab-pane" id="filterTab">
+            <ul class="list-group" none="全部" default="时间">
+              <li class="list-group-item" filter="0">全部</li>
+              <li class="list-group-item" filter="1">步行15分钟</li>
+              <li class="list-group-item" filter="2">步行30分钟</li>
+              <li class="list-group-item" filter="3">公交30分钟</li>
+              <li class="list-group-item" filter="4">公交60分钟</li>
+            </ul>
+          </div>
+        </div>
+    </div>
+  </div>
+</div>
+<input type="hidden" id="lngLat" >
+
+<!--#include virtual="/zinclude/vfooter.html"-->
+<script type="text/javascript" src="/scripts/public/jquery-1.10.2.min.js"></script>
+<script type="text/javascript" src="/scripts/public/jquery-ui-1.10.4.custom.min.js"></script>
+<script type="text/javascript" src="/scripts/plugIn/bootstrap.min.js"></script>
+<script type="text/javascript" src="/scripts/weixin/login.js"></script>
+<script type="text/javascript" src="/scripts/public/MobileValidCode.js"></script>
+<script type="text/javascript" src="/scripts/public/pager.js"></script>
+<script type="text/javascript" src="/scripts/public/Favorite.js"></script>
+<script type="text/javascript" src="/scripts/weixin/rent.js"></script>
+
+</body>
+</html>

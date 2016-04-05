@@ -1,0 +1,106 @@
+
+@spriteBg: url("@{myUrl}/sprite.png");
+
+@import "../mixins/ulSelect.less";
+
+.header{
+    width: 100%;
+    min-width:@minWidth;
+    height: @header-height;
+    .clearfix;
+    border-bottom: @mBorder;
+    background: #fff;
+    .shadow;
+    h1{
+        width:175px;
+        height: 34px;
+        .fLeft;
+        text-indent: 9999em;
+        overflow: hidden;
+        margin:10px 20px 0 35px;
+        background: url(/images/public/LOGO_20160311_1.png) no-repeat;
+        a{
+            width: 100%;
+            height: 100%;
+            display: block;
+            overflow: hidden;
+            color:@header-font-color;
+        }
+    }
+    .city{
+        .clearfix;
+        .fLeft;
+        height: 32px;
+        width: 70px;
+        .round();
+        border:2px solid #fff;
+        a{
+            width: 100%;
+            display: block;
+            color: #fff;
+            line-height: 32px;
+            font-size: 16px;
+        }
+    }
+    .navBar{
+        .clearfix;
+        .fRight;
+        margin-right: 2em;
+        height: @header-height;
+        li{
+            .fRight;
+            position: relative;
+            margin:5px 0 0 2px;
+            a.nav{
+                display: block;
+                text-align: center;
+                height: @header-height - 19;
+                line-height: @header-height - 19;
+                margin:5px 0;
+                padding:0 20px;
+                color: @text-color;
+                font-size: @font-size-base;
+                margin-top: 4px;
+                font-weight:normal;
+            }
+            a.btn{
+                line-height: 2;
+                font-size: @font-size-base;
+                margin: 3px 0 0 10px;
+                padding:0 20px;
+                width: 70px;
+                text-align:center;
+            }
+            a#user{
+                .clearfix;
+                .fLeft;
+                display: none;
+                b,span{
+                    .fLeft;
+                    line-height: @header-height - 20;
+                }
+                b{
+                    font-weight:normal;
+                }
+                span{
+                    font-size: 12px;
+                    margin-left: 10px;
+                }
+                &:hover{
+                    border:none;
+                    padding:0 20px;
+                    color:@brand-primary;
+                }
+            }
+            ul#userMenuList{
+                .createSelect(@posTop: 46px, @posLeft:0px);
+                li{
+                    margin:0;
+                    a:hover{
+                        background:@brand-primary;
+                    }
+                }
+            }
+        }
+    }
+}

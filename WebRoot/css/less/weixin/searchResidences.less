@@ -1,0 +1,103 @@
+
+@import "../mixins/mixin.less";
+@import "variables.less";
+@import "custom-variables.less";
+
+
+.nav{
+    margin:.5em 0 !important;
+}
+#orderMenu{
+ padding-bottom: .5em;
+    .col-xs-6{
+        padding:0 .2em;
+        button{
+            width: 100%;
+        }
+    }
+}
+#community,#brokers{
+    color: @text-color;
+    padding-bottom:1em; 
+    .clearfix;
+    .media{
+        font-size: 12px;
+        height: auto;
+        overflow: hidden;
+        padding:.4em 5px;
+        margin-top: 0;
+        color: @gray;
+        cursor:pointer;
+        .clearfix;
+        border-bottom:1px solid #eee;
+        .media-left{
+            position: relative;
+            width: 6.5em !important;
+            height: 5em !important;
+            img{
+                width: 6.5em;
+                height: 5em;
+                margin-top: .1em;
+            }
+            b.years{
+                width: 6.5em;
+                height: 1.5em;
+                line-height: 1.5;
+                background: #000;
+                color: #fff;
+                position: absolute;
+                background: #000;
+                top: 4em;
+                left: 0;
+                .opacity(70);
+                text-align: center;
+            }
+        }
+        strong{
+            display: block;
+            font-size: 1.2em;
+            padding-right: 2em;
+            .textOver;
+            line-height: 1.4;
+            position: relative;
+            color:#000;
+        }
+        q{
+            &.fav{
+                width: 1.5em;
+                height: 1em;
+                position: absolute;
+                right: 0em;
+                top: .2em;
+                font-size: 1em;
+                font-weight: normal;
+                text-align: center;
+                line-height: 1;
+            }
+        }
+        b{
+            font-size: 1em;
+            font-weight: normal;
+        }
+        span.tag{
+            display: block;
+            button{
+                padding: 1px 2px !important;
+                .round(0,0,0,0);
+                margin-left: 0;
+                font-size: .8em;
+                margin-right: .1em;
+            }
+        }
+        span.intro{
+            display: block;
+            b{
+                color:@brand-info;
+                margin:0 .2em;
+            }
+        }
+    }
+
+
+}
+

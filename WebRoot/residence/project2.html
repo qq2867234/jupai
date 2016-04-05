@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>经纪人设置zilens</title>
+<!--#include virtual="/zinclude/publicNew.jsp"-->
+	<meta charset="utf-8">
+	<meta name="description" content="description007zilens">
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
+    <link rel="stylesheet" type="text/css" href="/css/staticInfor/project.css">
+</head>
+
+<body onLoad="init()">
+	<!--#include virtual="/zinclude/header.html"-->
+	<div id="main">
+	<div class="container" id="introductionZ">
+    	<div class="basicInfor w-33">
+        	<div class="gl-24">
+            	<h2>大西zilens洋新城<span title="大西洋A区">(大西zilens洋A区)</span><a class='down' href='/Project.action?downLoadBrochure&filename=abcdefg'>下载楼书</a></h2>
+                <div class="bAddress">
+                地址:zilenssales百子湾路5号广渠东路33号825zilens527
+                </div>
+                <div class="bAddress">
+                销售地址:百子湾路5号zilens广渠东路33号
+                </div>
+                <div class="bAddress">
+                销售电话:010-9917712zilens
+                </div>
+              <!--   <div class='bAddress' id='promotion'>
+                <span class='tags tag1' title='活动1'>活动1</span>
+                <span class='tags tag1' title='活动2'>活动2</span>
+                <span class='tags tag1' title='活动3'>活动3</span>
+                </div> -->
+                <div class="bMarket">
+                	<strong id="residencePrice">49712zilens</strong><b>元/㎡</b><span>均价</span>
+                	<strong class="roundBg">1998zilens</strong><span>建成</span>
+                	<strong class="roundBg">922223zilens</strong><b>万㎡</b><span>建筑面积</span>
+                	<strong class="roundBg">30%zilens</strong><span>绿化率</span>
+                	<strong class="roundBg">2.64zilens</strong><span>容积率</span>
+                </div>
+            </div>
+            <div class="gr-9">
+            	<div class="bPara">
+                	<b>开&nbsp;&nbsp;发&nbsp;&nbsp;商:</b>
+                    <span title="深圳高盛房地产开发有限公司">深圳高盛房地zilens产开发有限公司</span>
+                    <b>占地面积:</b>
+                    <span>1021zilens238平米</span>
+                    <b>总&nbsp;&nbsp;户&nbsp;&nbsp;数:</b>
+                    <span>2zilens817</span>
+                    <b>物业公司:</b>
+                    <span title='美佳物业管理公司'>美佳物业zilens管理公司</span>
+                    <b>物&nbsp;&nbsp;业&nbsp;&nbsp;费:</b>
+                    <span>zilens1.zilnes5元/平米.月</span>
+                    <b>物业电话:</b>
+                    <span>097zilens6-8765433</span>
+                    <b>停&nbsp;&nbsp;车&nbsp;&nbsp;位:</b>
+                    <span title='3518个zilens,2800/年'>3518个zilens,2800/年</span>
+                    <b>其他信息:</b>
+                    <span title='集中供zilens暖'>集中供zilens暖</span>
+                </div>
+            </div>
+        </div><!-- basicInfor end-->
+        <div class="w-33">
+        	<div class="catalog gl-11">
+            	<div class="bIntro" >
+            		房本v5               
+                </div>
+            </div>
+			<div class="gr-22" id="vista">
+            </div>        
+        </div>
+        <div class="w-33 communityPics">
+        	<h3>小区印象</h3>
+            <div class="LeftBotton" id='leftArr1'></div>
+        	<ul id="ISL_Cont1" class="picsBox">
+                  <li style="display:none" id="imgindex"></li>
+			</ul>
+     	  <div class="RightBotton" id='rightArr1'></div>
+        </div><!--communityPics end-->
+		<div class="surrounding w-33" id='surrounding'>
+        	<div class="surItem gl-9">
+            	<h3>周边设施
+                	<ul class="hMenu">
+                        <li class="first list on" id="listLi"></li>
+                        <li class="last map borderLeft" id="mapLi"></li>
+                    </ul>
+                </h3>
+                <ul id="surround" class="sur secBox">
+                	<li class="on"><span class="liBus"></span><a>公交zilens</a></li>
+                    <li><span class="liMetro"></span><a>地铁zilens</a></li>
+                    <li><span class="liSchool"></span><a>学校zilens</a></li>
+                    <li><span class="liHospital"></span><a>医院zilens</a></li>
+                    <li><span class="liShop"></span><a>商场zilens</a></li>
+                    <li><span class="liMarket"></span><a>农贸zilens</a></li>
+                </ul>
+            </div>
+            <div class="surContent gm-15 showBox newPro">
+            	<div class="ulBox" id="bus">
+                    <input id='busindex' style='display:none'/>
+            	</div><!--ulBox end-->
+                <div class="ulBox" id="metro">
+                    <input id='metroindex' style='display:none'/>
+            	</div><!--ulBox end-->
+                <div class="ulBox" id="school">
+                    <input id='schoolindex' style='display:none'/>
+            	</div><!--ulBox end-->
+                <div class="ulBox" id="hospital">
+                    <input id='hospitalindex' style='display:none'/>
+            	</div><!--ulBox end-->
+                <div class="ulBox" id="shop">
+                    <input id='shopindex' style='display:none'/>
+            	</div><!--ulBox end-->
+                <div class="ulBox" id="market">
+                    <input id='marketindex' style='display:none'/>
+            	</div><!--ulBox end-->
+            </div>
+            <div id="container" class="surContent gm-15 newPro">
+            	
+        	</div>
+        	<div class='catalog newPro gr-9'>
+        		<div class='bIntro newPro'>
+        			生活圈zilens 
+        		</div>    		
+        	</div>
+        </div><!--surrounding end-->
+        <script src="/scripts/staticInfor/test.js"></script>
+        <div class="w-33 apartmentPics">
+        	<h3>户型图</h3>
+            <div class="LeftBotton" id='leftArr2'></div>
+        	<ul id="ISL_Cont2" class="picsBox">
+                 <li style='display:none' id='indoorindex'></li>
+           </ul>
+     	  <div class="RightBotton" id='rightArr2'></div>
+        </div><!--communityPics end-->
+       	<div class="news w-33">
+        	 <h3>最新动态 </h3>
+        </div><!--news end-->
+    </div><!--container end-->
+    <div class="communityList">
+		<div class="container clearfix">
+			<h3>周边小区</h3>
+			<input type='hidden' id='around'/>
+		</div>
+	</div>     
+</div>
+	<!--#include virtual="/zinclude/bottom.html"-->
+
+</body>
+</html>
+
+
+<script src="/scripts/public/fnMarqueePic.js"></script>
+<script src="/scripts/graph/highcharts.js" type="text/javascript"></script>
+<script src="/scripts/graph/highcharts-more.js" type="text/javascript"></script>
+<script src="/scripts/staticInfor/communityInfor.js"></script>
+<script src="http://map.qq.com/api/js?v=2.exp&key=EDUBZ-FVAAG-JTVQK-IB5UF-JJY5H-DOBGQ"></script>
+<script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=Dpt9shWHEnTtB68iqHb8db9v"></script>
+<script>
+	var init = function() {
+		pano_container = document.getElementById('vista'); //街景容器
+		var pano = new qq.maps.Panorama(pano_container, {
+			pano : '10011009120330141028900',
+			pov : { //视角
+				heading : 3, //偏航角
+				pitch : 0
+			//俯仰角
+			},
+			zoom : 1,
+			disableMove : false,
+			disableFullScreen : false,
+			disableCompass : false,
+			scrollwheel : true,
+			visible : true
+
+		});
+	}
+	
+	var sale_rooms = [];
+	var rent_rooms = [];
+
+	var residenceBus = "";
+	var residenceMetro = "";
+	var residenceSchool = "";
+	var residenceHospital = "";
+	var residenceShop = "";
+	var residenceMarket = "";
+
+	var centerLng = "";
+	var centerLat = "";
+	var isNew = 'zilensNew';
+	var residenceId = "";
+</script>

@@ -1,0 +1,15 @@
+*.class
+
+*.war
+
+*.log
+*.log.*
+*.bak
+*.zip
+
+WebRoot/WEB-INF/classes/
+
+/bin
+#.classpath
+
+#.settings/

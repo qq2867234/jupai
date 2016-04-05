@@ -1,0 +1,32 @@
+a{
+    color:@text-color;
+    &:hover{
+        color:@brand-primary;
+        text-decoration: none;
+    }
+    &.links-primary{
+        color: @brand-primary;
+        &:hover{
+            color:darken(@brand-primary,10%);
+        }
+    }
+    &.links-danger{
+        color: @brand-danger;
+        &:hover{
+            color:darken(@brand-danger,10%);
+        }
+    }
+    &.links-lighten{
+        color: @gray;
+        &:hover{
+            color:@brand-info;
+        }
+    }
+    &.links-wht{
+        color: #fff;
+        &:hover{
+            color:#eee;
+            font-weight: bold;
+        }
+    }
+}

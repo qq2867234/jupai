@@ -1,0 +1,68 @@
+﻿@import "../public/reset.less";
+@import "../public/color.less";
+@import "../public/buttons.less";
+@import "../public/variables.less";
+@import "../public/grid.less";
+@import "../public/mixin.less";
+
+
+@divLineHeight:60px;
+
+form#askReg{
+	width:70%;
+	margin:0 auto;
+	padding:15px 5%;
+	background:#fff;
+	border:@mBorder;
+	h2{ 
+		width:100%;
+		font-weight:normal;
+		font-size:18px;
+		height:30px;
+		line-height:30px;
+		margin:0 0 20px 0;
+	}
+	button#regBtn{
+			width:100px;
+			margin:15px auto 5px auto;
+			display:block;
+		}
+	.divLine{
+		
+		.item{ 
+			width:15%; 
+			height:@divLineHeight; 
+			line-height:@divLineHeight;
+			text-align:right; 
+			margin-right:3%;
+		}
+		.itemInput{
+			width:81%;
+			.clearfix;
+			input{
+				margin:4px 0;
+			}
+			span{
+				margin-left:10px;
+				line-height:@divLineHeight;
+			}
+		}
+		&.topic{
+			height:2.5*@divLineHeight;
+			input{
+				width:95%;
+			}
+			span{
+				line-height:20px;
+				margin:5px 0;
+				font-size:12px;
+				&.tips{
+					color:@gray;
+			}
+			}
+			
+		}
+		
+	}
+}
+

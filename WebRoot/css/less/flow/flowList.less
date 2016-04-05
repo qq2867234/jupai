@@ -1,0 +1,99 @@
+@import "../mixins/variables.less";
+@import "../mixins/mixin.less"; 
+@import "../mixins/tabContent.less"; 
+@import "../order/saleHomeMenu.less";
+
+
+.tab-index{
+   .createTabIndex(@tabWidth:49%,@tabUlWidth:100%);
+}
+.tab-index,.tab-content{
+    display: block;
+    margin-bottom: 20px;
+}
+
+.flowDetail{
+    width: 100%;
+    line-height: 50px;
+    border-bottom: 1px dotted #ddd;
+    padding:15px 0;
+    .clearfix;
+    font-size: @font-size-small;
+    .house_detail,.house_opr{
+        .fLeft;
+    }
+
+    .house_detail{
+        width: 60%;
+        margin:0 2%;
+        p,h5{
+            line-height: 2;
+            font-size: @font-size-base;
+        }
+        p{
+            color: @gray-med;
+            font-size: @font-size-small;
+        }
+    }
+    .house_opr{
+        width: 35%;
+        margin-right: 0;
+        margin-top: 10px;
+        a.btn{
+            .fRight;
+            width: 46%;
+            margin-left: 2%;
+            padding:10px 0;
+        }
+    }
+    &.title{
+        height: 20px;
+        line-height: 20px;
+        padding-top: 0;
+        *{
+            color: @gray-med;
+            font-size: @font-size-small;
+            text-indent: 2em;
+        }
+    }
+}
+
+
+.signedDetail{
+    .house_detail,.house_time,.house_opr{
+        .fLeft;
+    }
+    .house_detail{
+        width: 50%;
+        p{
+            color: @gray-med;
+        }
+        strong{
+            color: @text-color;
+            span.zgIcon{
+                color: @brand-primary;
+            }
+        }
+    }
+    .house_time{
+        width: 22%;
+    }
+    .house_opr{
+        width: 24%;
+        a.btn{
+            width: 80%;
+            &.downBtn{
+                font-size: 14px;
+                line-height: 2;
+                text-align: right;
+            }
+        }
+    }
+    &.title{
+        padding:5px 0 10px 0;
+        *{
+            color: @gray;
+        }
+        
+    }
+}

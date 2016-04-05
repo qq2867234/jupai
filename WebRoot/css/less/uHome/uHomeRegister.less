@@ -1,0 +1,107 @@
+
+@import "../mixins/variables.less";
+@import "../mixins/mixin.less"; 
+@import "../mixins/forms.less";
+#main{
+    background: @gray-lighter;
+    width: 100%;
+    padding-top: 0;
+    .container{
+        width:@minWidth;
+        .clearfix;
+    }
+}
+.progress{
+    width: 100%;
+    height: 130px;
+    position: relative;
+    .line{
+        width: 66%;
+        height: 2px;
+        background:@brand-primary; 
+        position: absolute;
+        left: 15%;
+        top: 60px;
+        z-index: 1;
+    }
+    ul.step{
+        position: absolute;
+        width: 100%;
+        z-index: 2;
+        top: 40px;
+        .clearfix;
+        li{
+            width:12%;
+            .fLeft;
+            margin-left: 10%;
+            b{
+                display: block;
+                @liWidth:36px;
+                width: @liWidth;
+                height: @liWidth;
+                margin:0 auto;
+                .round(50%,50%,50%,50%);
+                background:@brand-primary; 
+                line-height: @liWidth;
+                text-align: center;
+                font-size: 16px;
+                color: #fff;
+            }
+            span{
+                text-align: center;
+                font-size: 14px;
+                width: 100%;
+                display: block;
+                margin-top:10px;
+            }
+            &.unavailable{
+                b{
+                    background: @gray-light;
+                }
+            }
+        }
+
+    }
+}
+form{
+    width: 62%;
+    padding:20px 3%;
+    margin:20px 0 20px 16%;
+    .fLeft;
+    .border;
+    background: #fff;
+    .createForm(@formControlMargin:14px);
+    label{
+        width: 100px;
+        text-align: right;
+    }
+    input[type=text]{
+        &.code{
+            width: 100px !important;
+            margin-right: 15px !important;
+        }
+    }       
+    button.code,img{
+        width: 130px !important;
+        height: 40px !important;
+    }
+    button.code{
+        background: @brand-success;
+        color: #fff;
+        .fLeft;
+    }
+    img{
+        height: 2.6em;
+        padding:0;
+        width: 41%;
+    }
+    select{
+        margin-right: 15px;
+        width: 100px;
+    }
+    button.btn-only{
+        width: 150px !important;
+        margin-left: 186px !important;
+    }
+}
+

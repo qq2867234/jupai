@@ -1,0 +1,169 @@
+@import "../mixins/variables.less";
+
+@import "../mixins/mixin.less";
+
+body{
+    background: #fff;
+    .container,.content{
+        width: @minWidth;
+    }
+}
+.iconograph(@graphWidth,@graphHeight,@bgX,@bgY,@marginTop:30px,@marginLeft:0,@bg:'strategy'){
+    width: @graphWidth;
+    height: @graphHeight;
+    margin: @marginTop 0 0 @marginLeft;
+    background: url("/images/strategy/@{bg}.jpg") no-repeat @bgX @bgY;
+}
+
+.w-33{
+    padding-bottom: 3em;
+}
+.w-33.imgR{
+    .contents{
+        h2{
+            span,b{
+                .fRight;
+            }
+        }
+    }
+}
+.contents{
+    @blockHeight:3;
+    h2{
+        color: @brand-warning;
+        line-height: @line-height-small;
+        font-size: @font-size-h1;
+        .clearfix;
+        padding-bottom: 1em;
+        span,b{
+            .fLeft;
+        }
+        b{
+            height:  @blockHeight * @font-size-h1;
+            line-height:  @blockHeight * @font-size-h1;
+            background: @gray-base;
+            color: #fff;
+            text-align: center;
+            font-size: @font-size-h1 * 1.8;
+            font-weight: normal;
+            margin:0 15px;
+            padding:0 30px;
+        }
+        span{
+            padding-top: @blockHeight * @font-size-h1 - @line-height-small*@font-size-h1 - 10;
+        }
+    }
+
+    h4{
+        font-weight: bold;
+        color: @brand-primary;
+        padding-top: .5em;
+        font-size: @font-size-base;
+        line-height: @line-height-large;
+    }
+    p{
+        font-size: @font-size-base;
+        line-height: @line-height-large;
+        em{
+            color: @brand-primary;
+            text-decoration: underline;
+        }
+        a{
+            font-size: @font-size-base;
+        }
+        b{
+            font-size: @font-size-h2;
+            margin-right: 10px;
+            color: @brand-warning;
+            line-height: @line-height-large * @font-size-h4;
+        }
+        u{
+            color: @brand-primary;
+            line-height: @line-height-large;
+            em{
+                color: @brand-warning;
+                font-weight: bold;
+                font-size: @font-size-base;
+                text-decoration: none;
+            }
+        }
+        strong{
+            color: @brand-warning;
+            font-weight: bold;
+            font-size: @font-size-base;
+            line-height: @line-height-large * @font-size-base;
+        }
+        i{
+            color: @gray;
+        }
+    }
+    h5{
+        color: @gray-base;
+        font-size: @font-size-h4;
+        em{
+            color: @brand-warning;
+            font-weight: bold;
+            line-height:3;
+        }
+    }
+}
+
+.section1 .graphs{
+    .iconograph(@graphWidth:325px,@graphHeight:322px,@bgX:0,@bgY:0);
+}
+.section2 .graphs{
+    .iconograph(@graphWidth:363px,@graphHeight:227px,@bgX:-331px,@bgY:40px,@marginTop:60px,@marginLeft:80px);
+    a{
+        font-size: @font-size-base;
+        text-align: right;
+        width: 100%;
+        display: block;
+    }
+}
+.section3 .graphs{
+    .iconograph(@graphWidth:295px,@graphHeight:244px,@bgX:-722px,@bgY:0,@marginTop:30px,@marginLeft:20px);
+}
+.section4 .graphs{
+    .iconograph(@graphWidth:360px,@graphHeight:255px,@bgX:-708px,@bgY:-641px,@marginTop:0px,@marginLeft:60px);
+}
+.section4 .contents{
+    padding-top: 1em;
+}
+.section5 .graphs{
+    .iconograph(@graphWidth:350px,@graphHeight:244px,@bgX:-329px,@bgY:-244px,@marginTop:100px);
+}
+.section6 .graphs{
+    .iconograph(@graphWidth:280px,@graphHeight:344px,@bgX:0,@bgY:-336px,@marginTop:50px);
+}
+.section7 .graphs{
+    .iconograph(@graphWidth:150px,@graphHeight:150px,@bgX:0,@bgY:0,@marginTop:150px,@marginLeft:60px);
+    background: url(/images/strategy/emoji.gif) no-repeat 0 0;
+}
+.section8 .graphs{
+    .iconograph(@graphWidth:381px,@graphHeight:235px,@bgX:-722px,@bgY:-341px,@marginTop:130px);
+}
+.section9 .graphs{
+    .iconograph(@graphWidth:322px,@graphHeight:233px,@bgX:-349px,@bgY:-580px,@marginTop:20px);
+}
+.section10 .graphs{
+    .iconograph(@graphWidth:272px,@graphHeight:235px,@bgX:-14px,@bgY:-702px,@marginTop:130px,@marginLeft:20px);
+}
+.companys{
+    font-size: @font-size-h4;
+    line-height: @line-height-large;
+    padding:20px 0 0 100px;
+    .clearfix;
+    a{
+        text-decoration: underline;
+        color: @brand-primary;
+        .fLeft;
+        margin:0 15px 0 0;
+    }
+}
+.container{
+    p{
+        font-size: @font-size-base;
+        line-height: @line-height-large;
+        padding:1em 0;
+    }
+}

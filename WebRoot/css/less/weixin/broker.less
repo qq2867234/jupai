@@ -1,0 +1,207 @@
+
+@import "../mixins/mixin.less";
+@import "variables.less";
+@import "custom-variables.less";
+
+@import "searchBroker.less";
+
+body{
+    background:#f8f8f8;
+}
+.container{
+    .shadow;
+    background: #fff;
+    width: 96%;
+    margin:.5em 2%;
+    padding-top: 0;
+}
+#brokers{
+    padding-top: 4em;
+    padding-bottom: 5px;
+    .media{
+        height: auto !important;
+        border-bottom: 0;
+        padding-left: 10px;
+        &:hover,&:visited{
+            text-decoration:none;
+        }
+        .media-right{
+            img{
+                width: 6em;
+                height: 6em;
+            }
+        }
+        .media-body{
+            font-size: 14px;
+            .intro{
+                line-height: 1.8;
+                height: 22px;
+                q.zgIcon{
+                    margin-right: .4em;
+                }
+            }
+            .pingfen{
+                position: relative;
+                height: 30px;
+                q{
+                    width: 14px;
+                    font-size: 14px;
+                    line-height: 30px;
+                    height: 30px;
+                    color: @brand-warning;
+                    margin-right: .1em;
+                    background: none;
+                }
+                span{
+                    font-size: 12px;
+                }
+            }
+        }
+    }
+}
+h3{
+    margin: .3em 0 0 0;
+    padding:0 10px;
+    span.zgIcon{
+        font-size: 18px;
+        line-height: 22px;
+        .fRight;
+        color: @brand-success;
+        margin-right: 12px;
+        cursor: pointer;
+        &.zgIcon-heart-o,&.zgIcon-heart{
+            color: @brand-danger;
+        }
+    }
+}
+h4{
+    padding:.5em 10px;
+    margin:0 0 .8em 0;
+    line-height: 1.5;
+    border-bottom: 1px solid #eee;
+}
+p{
+    padding:0 10px;
+    line-height: 1.5;
+    margin-bottom: .5em;
+    &.tag{
+        button{
+            margin:0 2px 2px 0 !important;
+            line-height: 1.2;
+            padding:3px !important;
+            .round(0,0,0,0);
+        }
+    }
+}
+.nav-tabs{
+    font-size: 16px;
+    padding-left: 10px;
+}
+.timeBlock{
+    .clearfix;
+    position: relative;
+    z-index: 1;
+    padding-bottom: .5em;
+    span{
+        width: 10px;
+        margin:.9em .5em;
+        color: @brand-info;
+        font-size: .8em;
+        position: absolute;
+        left: 0;
+    }
+    p{
+        padding:0 5px 0 20px !important;
+        margin-bottom: 0 !important;
+        font-size: 1.2em;
+        line-height: 1.8;
+        width: 100%;
+        .boxSizing;
+        strong{
+            font-size: @font-size-base !important;
+            line-height: 1.4;
+            font-weight: normal;
+            display: block;
+            color: #666;
+        }
+        b{
+            display: block;
+            font-size: @font-size-small !important;
+            font-weight: normal;
+            color: #999;
+        }
+    }
+}
+button.loadMore{
+    display: block !important;
+    margin:.5em 2% !important;
+    width: 96% !important;
+    text-align: right;
+    line-height: 2;
+    color: @brand-info;
+    border-top:1px dotted #ddd;
+}
+.appraise{
+    padding: 1em .6em .5em .6em;
+    border-bottom: 1px solid #f4f4f4;
+    &:nth-child(even){
+        background:#f8f8f8;
+    }
+    .media{
+        .media-left{
+            padding-left: .6em;
+        }
+        .media-heading{
+            span{
+                text-align:right;
+                .fRight;
+                color: #999;
+                font-weight: normal;
+                font-size:.8em;
+            }
+        }
+        img{
+            width: 3em;
+            height: 3em;
+            .round(50%,50%,50%,50%);
+        }
+        h5{
+            font-size: 1em;
+            line-height: 1.4;
+        }
+        .pingfen{
+            q{
+                color: @brand-warning;
+            }
+        }
+    }
+    p{
+        text-indent: 2em;
+        line-height: 1.5;
+        padding-top: .5em;
+    }
+}
+.houses{
+    padding:0 .2em;
+    margin-bottom: 1em;
+    img{
+        width: 100%;
+    }
+    b,span{
+        font-size: .8em;
+        display: block;
+        .textOver;
+        line-height: 1.5;
+        margin-top: .2em;
+    }
+}
+
+#carousel{
+    .carousel-caption,.carousel-inner{
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 10em;
+        .clearfix;
+    }
+}

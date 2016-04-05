@@ -1,0 +1,72 @@
+
+@import "../mixins/mixin.less";
+@import "variables.less";
+@import "custom-variables.less";
+
+@import "searchResidences.less";
+
+
+#brokers{
+    .media{
+        .media-left,.media-right{
+            &,img{
+                width: 5em;
+                height: 5em;
+            }
+        }
+        .media-body{
+            .media-heading{
+                margin-bottom: 0;
+            }
+        }
+        strong{
+            padding-right: 5em;
+        }
+        span.tag{
+            padding-right: 2em;
+            height: 2.4em;
+            position: relative;
+            overflow: hidden;
+            q.fav{
+                font-size: 1.4em;
+            }
+
+        }
+        span.pingfen{
+            width: 5.5em;
+            font-size: .8em;
+            margin-top:.2em;
+            color: @brand-warning;
+            position: absolute;
+            right: 0;
+            top: 0;
+            q{
+                width: .8em;
+                height: .8em;
+                text-align: center;
+            }
+        }
+    }
+}
+#filterModal{
+    .modal-body{
+        ul li{
+            padding:0;
+            @liHeight:3.5em;
+            height: @liHeight;
+            line-height: @liHeight;
+            padding-left: 1em;
+            font-size: 1.2em;
+            button{
+                width: 100%;
+                height: @liHeight;
+                line-height: @liHeight;
+                text-align: left;
+                &:hover{
+                    background:@brand-info;
+                    color: #fff;
+                }
+            }
+        }
+    }
+}

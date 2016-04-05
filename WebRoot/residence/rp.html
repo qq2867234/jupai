@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>经纪人设置</title>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	
+	<meta name="keywords" content="北京房屋出租，北京房屋租赁，真格租房，房地产，房产网，租房，出租，整租，合租，别墅，住宅，租金，房东，经纪人，中介"/>
+<meta name="description" content="全实名租房平台，在租客、房东、经纪人间建立可信连接，提供租房相关服务，让你住得安心！"/>
+	<link rel="stylesheet" href="/mobileZ/jQueryMobile/jquery.mobile-1.4.3.min.css">
+ 	
+	
+	<link rel="stylesheet" href="/css/mobile/mobile.css">
+	<link rel="stylesheet" href="/css/mobile/mCss.css">
+	<script src="/mobileZ/jQueryMobile/jquery-1.10.2.min.js"></script>
+	<script src="/mobileZ/jQueryMobile/jquery.mobile-1.4.3.js"></script>	
+</head>
+<body>
+<div data-role="page" id="buyRoomList" data-overlay-theme="a">
+<script type="text/javascript" src="/scripts/userinfo.js"></script>
+<script type="text/javascript" src="/mobileZ/jQueryMobile/toComputer.js"></script>
+	<div data-role="header" data-position="fixed" id="mainHead" data-theme="b" data-tap-toggle="false" >
+		<a href="#menu" data-rel="popup" data-role="button" class="ui-nodisc-icon ui-alt-icon ui-btn ui-btn-b ui-corner-all ui-icon-myLogo ui-btn-icon-notext" onClick="$('#menu').css({position:'fixed',top:'42px'});$('#menu').popup('open');"></a>
+		<div id="menu" data-role="popup" data-corners="false" data-shadow="false" data-tolerance="48,0,0,0" data-theme="c" data-position="fixed">
+			<ul data-role="listview">
+		     <li><a href="/mobileZ/index.html?name=?&role=?" data-icon="arrow-r" data-iconpos="left" data-ajax="false" class="ui-nodisc-icon ">首页</a></li>
+		      <li><a href="/mobileZ/buyRoomList.html?keywords=?&bedRoom=?&budget=?&houseType=?" data-icon="arrow-r" data-iconpos="left" data-ajax="false" class="ui-nodisc-icon">买房</a></li>
+		      <li><a href="/mobileZ/rentRoomList.html?keywords=?&bedRoom=?&budget=?&houseType=?" data-icon="arrow-r" data-iconpos="left" data-ajax="false" class="ui-nodisc-icon">租房</a></li>
+		    </ul>
+		</div>
+		<form action="" onsubmit="return getInputSearch()" method="post">
+			<input type="text" name="keywords" id="search" placeholder="区县/商圈/小区/开发商" data-theme="e"/>
+			<a data-icon="search" onclick="getInputSearch()" data-role="button" data-inline="true" id="s" data-iconpos="notext" class="ui-btn ui-btn-a ui-btn-icon-notext ui-nodisc-icon ui-alt-icon ui-icon-search ui-corner-right"/></a>
+		</form>
+		<a href="/mobileZ/searchCondition.html?type=1" data-ajax="false" data-role="button" data-transition="slide" id="condIcon" data-ajax="false" class="ui-nodisc-icon ui-btn ui-btn-b ui-corner-all ui-icon-myMenu ui-btn-icon-notext"></a>
+	</div><!-- header end -->
+	<div id="INFO" data-role="content" style="padding:0; background:#eff5f6" class="ui-alt-icon">
+		<div id="residencePic" data-role="none">
+			<image src="defaultPic">
+		</div>
+		<ul id="houseInfor" data-role="none">
+			<li class="communityName">
+				<a data-ajax="false">zilens华威北里zilens</a>
+			</li>
+			<li class="price">zilens4室zilens3卫,zilens890万, zilens45642元/平, zilens110平米 </li>
+			<li>第17f/30f层,高层(10层及以上),朝北</li>
+			<li>建于2004zilens年,已装修</li>			
+			<li>朝阳西大望路甲23号</li>
+			<li class="tag clearfix"><span>阳光0</span><span>阳光1</span><span>阳光2</span><span>阳光3</span><span>阳光4</span></li>
+		</ul>	
+		<div data-role="collapsible-set" id="introduce" data-collapsed-icon="carat-d" data-expanded-icon="carat-u" class="ui-icon-home" data-collapsed="false">
+			<div data-collapsed="false" id="intro" data-role="collapsible" class="ui-collapsible ui-collapsible-inset ui-corner-all ui-collapsible-themed-content ui-first-child ui-last-child">
+				<h1 class="ui-collapsible-heading">
+					小区介绍
+				</h1>
+				<div class="ui-collapsible-content ui-body-inherit" aria-hidden="false">
+					<p>房本v5</p>
+				</div>
+			</div>
+		</div>
+		<ul data-role="listview" id="support" class="clearfix">
+			 <li data-role="list-divider" class="title"><a href="#">周边设施</a></li>
+			 <li class="su">公交(0)</li>
+			 <li class="su">地铁(0)</li>
+			 <li class="su">学校(0)</li>
+			 <li class="su">医院(0)</li>
+			 <li class="su">商场(0)</li>
+			 <li class="su">农贸(0)</li>
+			 <li><a >查看小区详情</a></li>
+		</ul>
+		<dl class="clearfix" id="agent">
+			
+		<dt>金纪银28</dt>
+		<dd class="imgs"><img src="/account/photo/0/f28.jpg"></dd>
+		<dd class="name">独立经纪人</dd>
+		<dd class="tel">13801001888zilens</dd><a href="tel:+13801001888"></a>
+		</dl>
+		<div class="footer2 boxSizing">
+		<a href="/" data-ajax="false" data-role="none">©2015 真格在线</a> | <a href="/mobileZ/mterms.html" data-ajax="false" data-role="none">使用条款</a>| <a href="#" data-ajax="false" onclick="computerStyle()" data-role="none">电脑版</a>
+		</div>
+	</div><!-- content end -->
+	<div data-role="footer" data-position="fixed" data-theme="b">
+		<a href="#" id="rollback" data-role="button" class="ui-btn ui-btn-b ui-corner-all" data-rel="back" style="float:right;">返回</a>
+	</div><!-- footer end -->
+</div>  
+<!-- buyRoomList page end -->
+
+</body>

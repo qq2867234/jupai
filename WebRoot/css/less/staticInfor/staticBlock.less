@@ -1,0 +1,298 @@
+@import '../map.less';
+
+@hHeight: 60px;
+@bottomPadding: 40px;
+
+ul.menu,ul.classify{
+    margin:0 auto 20px auto;
+}
+
+/*图片/街景与基本信息分栏*/
+.vista{
+    .fLeft;
+    width: 480px;
+    overflow: hidden;
+}
+
+.basicInfor{
+    width: 480px;
+    .infor{
+        width: 96%;
+        padding: 4px 2%;
+        font-size: @font-size-base;
+        overflow: visible;
+        .clearfix;
+        b,span{
+            .fLeft;
+            line-height: 28px;
+        }
+        b{
+            width: 8%;
+            padding:0 1%;
+            margin:0;
+            font-weight: bold;
+            &.b4{
+                width: 14%;
+            }
+        }
+        span{
+            width: 38%;
+            .textOver;
+            strong{
+                color: @brand-danger;
+                font-size: @font-size-h3;
+                margin-right: 5px;
+            }
+            &.row{
+                width: 88%;
+            }
+            &.b4{
+                width: 32%;
+            }
+        }
+        &.square{
+            padding-bottom: 10px;
+            margin-bottom: 10px;
+            border-bottom:@mBorder;
+        }
+        a.links-primary{
+            &,b{
+                display:block;
+                width: 100%;
+            }
+        }
+    }
+    .tag{
+        width: 96%;
+        padding: 2px 2%;
+    }
+}
+
+/*小区信息*/
+.container,.recommend,.surround,.communityPics,.priceChart{
+    h2{
+        width:100%;
+        margin:10px auto;
+        height: 50px;
+        line-height: 50px;
+        text-align: center;
+    }
+}
+.container{
+    .clearfix;
+    padding: 20px 0 @bottomPadding 0;
+    
+    h3{
+        width: 100%;
+        font-size: 22px;
+        height: @hHeight; 
+        line-height: @hHeight;
+        font-weight: normal;
+        border-bottom: 2px solid @gray;
+        margin-bottom: 14px;
+        strong{
+            height: @hHeight;
+            line-height: @hHeight;
+            margin-bottom: -2px ;
+            border-bottom: 2px solid @brand-info;
+            display: block;
+            width: 120px;
+            text-align: center;
+        }
+    }
+    p{
+        line-height: 1.7;
+        font-size: 14px;
+        text-indent: 2em;
+    }
+    dl{
+        .clearfix;
+        .fLeft;
+        position: relative;
+        line-height: 1.7;
+        font-size: 14px;
+        margin:0 2.8% 0 0;
+        width: 47.2%;
+        dt{
+            width: 70px;
+            position: absolute;
+            left: 0;
+            top: 0;
+        }
+        dd{
+            padding-left: 72px;
+            .textOver;
+        }
+        &.inRow{
+            width: 98%;
+        }
+    }
+}
+
+.recommend,.surround,.communityPics,.priceChart{
+    width: 100%;
+    padding: 20px 0 @bottomPadding 0;
+    .container{
+        margin-bottom: 0;
+        padding: 0;
+    }
+}
+
+.surround{
+    @surHeight:360px;
+    .clearfix;
+
+    h2{
+        margin-bottom: 1em;
+    }
+    .surMap,.surText{
+        width: 480px;
+        height:  @surHeight;
+    }
+    .surMap{
+        .fLeft;
+    }
+    .surText{        
+        .fRight;
+        position: relative;
+        ul.surUlMenu{
+            width: 100%;
+            .clearfix;
+            li{
+                width: 16.6%;
+                .fLeft;
+                text-align: center;
+                line-height: 36px;
+                border-bottom:@mBorder;
+                .textOver;
+                font-size: @font-size-base;
+                cursor: pointer;
+                &.on{
+                    border-color:@brand-info;
+                    border-bottom-width: 2px;
+                    color: @brand-info;
+                }
+            }
+        }
+        .surContent{
+            width: 96%;
+            padding-left: 2%;
+            height:  @surHeight - 36;
+            overflow: hidden;
+            ul{
+                width: 100%;
+                display: none;
+                padding-top: 10px;
+                @pageHeight: 32;
+                height:  @surHeight - 36 - @pageHeight;
+                padding-bottom: @pageHeight;
+                position: relative;
+                li{
+                    strong,q{
+                        display: block;
+                        font-size: @font-size-base;
+                        line-height: 1.6;
+                        .textOver;
+                    }
+                    q{
+                        text-indent: 2em;
+                    }
+                    strong{
+                        font-weight: bold;
+                    }
+                    &.pages{
+                        width: 100%;
+                        height: @pageHeight;
+                        .clearfix;
+                        display:none;
+                        font-size: @font-size-small;
+                        position: absolute;
+                        bottom: 0;
+                        left: 0;
+                        a,b{
+                            .fRight;
+                            margin-right: .5em;
+                        }
+                        a.sm-btn{
+                            padding:2px 5px;
+                        }
+                        b{
+                            width: 100px;
+                            font-weight: normal;
+                            line-height: 2;
+                            height: 2em;
+                            strong{
+                                margin:0 3px;
+                                font-weight: bold;
+                                display: inline;
+                            }
+
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+.agentList{
+    background: @gray-dark;
+    .container{
+        margin-bottom: 0;
+        padding: 60px 0 10px 0;
+        .agent,.onsale,.onrent{
+            float: none;
+            display: block;
+        }
+        .agent{
+            a{
+                b.person{
+                    em{
+                        padding-right: 30px;
+                        position: relative;
+                        q{
+                            position: absolute;
+                            top: 0;
+                            right: 0;
+                            display: block;
+                        }
+                    }
+                }
+            }
+        }
+        .btn{
+            width: 220px;
+            height: 56px;
+            .clearfix;
+            margin:35px auto;
+            a{
+                width: 105px;
+                height: 56px;
+                line-height: 56px;
+                font-size: 16px;
+                color: #fff;
+                text-underline:none;
+                text-align: center;
+                .fLeft;
+                &.help{
+                    background: @brand-info;
+                    margin-right:10px;
+                }
+                &.change{
+                    background: @brand-danger;
+                    &.margin{
+                    margin-left:58px;
+                    }
+                }
+            }
+        }
+        .onsale{
+        }
+    }
+}
+/*
+.bdsharebuttonbox .jtico_weixin{
+    width: 24px;
+    height: 18px;
+    background: @bgHome -523px -7px no-repeat !important;
+    padding:0 !important;
+}*/

@@ -1,0 +1,181 @@
+@import "../public/color.less";
+@import "../public/buttons.less";
+@import "../public/variables.less";
+@import "../public/mixin.less";
+
+.circle{
+    .intro,.mapBox{
+        width: 100%;
+        margin:1em 0;
+    }
+    .intro{
+        h2,p{
+            width: 100%;
+        }
+        h2{
+            font-size: @font-size-h2;
+            height: 2em;
+            line-height: 2;
+            position: relative;
+            a.city{
+                position: absolute;
+                top: 1em;
+                right: 1em;
+                color:@gray;
+            }
+        }
+        p{
+            font-size: 1.2em;
+            text-indent: 2em;
+            line-height: 1.8;
+        }
+    }
+    .mapBox{
+        background: #fff;
+        .round;
+        .map{
+            width: 99%;
+            height: 300px;
+            padding:2px .5%;
+            background: #eee;
+        }
+        .circleList{
+            width: 100%;
+            padding: .5em 0;
+            .clearfix;
+            a{
+                width: 47.6%;
+                height: 120px;
+                padding: .5em 1% .5em 1%;
+                .fLeft;
+                color: @gray-dark;
+                border:@mBorder;
+                &:hover{
+                    color:@gray-base;
+                    background: @gray-lighter;
+                    border:1px solid @gray;
+                }
+                strong{
+                    font-size: @font-size-h4;
+                    height: 30px;
+                    line-height: 1.5;
+                    font-weight: bold;
+                    width: 100%;
+                    display: block;
+                }
+                span{
+                    width: 60%;
+                    font-size: @font-size-h5;
+                    padding: .5em 0 0 0;
+                    .clearfix;
+                    .fLeft;
+                    text-indent: 2em;
+                    line-height: 1.6em;
+                    button{
+                        .fLeft;
+                        text-align:left;
+                        margin-right: .5em;
+                        margin-bottom: .5em;
+                        text-indent: 0;
+                    }
+                }
+                img{
+                    .fRight;
+                    margin-right: 10px;
+                    width: 100px;
+                    height: 75px;
+                }
+            }
+        }
+    }
+}
+.topic{
+    .articles{
+        width: 99%;
+        margin-bottom: 1em;
+        background: #fff;
+        .round;
+        h3,ul,.policy{
+            width: 90%;
+            padding: .7em 5%;
+        }
+        h3{
+            line-height: 2.5em;
+            height: 2.5em;
+            padding-top: 0;
+            padding-bottom: 0;
+            font-size: @font-size-h4;
+            border-bottom: @mBorder;
+            background:@brand-info;
+            position: relative;
+            a{
+                color: #fff;
+                span.zgIcon{
+                    margin-right:.5em;
+                    width: 1em;
+                    text-align: center;
+                    &.zgIcon-lightbulb-o{
+                        font-size: 20px;
+                    }
+                }
+                &.more.links-wht{
+                    position: absolute;
+                    height: 12px;
+                    line-height: 12px;
+                    font-size: 12px;
+                    top:17px;
+                    right: 20px;
+                }
+            }
+        }
+        ul{
+            li{
+                font-size: @font-size-h5;
+                padding: .3em 0;
+                a{
+                    line-height: 2;
+                }
+            }
+            &.topicCap{
+                li a{
+                    width: 100%;
+                    display: block;
+                    .textOver;
+                }
+            }
+        }
+        .policy{
+            a{
+                width: 100%;
+                display: block;
+                font-size: @font-size-h5;
+                padding: .3em 0  0 0 ;
+                b,span{
+                    width: 100%;
+                    display: block;
+                    line-height: 2.2em;
+                }
+                b{
+                    padding:.4em 0;
+                    font-size:@font-size-base;
+                }
+                span{
+                    color: @gray;
+                    font-size:@font-size-small;
+                }
+            }
+            p{
+                font-size: @font-size-base;
+                line-height: 1.8;
+                text-indent:2em;
+            }
+        }
+    }
+}
+.askTitle{
+    width: 70%;
+    .fRight;
+    #searchForm .searchDiv{
+        .fRight;
+    }
+}

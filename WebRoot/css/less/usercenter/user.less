@@ -1,0 +1,139 @@
+﻿
+@import "../mixins/variables.less";
+@import "../mixins/mixin.less"; 
+@import "../mixins/forms.less";
+@import "../mixins/userMenu.less";
+
+@import "../mixins/ulRadiobox.less";
+
+
+form{
+	.createForm(@inputPadding:@input-padding-large,@formControlMargin:20px);
+	padding-top: 2em;
+	.form-control{
+		p.form-control-static{
+			margin: 0 !important;
+		}
+		textarea{
+			width: 70%;
+		}
+		.radioBox{
+			.createRadiobox(@liHeight: @input-height-large,@liPaddingLeft: @input-padding-base*3);
+			.fLeft;
+		}
+	}
+	label{
+		width: 18%;
+		margin-left: 2%;
+		text-align:right;
+	}
+	.tips{
+		width:100%;
+		margin:0 0 2em 0;
+		height: 3em;
+		line-height: 3;
+		text-indent: 1em;
+		font-size: @font-size-base;
+		background: @gray-light;
+		span{
+			font-size: @font-size-small;
+			margin-left: .5em;
+		}
+	}
+	.uploadHeadPic{
+		.clearfix;
+		.imgBlock{ 
+			width:100px;
+			height:100px;
+			border:@mBorder;
+			.fLeft;
+			img{
+				width:100px;
+				height:100px;
+			}
+		}
+		.textBox{
+			.fLeft;
+			margin-left: 1em;
+			q,a{
+				display: block;
+			}
+			q.surffix{
+				font-size: @font-size-small;
+				line-height: 2;
+				margin:10px 0 10px 10px;
+			}
+			a.uploadBtn{
+				white-space:nowrap;
+				display: block;
+				width: 100px;
+			}
+		}
+	}
+	a.links{
+		font-size: @font-size-small;
+		line-height: 42px;
+		margin-left: 12px;
+		color: @brand-primary;
+	}
+	&#editPassForm{
+		label{
+			width: 36%;
+		}
+	}
+	
+}
+ul.verList{ 
+	width:100%; 
+	font-size:14px;
+	margin:10px auto 0 auto;
+	.clearfix;
+	li{ 
+		border-bottom:@mBorder;
+		border-bottom-style:dotted;
+		line-height:30px; 
+		color:@text-color; 
+		padding:10px 0 0 10px; 
+		.clearfix;
+		div{ 
+			.fLeft;
+			margin:10px 1%;
+			&.verStatus{ 
+				width:10%; 
+				text-align:center; 
+				line-height:25px;
+				span{ 
+					width:20px; 
+					height:20px; 
+					margin:0 auto; 
+					display:block;
+					text-align:center;
+					font-size:20px;
+					&.over{ color: @brand-primary}
+					&.alert{ color: @gray;}
+					&.error{color: @brand-danger;}
+					&.waiting{color: @gray;} 
+				}
+			}
+			&.verName{ width:15%; letter-spacing:2px; *letter-spacing:0; text-align: center; font-size: 16px;}
+			&.verIntro{ width:52%; *width:50%;}
+			&.verOpt{ 
+				width:15%; 
+				text-align:center; 
+				a{ 
+					color:@brand-primary; 
+					font-weight:bold;
+				}
+				&.re a{ color:@brand-danger;}
+			}
+			
+		}
+		&.tips{
+			font-size: @font-size-base;
+			background: @gray-light;
+			line-height: 2em;
+			text-indent: 1em;
+			padding:5px;
+		}
+	}
+}

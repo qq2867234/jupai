@@ -1,0 +1,55 @@
+@import "variables.less";
+
+@import "../mixins/mixin.less";
+@import "../mixins/buttons.less";
+@import "custom-variables.less";
+@import "../mixins/variables.less";
+
+a.media{
+    height: 6em;
+    overflow: hidden;
+    padding:.4em 15px;
+    margin-top: 0;
+    .clearfix;
+    &:hover{
+        text-decoration:none;
+    }
+    &:nth-child(even){ 
+        background: #f8f8f8;
+    }
+    
+    img{
+        width: 5em;
+        height: 5em;
+    }
+    .media-heading,.company,.tel,.circle{
+        display: block;
+        font-size: 1em;
+        line-height: 1.5;
+        color: @text-color;
+    }
+    .media-heading{
+        font-size: 1.2em;
+        line-height: 1.2;
+        span.pingfen{
+            .fRight;
+            font-size: .8em;
+            margin-top:.2em;
+            color: @brand-warning;
+            q{
+                width: 1em;
+                height: 1em;
+                text-align: center;
+                &:after{
+                    content:'';
+                }
+            }
+        }
+        .tel{
+            &,span{
+                color:@brand-success;
+            }
+        }
+    }
+}
+

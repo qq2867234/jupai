@@ -1,0 +1,53 @@
+﻿@import "../public/color.less";
+@import "../public/buttons.less";
+@import "../public/variables.less";
+@import "../public/mixin.less";
+
+.hospital,.school{
+    width: 80%;
+    margin-left: 10%;
+    h3{
+        width: 100%;
+        height: 50px;
+        line-height: 50px;
+        font-weight: normal;
+        font-size: 24px;
+        text-align:center;
+        .textOver;
+        margin-bottom: 10px;
+    }
+    dl{
+        .clearfix;
+        width: 100%;
+        padding:10px 0;
+        border-bottom:@mBorder;
+        border-bottom-style: dotted;
+        dt,dd{
+            .fLeft;
+            line-height: 25px;
+            font-size: 14px;
+        }
+        dt{
+            width: 12%;
+            margin-right: 2%;
+            text-align: right;
+        }
+        dd{
+            width: 86%;
+            .clearfix;
+            &.half{
+                width: 36%;
+            }
+            strong{
+                margin:0 10px 0 0;
+                font-weight: bold;
+            }
+            a{
+                .fLeft;
+                margin:0 10px 0 0;
+                word-break:normal;
+                word-wrap:normal;
+            }
+        }
+    }
+}

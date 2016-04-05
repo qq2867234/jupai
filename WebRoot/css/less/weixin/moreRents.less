@@ -1,0 +1,128 @@
+.moreRents{
+    .rental{
+        width: 100%;
+        position: relative;
+        padding:.6em 0 1em 0;
+        a.item{
+            width: 100%;
+            height: auto;
+            display: block;
+            position: relative;
+            .clearfix;
+            min-height:180px;
+            span{
+                display: block;
+                &.picContainer{
+                    width: 100%;
+                    img{
+                        width: 100%;
+                        height: auto;
+                    }
+                }
+                &.agent{
+                    width: 84px;
+                    height: 110px;
+                    position: absolute;
+                    bottom: 0;
+                    right: 5px;
+                    line-height: 26px;
+                    text-align: center;
+                    img{
+                        width: 80px;
+                        height: 80px;
+                        border:2px solid #fff;
+                        .round(50%,50%,50%,50%);
+                    }
+                }
+                &.info{
+                    width: 100%;
+                    .boxSizing;
+                    padding:.8em 90px 0 0;
+                    .textOver;
+                    color: @gray;
+                    line-height: 1.5;
+                    font-size: @font-size-base;
+                }
+                &.price{
+                    width: 6em;
+                    position: absolute;
+                    bottom: 1.6em;
+                    height: 1.2em;
+                    line-height: 1.2em;
+                    font-size: @font-size-h3;
+                    text-align: center;
+                    background: rgba(0,0,0,0.8);
+                    color: #fff;
+                    padding:.3em 0;
+                    q{
+                        font-size: @font-size-small;
+                        &:before{
+                            content:'';
+                        }
+                    }
+                }
+            }
+        }
+    }
+    i.fav{
+        position: absolute;
+        font-size: @font-size-h3;
+        right: -0.1em;
+        top: .2em;
+        cursor: pointer;
+        padding:10px;
+        color: @gray-lightest;
+        .textShadow(@color:#333);
+        &.zgIcon-heart{
+            color: @brand-danger;
+        }
+        &.zgIcon-heart-o{
+            color: @gray-light;
+        }
+    }
+}
+
+
+.moreRents{
+    .rents{
+        padding-left:110px;
+        padding-top: 8px;
+        height: 100px;
+        width: 100%;
+        position: relative;
+        display: block;
+        .boxSizing;
+        img{
+            width: 100px;
+            height: 75px;
+            position: absolute;
+            top: 15px;
+            left: 0;
+        }
+        strong,b,span,.strong,.b,.span{
+            display: block;
+            width: 100%;
+            .textOver;
+        }
+        strong,.strong{
+            font-size: 1em;
+            line-height: 2;
+            color: @text-color;
+            font-weight: normal;
+        }
+        span{
+            color: @gray;
+            font-size:.85em;
+        }
+        b,.b{
+            .clearfix;
+        }
+        &:hover{
+            text-decoration: none;
+        }
+        button{
+            font-weight: normal;
+            font-size: 14px;
+        }
+    }
+}

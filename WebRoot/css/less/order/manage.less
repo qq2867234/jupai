@@ -1,0 +1,128 @@
+
+@import "../mixins/variables.less";
+@import "../mixins/mixin.less"; 
+@import "../mixins/popBox.less"; 
+@import "../mixins/grid.less";
+@import "../public/pages.less"; 
+@import "saleHomeMenu.less";
+
+
+#main{
+    padding-top: 15px;
+    padding-bottom: 15px;
+}
+
+.manage{
+    border:@mBorder;
+    width: 870px;
+    .clearfix;
+    .fRight;
+    background: #fff; 
+    .round;
+    overflow: visible;
+    h4{
+        width: 100%;
+        position: relative;
+        font-weight: normal;
+        height: 50px;
+        line-height: 50px;
+        text-indent: 1em;
+        border-bottom:@mBorder;
+        text-align:left;
+        font-size: 20px;
+        background: @gray-lighter;
+    }
+    .manageList{
+        width: 98%;
+        padding: 0 1%;
+
+    }
+}
+
+.orderDetail{
+    .clearfix;
+    padding:1em 0 0 0;
+    img,.detail,.time,.opr,.status{
+        .fLeft;
+    }
+    img{
+        width: 140px;
+        height: 105px;
+        background: #eee;
+        margin:0 .6em;
+    }
+    .detail{
+        width: 40%;
+        line-height: 2;
+        h5{
+            font-size: 18px;
+        }
+        span.time{
+            font-size: @font-size-small;
+            line-height: 2;
+            color: @gray-med;
+        }
+    }
+    .status{
+        width: 15%;
+        padding-top: .3em;
+        text-align: center;
+        &.danger{
+            color: @brand-danger;
+        }
+    }
+    .opr{
+        width: 20%;
+        padding: .3em 5px 0 0;
+        .fRight;
+        a{
+            width: 100%;
+            .fRight;
+            &.links{
+                line-height: 2;
+                text-align: right;
+                color: @brand-primary;
+            }
+        }
+        a.oprs{
+            padding:7px 12px;
+            margin:0 0 10px 5px;
+            width: auto;
+        }
+    }
+    
+}
+
+.divPopup
+{
+    width:320px;
+    font-size:14px;
+    h5{ font-size: 16px;}
+    .divLine{
+        margin-top: 0;
+        padding-top: 0;
+        border:none;
+        input,span{
+            .fLeft;
+        }
+        input{
+            margin:0 10px 0 0;
+            width: 90px;
+        }
+        span{
+            width: auto;
+            color: #666;
+            margin:0 10px 0 0;
+        }
+    }
+    .textBox{}
+    .btnBox{
+        padding: 15px 0;
+        button{
+            width: 60px;
+            &.cancelBtn{
+                margin-right: 10px;
+            }
+        }
+    } 
+}

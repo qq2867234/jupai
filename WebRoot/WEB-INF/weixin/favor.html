@@ -1,0 +1,175 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<title>我的收藏-真格租房</title>
+<meta charset="UTF-8"> 
+<meta name="keywords" content="北京房屋出租，北京房屋租赁，真格租房，房地产，房产网，租房，出租，整租，合租，别墅，住宅，租金，房东，经纪人，中介"/>
+<meta name="description" content="全实名租房平台，在租客、房东、经纪人间建立可信连接，提供租房相关服务，让你住得安心！"/>
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimum-scale=1.0, maximum-scale=1.0">
+<script type="text/javascript" src="/scripts/public/jquery-1.10.2.min.js"></script>
+<script type="text/javascript" src="/scripts/public/jquery-ui-1.10.4.custom.min.js"></script>
+<script type="text/javascript" src="/scripts/plugIn/bootstrap.min.js"></script>
+
+<link href="/css/css/weixin/base.css" rel="stylesheet" type="text/css">
+<link href="/css/css/weixin/rental.css" rel="stylesheet" type="text/css">
+</head>
+
+<body>
+<nav class="navbar navbar-default navbar-fixed-top">
+    <div class="container-fluid">
+        <a type="button" class="back navbar-left" href="javascript:history.back(-1)"  >
+          <span class='zgIcon zgIcon-chevron-left'></span>
+        </a>
+       <div class="navbar-brand">我的收藏</div>
+        <div class="dropdown navbar-right menu">
+          <a id="dLabel" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" >
+              <span class='zgIcon zgIcon-th-list'></span>
+          </a>
+          <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
+              <li><a href="/mobile/home">主页</a></li>
+              <li><a href="/mobile/fav">我的收藏</a></li>
+          </ul>
+        </div>
+    </div>
+</nav>
+<div class="container">
+    <div class="moreRents">
+      <button class="btn btn-primary loadMore sm-btn" id="nextPage" style="display: none;">加载更多</button>
+    </div>
+</div>
+<!--#include virtual="/zinclude/vfooter.html"-->
+<script type="text/javascript" src="/scripts/weixin/login.js"></script>
+<script type="text/javascript" src="/scripts/public/MobileValidCode.js"></script>
+<script type="text/javascript" src="/scripts/public/pager.js"></script>
+<script type="text/javascript" src="/scripts/public/Favorite.js"></script>
+<script type="text/javascript">
+$(function() {
+	//分页初始化
+ 	Pager.init({
+		url:"/BrokerWeiXin.action?getHouseFavList",
+		data:{
+			cType:1
+		},
+		fillData: fillData
+	});
+	if($.cookie("displayName")===undefined || $.cookie("displayName")==""){
+		$("#login").modal();
+	}
+});
+
+// 填充租单信息
+function fillData(data) {
+	clearWarnMsg();
+   	if(data.pageModel.rows == 0){
+   		showWarnMsg("还没有收藏的房源");
+   	}else{
+   		showHouseList(data.pageModel.result);
+   	}
+}
+var tagClass = ["primary", "info", "success", "warning", "danger", "primary", "info", "success", "warning", "danger", "primary", "info", "success", "warning", "danger"];
+var roleMap = {1:"租客", 2:"经纪人", 3:"房东"};
+   // 显示房源列表
+function showHouseList(data) {
+	var house;
+	var content;
+	for(var i = 0; i < data.length; i++) {
+		house = data[i];
+		// 生成房源代码
+		content = getHouseHtml(house, i);
+		$("#nextPage").before(content);
+	}
+	// 绑定收藏事件
+	Favorite.bindFavEvent(Favorite.MOBILE);
+}
+
+// 根据房源数据，生成房源html代码
+function getHouseHtml(house, index){
+	// 房源默认图片
+	var defaultPic;
+	if(house.default_pic !== undefined && house.default_pic != ""){
+		// 末尾加下划线(压缩过的，宽度450)
+		defaultPic = house.default_pic.replace(house.default_pic.substring(house.default_pic.indexOf('.')), '_'+house.default_pic.substring(house.default_pic.indexOf('.')));
+	}else{
+		defaultPic = "/images/public/defaultHome.jpg";
+	}
+	// 发房人头像
+	var headPic;
+	if(house.head_pic != undefined)
+		headPic = '/account/photo/' + Math.floor(house.zid / 10000) + '/'+ house.head_pic;
+	else
+		headPic = "/images/defaultPic/head.png";
+	// 手机端房源路径
+	var arr = house.url.split("/");
+	house.url = "/"+arr[1]+"/m/"+arr[2]+"/"+arr[3]+"/"+arr[4]+"/M"+arr[5];
+	
+	var content = '<div class="rental"><a class="item" href="'+house.url+'" target="_blank">';
+    // 房源图片
+    content += '<span class="picContainer"><img src="'+defaultPic+'" alt="房源图片" onerror=\"showImgDelay(this,\'/images/public/defaultHome.jpg\',2)\" /></span>';
+    // 经纪人/房东头像
+    var role = "";
+    if(house.role == 3) role = "房东";
+    else role = house.brokerage || "经纪人";
+    
+    // 价格
+    content += '<span class="price">'+house.price+' <q>元/月</q></span>';	
+    // 小区名、室厅卫、面积
+    content += '<span class="info">';
+    content += '<strong class="title">'+house.residence_name+','+house.beds+'室'+house.baths+'卫,'+house.area+'平米</strong>';
+    content += '</span>';
+    // 标签
+   	content += "<span class='info'>";
+	var t = house.tag !=undefined && house.tag != "" ? house.tag.split(/;|；|,|，/) : "";
+	for (var i = 0, len = t.length; i < len; i++) 
+		content += '<button class="hollowTag hollowTag-primary xs-tag">'+t[i]+'</button>';
+	// 距离
+	if(house.duration != undefined){
+		if(house.distance>0 && house.duration>0){
+			content += '<button class="hollowTag hollowTag-primary xs-tag">'+ MobileSearch.trafficModeMap[house.traffic_mode]+'约'+house.duration+'分钟</button>';
+		}else{
+			content += '<button class="hollowTag hollowTag-primary xs-tag">步行约5分钟</button>';
+		}
+	}
+	content += "</span></a>";
+    content += '<a class="agent" href="###"><img src="'+headPic+'" alt="头像" onerror=\"showImgDelay(this,\'/images/defaultPic/head.png\',2)\" /><b>'+role+'</b></a>';
+
+    content += '<i class="fav fav_'+house.id+' zgIcon zgIcon-heart zgIcon-heart-o" stype="3" sid="'+house.id+'" sname="" title="收藏"></i></div>';
+    return content;
+}
+
+//显示错误信息
+function showWarnMsg(msg) {
+    $(".moreRents").append("<div class='msg' style='width:100%; text-align:center; padding-top:30px;'>" + msg + "</div>");
+}
+function clearWarnMsg() {
+    $(".moreRents .msg").remove();
+}
+
+//删除收藏
+function delFav(id, curobj) {
+	$.ajax({
+		url:"/BrokerWeiXin.action?delOneFav",
+		dataType:"json",
+		data:{favId:id},
+		success:function(data, status) {
+			curobj.parents('tr').remove();
+		}
+	});
+}
+	// 当图片加载失败是指定默认图片
+	function showImgDelay(imgObj, imgSrc, maxErrorNum) {
+		if (maxErrorNum > 0) {
+			imgObj.onerror = function() {
+				showImgDelay(imgObj, imgSrc, maxErrorNum - 1);
+			};
+			setTimeout(function() {
+				imgObj.src = imgSrc;
+			}, 500);
+		} else {
+			imgObj.onerror = null;
+			imgObj.src = imgSrc;
+		}
+	}
+</script>
+</body>
+</html>

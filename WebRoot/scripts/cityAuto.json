@@ -1,0 +1,39 @@
+[
+    {
+        "label": "北京",
+        "value": "北京",
+        "cityCode":110000 
+    },
+    {	
+        "label": "上海",
+        "value": "上海",
+        "cityCode": 310000
+        
+    },
+    {
+        "label": "广州",
+        "value": "广州",
+        "cityCode": 440100
+    },
+    {
+       	"label": "深圳",
+        "value": "深圳",
+        "cityCode":440300 
+       
+    }
+]
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

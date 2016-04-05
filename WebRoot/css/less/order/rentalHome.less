@@ -1,0 +1,183 @@
+﻿
+@import "../mixins/variables.less";
+@import "../mixins/mixin.less"; 
+@import "../mixins/forms.less";
+@import "saleHomeMenu.less";
+@import "../mixins/ulSelect.less";
+@import "../mixins/ulRadiobox.less";
+@import "../mixins/ulCheckbox.less";
+form{
+    .createForm(@inputPadding:@input-padding-large,@formControlMargin:26px);
+    h4{
+        width: 100%;
+        line-height: 3em;
+        text-indent: 2em;
+        letter-spacing: .1em;
+        span{
+            font-size: @font-size-base;
+            line-height: @font-size-h4 * 3;
+            margin-left: 5px;
+            letter-spacing: 0;
+        }
+    }
+    .form-control{
+        position: relative;
+        .secInput{
+            margin-left: 1em !important;
+        }
+        label{
+            width: 13%;
+            font-weight: bold;
+            text-align: right;
+            letter-spacing: .1em;
+        }
+        ul.popCom{
+            .createSelect(@posTop: 45px,@liWidth: 286px,@liFontSize: @font-size-base,@posLeft:138px);
+        }
+        ul.payment{
+            .fLeft;
+        }
+        p.form-control-static.classifier{
+            margin-right: 16px;
+            margin-left: 16px;
+        }
+        ul.radiobox,#picUpload{
+            .createRadiobox(@liHeight: @input-height-large,@liPaddingLeft: @input-padding-base*3);
+            .fLeft;
+        }
+        ul.checkbox{
+            .createCheckbox(@liHeight: @input-height-large,@liPaddingLeft: @input-padding-base*3);
+            .fLeft;
+            &.furniture{
+                width: 80%;
+                margin-left: 10%;
+                li{
+                    margin-bottom: 10px;
+                }
+            }
+            
+        }
+        &.upload{
+            display: none;
+        }
+        #introduction,#remarks,#otherFee{
+            width: 500px;
+        }
+        span.warning.textarea{
+            .fLeft;
+            margin-left: 19%;
+        }
+        &.wholly,&.villado{
+            display: none;
+        }
+        #master{
+            .fLeft;
+        }
+
+    }
+    .btn-group{
+        padding: 3em 0 5em 0 !important;
+        button.btn-only{
+            margin-left: 20%;
+        }
+        button.btn-left{
+            margin-left: 20%;
+        }
+    }
+    .progressBar{
+        width: 100%;
+        height: 10px;
+        background: @gray;
+    }
+    &.steps{
+        display: none;
+        &.step1{
+            display: block;
+        }
+    }
+}
+
+.pics {
+    width: 80%;
+    margin:10px 0 10px 20%;
+    .clearfix;
+    .picbox{
+        @picWidth:120px;
+        width: @picWidth;
+        height: @picWidth * 0.75;
+        margin:0 10px 10px 0;
+        .fLeft;
+        position: relative;
+        span.cover{
+            display: block;
+            width: 30px;
+            height: 30px;
+            background: url(/images/public/sprite.png) no-repeat -1px -451px;
+            position: absolute;
+            z-index: 3;
+            right: 0;
+            top: 0;
+        }
+        img {
+            width: @picWidth;
+            height: @picWidth * 0.75;
+            position: absolute;
+            z-index: 1;
+        }
+        .opr{
+            width: @picWidth - 10;
+            display: none;
+            height: 24px;
+            padding:0 5px;
+            background: rgba(0,0,0,0.7);
+            color: #fff;
+            line-height: 24px;
+            top:@picWidth * 0.75 - 24;
+            font-size: 14px;
+            position: absolute;
+            z-index: 2;
+            .clearfix;
+            a.setCover{
+                .fLeft;
+                color: #fff;
+                font-size: 12px;
+            }
+            a.zgIcon.zgIcon-remove{
+                color: #fff;
+                .fRight;
+                line-height: 24px;
+            }
+        }
+    }
+}
+
+.alertBoxWithBtn{
+    .divBtn{
+        display: none !important;
+    }
+}
+
+#qrcodeImg{
+    width: 150px;
+    height: 150px;
+    margin:10px auto;
+}
+
+#uploadHome{
+    .fLeft;
+}
+
+p.certPic{
+    font-size: 14px !important;
+    margin-left: 20% !important;
+    line-height: 2 !important;
+}
+
+.certPicBox{
+    width: 100%;
+    margin-left: 20%;
+    .fLeft;
+    img{
+        width: 120px;
+    }
+}

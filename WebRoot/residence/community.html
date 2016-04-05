@@ -1,0 +1,187 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<title>zResidenceName-真格租房</title>
+<meta charset="utf-8">
+
+<meta name="description" content="连接您和房地产专业机构及人士，如开发商、经纪公司、经纪人，使您得到可信赖的房地产专业服务，让安居梦想成真。"/>
+<meta name="keywords" content="北京房屋出租，北京房屋租赁，真格租房，房地产，房产网，租房，出租，整租，合租，别墅，住宅，租金，房东，经纪人，中介"/>
+
+<!--#include virtual="/zinclude/public.jsp"-->
+<link rel="stylesheet" type="text/css" href="/css/css/strategy/community.css">
+
+</head>
+
+<body>
+
+</body>
+<script>
+	var layoutData;
+	var residenceId = "";
+	$(function() {
+		// 绘制户型价格分布图
+		initLayoutChart();
+		
+	});
+	// 所有户型混合显示
+	function initLayoutChart(){
+		drawLayoutChart(2);
+	}
+	
+	// 绘制户型图
+	function drawLayoutChart(houseType){
+			if(layoutData == undefined || layoutData == '') return;
+			// 单位
+			var suffix;
+			// 户型数据
+			var data;
+			var container;
+	    	if(houseType == 1){
+	    		if(layoutData.sale == undefined) return;
+	    		data = layoutData.sale;
+	    		suffix = "万元";
+	    		container = $("#saleChart");
+	    	}else{
+	    		if(layoutData.rent == undefined) return;
+	    		data = layoutData.rent;
+	    		suffix = "元/月";
+	    		container = $(".rentChart");
+	    	}
+	    	
+	    	// 该小区无对应的户型报价
+	    	if(data == undefined)
+	    		return;
+    		// x轴文字的旋转角度，默认为0，当户型超过15过之后，逆时针旋转15°
+    		var rotation = 0;
+	    	if(data.medianList.length > 14) rotation = -15;
+	    	
+	    	container.highcharts({
+				chart: {
+		            width: 990,
+		            height: 400,
+		            style: {
+		                fontFamily: '微软雅黑'
+		            }
+		        },
+				title: {
+					enabled: false,
+					text: ''
+				},
+				
+				xAxis: {
+		            categories: [],
+		            title: {
+		                text: '户型',
+		                style: {
+		                    fontSize: '13pt'
+		                }
+		            },
+		            labels: {
+		           	 	rotation: rotation,
+						style: {
+							fontSize: '12px',
+							fontWeight: 'bold'
+						},
+						formatter: function() {
+							// 在坐标轴上用'平'代替'平米'
+		                    return this.value.substring(0,this.value.length-1);
+		                }
+					}
+				},
+				
+				yAxis: {
+					title: {
+		                text: '价格',
+		                style: {
+		                	padding: '10px',
+		                    fontSize: '13pt'
+		                }
+					},
+		            labels: {
+		                overflow: 'justify',
+		                formatter: function() {
+		                    return this.value + suffix;
+		                }
+		            },
+		            // y轴刻度
+		            tickPositions: data.tickPositions
+				},
+				// 数据提示框
+				tooltip: {
+					crosshairs: true, // 显示十字准线
+					shared: true,	// 多个数据列共享一个数据提示框[散点图无法共享]
+					valueSuffix: suffix, 
+		            //headerFormat: '<b>一居42平米</b><br>',
+		            //pointFormat: '价格范围 111-222万<br>中位价150万' 
+		            style: {  // 提示框内容的样式
+			            color: 'black',
+			            padding: '10px',    //内边距
+			            fontSize: '10pt'
+			        },
+			       formatter: function () {
+				    	var minMax = this.points[0].series.userOptions.data;
+				    	var median = this.points[1].series.userOptions.data;
+				    	var index = this.x;
+				    	if(median[index][1]>0){
+		               		return "<b>"+minMax[index][0]+"</b><br>"+
+		               			"报价："+minMax[index][1]+" - "+minMax[index][2]+suffix+"<br>"+
+		               			"参考价："+ median[index][1]+suffix;
+		           		}else{
+		           			return "<b>"+minMax[index][0]+"</b><br>暂无报价";
+		           		}  
+	           		}
+				},
+				plotOptions: {
+		           series: {
+		               pointPadding: 0, //数据点之间的距离值
+		               groupPadding: 0, //分组之间的距离值
+		               borderWidth: 0,
+		               shadow: false,
+		               pointWidth:5 //柱子宽度
+		           }
+		       },
+		       legend: {
+		            symbolWidth: 5,
+		            floating: true,
+		            align: 'left',
+		            x: 800,
+		            y: -60,
+		            borderWidth: 1
+		        },
+				series: [{
+					name: '报价范围',
+					data: data.minMaxList,
+					type: 'columnrange',
+					color: Highcharts.getOptions().colors[0],
+					zIndex: 0
+				},{
+					name: '参考价',
+					data: data.medianList,
+		            type: 'spline',
+					zIndex: 1,
+					marker: {
+						fillColor: 'white',
+						lineWidth: 2,
+						lineColor: Highcharts.getOptions().colors[0],
+						radius: 5
+					
+					}, 
+					lineWidth: 0 // 曲线图线段的粗线，设为0即可隐藏线段，从而只显示点
+				}],
+				credits: {
+					enabled: false,
+					text: 'www.zhengor.com',
+					href: 'http://www.zhengor.com'
+				},
+		        exporting:{
+		        	enabled: false
+		        }
+			
+			});
+	}
+	
+</script>
+<script src="/scripts/graph/highcharts.js" type="text/javascript"></script>
+<script src="/scripts/graph/highcharts-more.js" type="text/javascript"></script>
+</html>

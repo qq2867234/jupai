@@ -1,0 +1,42 @@
+.createTabIndex(
+    @tabFontSize: @font-size-base,
+    @tabWidth: 100px,
+    @tabIndex: 3,
+    @tabHeight: 40px,
+    @tabUlWidth:1000px
+){
+    width: @tabUlWidth;
+    height: @tabHeight +　3;
+    .clearfix;
+    li{
+        width: @tabWidth;
+        height: @tabHeight;
+        padding-top: 2px;
+        border-bottom: @mBorder;
+        .fLeft;
+        a{
+            display: block;
+            width: 100%;
+            height: @tabHeight;
+            line-height: @tabHeight;
+            color: @gray;
+            font-size: @tabFontSize;
+            text-align: center;
+        }
+        &.on{
+            border-top: 2px solid @brand-primary;
+            border-left:@mBorder;
+            border-right:@mBorder;
+            border-bottom: none;
+            padding-top: 0;
+            padding-bottom: 1px;
+            a{
+                color: @text-color;
+            }
+        }
+        &.line{
+            width: @tabUlWidth - @tabWidth * @tabIndex - 2;
+        }
+    }
+}
+

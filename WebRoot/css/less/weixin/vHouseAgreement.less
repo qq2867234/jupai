@@ -1,0 +1,71 @@
+@import "vFlowPublic.less";
+
+body{
+    overflow-x:hidden; 
+}
+
+.createFillBlank(@lineHeight:2,@padding:0 8px,@margin:0 6px,@width:auto){
+    width: @width;
+    line-height: @lineHeight;
+    border-bottom:@mBorder;
+    padding:@padding;
+    margin:@margin;
+}
+p span.fillBlank{
+    .createFillBlank();
+}
+
+article{
+    .border;
+    width: 98%;;
+    margin:10px 1% !important;
+    padding:20px 0 !important;
+    .boxSizing;
+    background: #fff;
+    font-size: @font-size-base;
+    h4,section{
+        width: 92% !important;
+        padding:0 4% !important;
+        margin:0 !important;
+        .textBreak();
+    }
+    p{
+        line-height: 2;
+        text-indent: 1em;
+        width: 100%;
+    }
+    h4{
+        font-size: 18px;
+        line-height: 2.4;
+    }
+}
+.code{
+    text-align: right;
+}
+
+.contracts{
+    width: 100%;
+    p{
+        line-height: 3;
+    }
+}
+.date{
+    width: 100%;
+    text-align: center;
+    font-size: @font-size-base;
+    padding-bottom: 20px;
+}
+.article,h4{
+    line-height: 2;
+    width: 92%;
+    padding:8px 4%;
+}
+h4{
+    font-weight: bold;
+}
+section{
+    &.seal{
+        height: 110px;
+        line-height: 110px;
+    }
+}

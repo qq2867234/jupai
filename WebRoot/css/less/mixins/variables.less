@@ -1,0 +1,89 @@
+@ie8Fix:~"\9";
+
+@myUrl:                   "/images/public";
+@minWidth:                1023px;
+@minWidth-med:            900px;
+@minWidth-sm:             780px;
+@commonMargin:            15px;
+@bgHome:                  url("@{myUrl}/sprite.png");
+@bgHomeIE6:               url("@{myUrl}/sprite.png");
+@font-family-sans-serif:  "Helvetica Neue", Helvetica, Arial, sans-serif;
+@font-family-serif:       Georgia, "Times New Roman", Times, serif;
+@font-family-monospace:   Menlo, Monaco, Consolas, "Courier New", monospace;
+@font-family-base:        @font-family-sans-serif;
+
+@font-size-base:          16px;
+@font-size-large:         ceil((@font-size-base * 1.25)); // ~20px
+@font-size-small:         ceil((@font-size-base * 0.875)); // ~14px
+
+@font-size-h1:            floor((@font-size-base * 2.6)); // ~36px
+@font-size-h2:            floor((@font-size-base * 2.15)); // ~30px
+@font-size-h3:            ceil((@font-size-base * 1.7)); // ~24px
+@font-size-h4:            ceil((@font-size-base * 1.25)); // ~18px
+@font-size-h5:            @font-size-base;
+@font-size-h6:            ceil((@font-size-base * 0.85)); // ~12px
+
+@line-height-base:        1.428571429; // 20/14
+@line-height-large:       2; 
+@line-height-small:       1; 
+
+@header-height:           52px;
+@header-bg:               #fff;
+@header-font-color:       @gray-base;
+
+@icon-font-path:          "/fonts/";
+@icon-font-name:          "glyphicons-halflings-regular";
+@icon-font-svg-id:        "glyphicons_halflingsregular";
+
+@mBorder:                  1px solid @border-color;
+@myUrl:                    "/images/public";
+
+@input-font-size:          @font-size-base;
+@input-font-size-small:    @font-size-small;
+@input-font-size-large:    @font-size-large;
+
+@input-height-base:        30px;
+@input-height-large:       40px;
+@input-height-small:       20px;
+
+@input-padding-base:        6px;
+@input-padding-large:       12px;
+@input-padding-small:       2px;
+
+@input-color:              @text-color;
+@input-color-placeholder:  @gray;
+@input-bg:                 #fff;
+@input-border:             @border-color;
+@input-color-disabled:     @gray;
+@input-bg-disabled:        lighten(@gray,48%);
+@input-border-disabled:    lighten(@gray,29%);
+@input-border-radius:      4px;
+
+
+@brand-primary:         #4ba5fb; 
+@brand-success:         #42ca73;
+@brand-info:            #4B4EFB;
+
+@brand-warning:         #FFCC33;
+@brand-danger:          #FB4B4E;
+
+@brand-default:         @gray-lighter;
+
+@gray-base:              #222;
+@gray-darker:            lighten(@gray-base, 13.5%); 
+@gray-dark:              lighten(@gray-base, 20%);   
+@gray:                   lighten(@gray-base, 33.5%); 
+@gray-med:               lighten(@gray-base, 46%); 
+@gray-light:             lighten(@gray-base, 68%); 
+@gray-lighter:           lighten(@gray-base, 83%); 
+@gray-lightest:          lighten(@gray-base, 86%); 
+
+@body-bg:               @gray-lightest;
+@body-bg-darker:        darken(@gray-lighter,3%);
+@text-color:            @gray-darker;
+@link-color:            @brand-primary;
+@link-hover-color:      darken(@link-color, 20%);
+@input-color:           @gray;
+@input-placeholder-color:@gray;
+
+@border-color:          #D1D3D8;

@@ -1,0 +1,60 @@
+@import "../mixins/variables.less";
+
+@import "../mixins/mixin.less";
+
+.container{
+    width: 750px;
+    padding:1em 0;
+}
+
+h2{
+    font-weight: bold;
+    text-align: left;
+    line-height: 1.5;
+    padding: 14px 0 .5em 0;
+}
+.reads{
+    color: #999;
+    line-height: 1.2;
+    font-size: @font-size-small;
+}
+.content{
+    padding:1em 0;
+    font-size: 16px;
+    position: relative;
+    p{
+        padding-bottom: .5em;
+        line-height: 1.8;
+        font-size: @font-size-base;
+    }
+    h4{
+        line-height: 2;
+    }
+    img{
+        margin:2em auto 1em auto;
+    }
+
+}
+.like{
+    padding-bottom: 2em;
+    a{
+        width: 180px;
+        height: 48px;
+        display: block;
+        line-height: 48px;
+        border:1px solid @brand-danger;
+        color: @gray;
+        font-size: 24px;
+        text-align: center;
+        .round(24px,24px,24px,24px);
+        margin:0 auto;
+        span.zgIcon{
+            margin-right: 5px;
+            font-size: 24px;
+        }
+        &:hover,&.on{
+            background: @brand-danger;
+            color: #fff;
+        }
+    }
+}
