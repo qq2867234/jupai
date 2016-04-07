@@ -1,0 +1,6 @@
+@charset "utf-8";
+/* CSS Document */
+/* 2014-12-25 */
+/*提示*/
+.tc-ar{ position:fixed; top:50%; z-index:100000000000; width:100%; text-align:center;}
+.tc-ar b{ padding:10px 20px; background:#000; border-radius:3px;opacity:0.8;color:#fff}

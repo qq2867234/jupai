@@ -6,9 +6,11 @@ import javax.servlet.http.HttpServletResponse;
 
 import net.sourceforge.stripes.action.ActionBean;
 import net.sourceforge.stripes.action.ActionBeanContext;
+import net.sourceforge.stripes.action.Resolution;
 import net.sourceforge.stripes.action.SimpleMessage;
 import net.sourceforge.stripes.action.StreamingResolution;
 import net.sourceforge.stripes.validation.ValidationErrorHandler;
+import net.sourceforge.stripes.validation.ValidationErrors;
 
 import org.apache.log4j.Logger;
 
@@ -42,16 +44,12 @@ public abstract class AbstractActionBean implements ActionBean, Serializable, Va
 	 * 添加提示信息
 	 * @param message
 	 */
-	//  protected void addMessage(String key, String message) {
-	//	  FlashScope scope = FlashScope.getCurrent(getContext().getRequest(), true);
-	//	  List<String> messages = (List<String>) scope.get(key);
-	//	  if (messages == null) {
-	//		  messages = new ArrayList<String>();
-	//		  scope.put(key, messages);
-	//	  }
-	//	  messages.add(message);
-	//	  //scope.put(key, message);
-	//  }
+	@Override
+	public Resolution handleValidationErrors(ValidationErrors arg0)
+			throws Exception {
+		return null;
+	}
+	
 	/**
 	 * checkLoginStatusForLocal方法简介
 	 * <p>用于本地判断用户是否登录

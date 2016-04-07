@@ -1,0 +1,27 @@
+@charset "utf-8";
+<!--搜索城市及历史记录suggest2015-11-24-->
+section{padding-bottom: 20px;}
+section h2{padding:10px 12px;font-size:15px;line-height: 26px;color:#333;border-bottom:1px solid #e6e6e6;margin-top: 0;margin-bottom: 0;}
+section h2 a{width:19px;height:16px;margin-top:5px;background:url(../images/bj.png) no-repeat;background-position:0 0;background-size:15px 33px ;}
+/*热门目的地、全部城市*/
+.city_cnt{margin-top:5px;}
+.city_cnt h4{font-size: 14px;color:#333;padding:0 10px;line-height: 24px;}
+.hot_place h3,.all_city h3{padding-left:10px;color:#999;font-size:14px;line-height:24px;background:#f2f2f2;margin-top: 10px;}
+.hot_place h3{background:none;line-height: 34px;}
+.all_city h3{line-height: 24px;}
+.destination{margin:0 10px 0;text-align: center;}
+.destination li{float:left;background:#f2f2f2;line-height:34px;font-size:14px;margin: 5px 2%;}
+.destination li:nth-child(4n){margin-right:0px;}
+.destination li:nth-child(4n-3){margin-left:0px;}
+.on_li{background:#22bb62 !important;color:#fff !important;}
+/*搜索-suggest-history内容部分*/
+.cnt{display:none;position: absolute;left:0;top:46px;z-index:200;background:#fff;width:100%;}
+.suggest{text-indent:10px;}
+.suggest li{line-height: 40px;border-bottom:1px solid #d9d9d9;}	
+.suggest li a{float:left;width:61%;	font-weight:bold;}
+.suggest li a,.suggest li span{display:block;white-space:nowrap;overflow:hidden; text-overflow:ellipsis;}
+.suggest li span{float:right;padding-right:10px;color:#999;width:39%;box-sizing:border-box;text-align:right;}	
+.keyword{color:#22bb62;}
+.remove{text-align: center;padding-bottom: 20px;}	
+.remove span{line-height: 40px;color:#22bb62;}	
+.clear_input_content{width:20px;height:20px;position:relative;top:5px;right:5px;background:url(../images/clear_input_content.png) no-repeat center right;background-size:20px 20px;display:none;}
