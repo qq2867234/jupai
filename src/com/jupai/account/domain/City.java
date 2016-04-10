@@ -5,7 +5,7 @@ public class City {
 
     private Integer provinceCode;
 
-    private String cityName;
+    private String location;
 
     private Double longitude;
 
@@ -29,12 +29,12 @@ public class City {
         this.provinceCode = provinceCode;
     }
 
-    public String getCityName() {
-        return cityName;
+    public String getlocation() {
+        return location;
     }
 
-    public void setCityName(String cityName) {
-        this.cityName = cityName == null ? null : cityName.trim();
+    public void setlocation(String location) {
+        this.location = location == null ? null : location.trim();
     }
 
     public Double getLongitude() {

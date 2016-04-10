@@ -34,7 +34,7 @@ $(function() {
 	
     initTime();   
 
-	 initNearBy();
+	initNearBy();
 })
 
 /**
@@ -54,7 +54,7 @@ function initTime()
 		}
 	}; 
 	
-	$('#reportrange').daterangepicker(options, changeDate); 
+	$('#reportrange').daterangepicker(options, selectDate); 
 	  
 //	  if(m.sBegin!=''&&m.sEnd!=''){
 //		  $('#reportrange span').html('<b>'+(m.sBegin.substring(5,m.sBegin.length)).replace('-','.')+'</b><b>-'+(m.sEnd.substring(5,m.sEnd.length)).replace('-','.')+'</b>');	  
@@ -66,12 +66,12 @@ function initTime()
 }
 
 //选择完日期进行处理
-function changeDate(sBegin, sEnd) {
+function selectDate(sBegin, sEnd) {
 	changeUrlParamVlaue("startdate", sBegin);
 	changeUrlParamVlaue("enddate", sEnd);
 	$('#list-wap').show();
 	$('#reportrange span').html('<b>'+(sBegin.substring(5,sBegin.length)).replace('-','.')+'</b><b>-'+(sEnd.substring(5,sEnd.length)).replace('-','.')+'</b>');	  
-	$('#reportrange').addClass("avtive");
+//	$('#reportrange').addClass("avtive");
 	$('#dateClearUp').show();
 	// TODO 日期搜索
 }
@@ -85,12 +85,14 @@ function dateSearch()
 	// 隐藏清除按钮
 	$('#dateClearUp').hide(); 
 	// 隐藏日历
-	$(".dropdown-menu").hide();
+//	$(".dropdown-menu").hide();
+	$("#reportrange").data("daterangepicker").toggle();
 	// 显示搜索页面
 	$("#indexPage").show();
 	
 	// 还原日历状态
 	$("#reportrange").html("<span>日期</span>").removeClass("active").removeClass("avtive");
+	
 	$('.in-range').each(function(){
 		$(this).removeClass('in-range');
 	})
@@ -102,30 +104,16 @@ function dateSearch()
 		} else {
 			$('.start-date').text(parseInt(startDate.split("-")[3]));
 		}
-		$(this).removeClass('start-date');
+		$(this).removeClass('start-date active');
 	})
 	$('.end-date').each(function(){
 		$('.end-date').text(parseInt($('.end-date').attr('id').split("-")[3]));
-		$(this).removeClass('end-date');
+		$(this).removeClass('end-date active');
 	})
 	// TODO 日期搜索
 }
 ///////////////////////////////////////
 
-function setInfo(cityname,citypinyin){
-	$('#cityname').val(cityname);
-	setCityname(cityname);
-	$('.search_tan').hide();
-}
-
-function setCityname(cityname){
-	var name = cityname;
-	if(name.length>9){
-		name = name.substring(0,9)+'...';
-	}
-	$('.cityname').text(name);
-	$('.cityname').addClass("c22bb62");
-}
 
 //初始化当前位置
 function initNearBy()
@@ -171,7 +159,7 @@ function sendRequest(latlng)
             success: function(d) {             
             	var citypinyin = d.citypinyin;
             	var skeyword = d.skeyword;
-            	var cityName = d.cityName;
+            	var location = d.location;
             	var skeywordShow = d.skeywordShow;            	
             	$("#search_citypy").val(citypinyin);            	
             	$("#search_skeyword").val(skeyword);             	
@@ -195,7 +183,7 @@ function sendRequest(latlng)
             	}
             	else
             		$('.adress_of').hide();
-            	$("#cityName").html(cityName);
+            	$("#location").html(location);
             	$("#skeyword").html(skeywordShow);  
             	$("#query_str").val(citypinyin);  
             	$("#sortzuijin").show();             	

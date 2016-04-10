@@ -2,29 +2,5 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.jupai.account.persistence.UserCenterOperatorMapper">
-	<!-- 定义Account的返回集合 -->
-  	<sql id="Account_Column_List">
-	   zid, role, login_id, login_type, name, pic, open_id, access_token, status
-  	</sql>
-  	
-  	<!-- 根据zid获取用户账户信息 -->
-	<select id="getAccountByZid" resultMap="FAccount">
-		select <include refid="Account_Column_List"/> from account where zid = #{zid}
-	</select>
-	
-	<!-- 获取用户第三方openid -->
-	<select id="getUserOpenid" resultType="java.lang.String">
-		select open_id from account where zid = #{zid}
-	</select>
-	
-	<!-- 绑定第三方openid -->
-	<update id="bindOpenid">
-		update account set open_id = #{openid} where zid = #{zid}
-	</update>
-	
-	<!-- 根据openid获取用户账户信息 -->
-	<select id="getAccountByOpenid" resultMap="FAccount">
-		select <include refid="Account_Column_List"/> from account where open_id = #{openid} limit 1
-	</select>
 	
 </mapper>      

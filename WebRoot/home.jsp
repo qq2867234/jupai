@@ -2,43 +2,17 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<meta charset="utf-8">
 	<title>居派</title>
-	<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
-	
-	<meta name="description" content="真格租房，在租客、房东、经纪人间建立可信连接，提供租房相关服务，让你住得安心！北京房屋出租，北京房屋租赁"/>
-	<meta name="keywords" content="北京房屋出租，北京房屋租赁，真格租房，房地产，房产网，租房，出租，整租，合租，别墅，住宅，租金，房东，经纪人，中介"/>
-	
-	<%-- <%@ include file="/zinclude/public.jsp"%> --%>
-	<link rel="stylesheet" href="/css/index/commom.css">
+	<!-- meta 以及 公用的css -->
+	<%@ include file="/WEB-INF/include/public.jsp" %>
 	<link rel="stylesheet" href="/css/index/index.css">
-	<link rel="stylesheet" href="/css/index/index160229.css">
-	<link rel="stylesheet" type="text/css" href="/css/index/citySuggest.css">
-	<link href="/css/index/bootstrap.min.css" rel="stylesheet"> 
-	<link href="/css/index/font-awesome.min.css" rel="stylesheet">
-	<link href="/css/index/daterangepicker-bs3.css" rel="stylesheet">
-	<link href="/css/index/tip.css" rel="stylesheet" type="text/css">
-
-	<script src="/scripts/index/jquery-1.9.1.min.js"></script>
-	<script src="/scripts/index/main.js"></script>
-
-	<script type="text/javascript" src="/scripts/index/moment.js"></script> 
-	<script type="text/javascript" src="/scripts/index/c.js"></script>
-	<script type="text/javascript" src="/scripts/index/daterangepicker.js"></script> 
-	
-	<script type="text/javascript" src="/scripts/index/backleft.js"></script>
-
-	<style>
-		p,ul{margin:0;}
-	</style>
 </head>
 
 <body class=" hPC">
 
-	<input type="hidden" name="cityurl" id="cityurl" value=""/>
-    <input type="hidden" name="cityname" id="cityname" value=""/>
-	<input  type="hidden" name="search_startdate" id="search_startdate" value="" />
-	<input  type="hidden" name="search_enddate" id="search_enddate" value="" />
+	<input type="hidden" name="location" id="location" value=""/>
+	<input  type="hidden" name="startdate" id="startdate" value="" />
+	<input  type="hidden" name="enddate" id="enddate" value="" />
 
     <div id="indexPage">
 		<header class="mayi-top-search head">
@@ -49,11 +23,9 @@
 	    <div class="index_floor section">
 	    	<div class="search_calendar">
 		        <div class="search-form-box border-bottom">
-		           <a href="javascript:;"> 
-		                <div class="choice_city">
-		                    <span class="cityname">选择目的地<span>
-		                </span></span></div>
-		           </a>
+	                <div class="choice_city">
+	                    <span class="location">选择目的地</span>
+	                </div>
 		        </div>
 		        <div class="search-form-box">
 	                <div class="date" id="reportrange">
@@ -94,152 +66,90 @@
        			</li>	
             </ul>
         </aside>
-	   
-    
 
-	<footer id="common_footer" class="index-footer">
-		<div class="ft_wz">客服电话<a href="tel:400-069-6060"> 4000696060</a>&nbsp;&nbsp;&nbsp;&nbsp;<a href="tel:010-60642468">010-60642468</a></div>
-		<div class="ft-b">©2016蚂蚁短租 京ICP证130021号</div>
-	</footer> 
-
+		<%@ include file="/WEB-INF/include/footer.jsp"%>
     </div>
+    
+<script src="/scripts/index/jquery-1.9.1.min.js"></script>
+<script src="/scripts/index/main.js"></script>
 
-	<!--搜索弹层-->
-	<div class="search_tan">
-			<header class="mayi-top-search head" style="height:45px;">
-			 	<a class="back left" rel="nofollow"></a>
-			    <!-- <div class="mayi-search-tb">		    		
-			        <div class="search-form-box">
-			    						<span class="search-form-icon"></span>
-			    				   		<input class="search-form-input" placeholder="名称、学校等" style="font-size:14px;" id="search-form-input">	
-			                <span class="clear_input_content" style="cursor:pointer;"></span>	                	
-			            </div>
-			        <div class="cancel_search">取消</div>
-			    </div> -->
-			</header>
-			<section class="section" id="suggest_city">
-				<!--热门目的地-->
-				<div class="hot_place">
-					<h3>学校</h3>
-					<ul class="clearfloat destination hotdesti">
-						<li onclick="setInfo('aaa','beijing')"><a cityurl="/beijing/">传媒二外北门</a></li>
-						<li onclick="setInfo('bbb','chengdu')"><a cityurl="/chengdu/">传媒二外南门</a></li>
-						<li onclick="setInfo('ccc','shanghai')"><a cityurl="/shanghai/">传媒西门</a></li>
-					</ul>
-				</div>
-			</section>
-	</div>
+<script src="/scripts/index/moment.js"></script> 
+<script src="/scripts/index/c.js"></script>
+<script src="/scripts/index/daterangepicker.js"></script> 
+<script src="/scripts/index/backleft.js"></script>
 
-
-<script src="/scripts/index/mayi.js" type="text/javascript"></script>
-
-
+<!--搜索弹层-->
+<%@ include file="/WEB-INF/include/location.jsp"%>
+	
 <script>
-$('.choice_city').click(function(){
-	$('.search_tan').show();
-})
-$('.search_tan .back').click(function(){
-	$('.search_tan').hide();
-})
- </script>
-
- <script type="text/javascript"> 
-var m = {};
-m.sBegin=$('#search_startdate').val();
-m.sEnd=$('#search_enddate').val();
-var options = {
-	 startDate:m.sBegin,
-	 endDate:m.sEnd,
-	 veiwType:'view',
-	 //退出执行函数
-	 backFun:function(){$(".dropdown-menu").hide();}
-}; 	
-		 
-$(document).ready(function() {
-    initTime(m);   
+$(function() {
+    initCalendar();
+    $('.choice_city').click(function(){
+    	$('.search_tan').show();
+    });
+    setValue();
 });
-</script>
-<script>
-/**
- * 排序菜单
- */
-var filter = {
-	//选择完日期进行处理
-	changeDate : function(sBegin, sEnd) {
-		m.sBegin = sBegin;
-		m.sEnd = sEnd;
-		$('#list-wap').show();
-		changeUrlParamVlaue("startdate", sBegin);
-		changeUrlParamVlaue("enddate", sEnd);
-		var sdate = sBegin.replace('-','.').replace('-','.');
-		var edate = sEnd.replace('-','.').replace('-','.');
-		$('.checkinoutdate').text(sdate+'-'+edate);
-		$('.checkinoutdate').addClass("c22bb62");
-		datesearch();
-		//window.location.href = url;
-	}
-}
+
 /**
  * 初始化时间选择
  * @param m
  */
-function initTime(m)
-{
-	  $('#reportrange').daterangepicker(options,filter.changeDate); 
-	  //if(m.sBegin!=''&&m.sEnd!=''){
-	  var start = $('#search_startdate').val();
-	  var end = $('#search_enddate').val();
-	  if(start.trim()!='' && end.trim()!=''){
-		  $('#reportrange span').html('<b>'+(m.sBegin.substring(5,m.sBegin.length)).replace('-','.')+'</b><b>-'+(m.sEnd.substring(5,m.sEnd.length)).replace('-','.')+'</b>');	  
-		  $('#reportrange').addClass("avtive");
-		  console.log('--->dateClearUp');
-		  $('#dateClearUp').show();
-	  }else{
-		  $('#dateClearUp').hide();
-	  }
+function initCalendar() {
+	var options = {
+		 startDate:'',
+		 endDate:'',
+		 veiwType:'view',
+		 backFun:function(){$(".dropdown-menu").hide();}
+	};
+	
+	$('#reportrange').daterangepicker(options, selectDate); 
 }
-
-function getUrl(name,url){
-	$('#cityurl').val(url);
-	$('.search_tan').hide();
-}
-
-function search(){
-	var url = $('#cityurl').val();
-	var d1 = $('#search_startdate').val();
-	var d2 = $('#search_enddate').val();
-	if(url.trim().length>0){
-		var tohref = url;
-		if(d1.trim().length>0&&d2.trim().length>0){
-			tohref += "?d1=" + d1;
-			tohref += "&d2=" + d2;
-		}
-		window.location.href = tohref;
-	}else{
-		showTip('请选择城市或目的地',3);
-	}
-}
-
-function datesearch(){
-	var url = $('#cityurl').val();
-	if(url.trim().length>0){
+	  
+function selectDate(sBegin, sEnd) {
+	$('#list-wap').show();
+	$('#startdate').val(sBegin)
+	$('#enddate').val(sEnd)
+	var sdate = sBegin.replace('-','.').replace('-','.');
+	var edate = sEnd.replace('-','.').replace('-','.');
+	$('.checkinoutdate').text(sdate+'-'+edate);
+	$('.checkinoutdate').addClass("c22bb62");
+	if($('#location').val().trim().length>0){
 		search();
 	}
 }
 
+function search(){
+	var location = $('#location').val();
+	var startdate = $('#startdate').val();
+	var enddate = $('#enddate').val();
+	var queryString = "";
+	if(location.trim().length > 0){
+		queryString += "?location="+encodeURIComponent(encodeURIComponent(location));	
+	}
+	if(startdate.trim().length > 0 && enddate.trim().length > 0){
+		queryString += (queryString!=""?"&":"?") + "startdate=" + startdate + "&enddate=" + enddate;
+	}
+	window.location.href = "/Search.action" + queryString;
+}
+
+
 function setValue(){
-	var sname = $('.cityname').text();
-	var sdate = $('.checkinoutdate').text();
+	var sname = $('.location').text();
 	if(sname.trim()=='选择目的地'){
-		var cityname = $('#cityname').val();
-		if(cityname.trim().length>0){
-			setCityname(cityname);
+		var location = $('#location').val();
+		if(location.trim().length>0){
+			if(location.length>9){
+				location = location.substring(0,9)+'...';
+			}
+			$('.location').text(location);
+			$('.location').addClass("c22bb62");
 		}
 	}
 	
+	var sdate = $('.checkinoutdate').text();
 	if(sdate.trim()=='入住离开日期'){
-		var checkindate = $('#search_startdate').val();
-		var checkoutdate = $('#search_enddate').val();
+		var checkindate = $('#startdate').val();
+		var checkoutdate = $('#enddate').val();
 		if(checkindate.trim()!='' && checkoutdate.trim()!=''){
 			var newdate = checkindate.replace('-','.').replace('-','.') +'-'+checkoutdate.replace('-','.').replace('-','.');
 			$('.checkinoutdate').text(newdate);
@@ -247,41 +157,6 @@ function setValue(){
 		}
 	}
 }
-
-function setCityname(cityname){
-	var name = cityname;
-	if(name.length>9){
-		name = name.substring(0,9)+'...';
-	}
-	$('.cityname').text(name);
-	$('.cityname').addClass("c22bb62");
-}
-
-//点击城市绑定的click事件，解决Safari浏览器无法动态绑定live和on时间
-function setInfo(cityname,citypinyin){
-	// var name = decodeURI(cityname);
-	$('#cityname').val(cityname);
-	setCityname(cityname);
-	$('.search_tan').hide();
-}
-
-function closetk(){
-	$(".tk").hide();
-}
-
-function locat(){
-	var url = '/nearby/';
-	var d1 = $('#search_startdate').val();
-	var d2 = $('#search_enddate').val();
-	if(d1.trim()!='' && d2.trim()!=''){
-		url+="?d1="+d1+"&d2="+d2;
-	}
-	window.location.href = url;
-}
-$(function(){
-	//浏览器缓存中的数据恢复值
-	setValue();
-})
 
 </script>
 

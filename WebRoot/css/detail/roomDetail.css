@@ -1,0 +1,76 @@
+@charset "utf-8";
+/*2015-11-17*/ 
+body{font-size:16px !important; background: #f7f6f5;} 
+.w100{width:100% !important;}
+.bold{font-weight:bold;}
+.f20{font-size:20px;}
+.f18{font-size:18px;}
+.f16{font-size:16px;}
+.f15{font-size:15px;}
+.f14{font-size:13px;}
+.f13{font-size:13px;}
+.f12{font-size:12px;}
+.mt5{margin-top:5px;}
+.mb5{margin-bottom:5px;}
+.mb0{margin-bottom:0;}
+.pdlr10{padding:0 10px;}
+.pdb10{padding-bottom:10px;}
+.breakline{color:#e0e0e0;}
+.fixed{position:fixed;}
+.b-22bb62{background-color:#22bb62;}
+.noborder{border:none !important;}
+.mt5{margin-top:5px;}
+.line22{line-height:22px;}
+.border_b{border-bottom:1px solid #e0e0e0;}
+.f-13{font-size:13px;}
+.ml10{margin-left:10px;}
+.ml15{margin-left:15px;}
+.mgcenter{margin:0 auto;}
+.pd10{padding:10px;}
+.pdlrt10{padding:10px;padding-top:0px;}
+.pdt_b5{padding:5px 0 10px;}
+
+p.title{text-align:center;color:#333;font-size:18px;margin-bottom:10px;}
+
+/*底部*/
+.bom {height: 50px;bottom: 0px;border-top: 1px #E0E0E0 solid;width:100%;background:#fff;z-index:99;}
+.bom b {float: left;color: #ff725d;margin: 8px 0px 0px 10px;font-weight: normal;}
+.btn-ok{width: 150px;height: 40px;line-height: 40px;color: #FFF;background: #22bb62;display:block;position:absolute;right:10px;top:5px;border-radius:3px;}
+
+/*未选日期弹出层提示*/
+.add_tx{ position:fixed; width:100%; height:100%; display:block; z-index:10000; top:0px;}	
+.add_tx .add_y{ width:100%;height:100%; background:#000;opacity:0.5;}
+.add_tx .add_nr{  background:#FFF; position:absolute; left:20px; right:20px; top:50%; margin-top:-50px; border-radius:5px; padding:20px 0px 0px 0px;}
+.add_tx .add_nr b{ display:block; text-align:center; border-bottom:1px #e1e1e1 solid; padding-bottom:20px;}
+.add_tx .add_nr a{ float:left; width:50%; text-align:center; border-right:1px #e1e1e1 solid; margin:0px 0px 0px -1px; line-height:40px; color:#2eb657;}
+.add_tx .add_nr a:last-child{ border:none;}
+
+/* 幻灯片(jquery-weui) */
+.swiper-container {
+  width: 100%;
+} 
+.swiper-container img {
+  display: block;
+  width: 100%;
+}
+
+/** 日历 */
+.daterangepicker.dropdown-menu {
+  max-width: none;
+  z-index: -1;
+} 
+.table-condensed tr td {
+    line-height: normal;
+}
+header nav{ background:#2eb657;}
+
+
+.room-title {
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2);
+}
+.section {
+	background: #FFF;
+    margin-bottom: 10px;
+    border-bottom: 1px #e0e0e0 solid;
+    border-top: 1px #e0e0e0 solid;
+}

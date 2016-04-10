@@ -7,7 +7,6 @@
 <meta name="keywords" content="北京房屋出租，北京房屋租赁，真格租房，房地产，房产网，租房，出租，整租，合租，别墅，住宅，租金，房东，经纪人，中介"/>
 <meta name="description" content="简单好用的房产网。提供可信的房地产租售信息，帮您轻松获得专业服务，让房产
 租售事半功倍"/>
-<%@ include file="/zinclude/public.jsp"%>
 <link rel="stylesheet" type="text/css" href="/css/css/terms.css">
 
 <script type="text/javascript" src="/scripts/home/home.js"></script>

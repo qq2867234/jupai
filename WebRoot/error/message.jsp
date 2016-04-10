@@ -9,7 +9,6 @@
 <title>真格租房</title> 
 <meta charset="utf-8">
 <meta name="keywords" content="北京房屋出租，北京房屋租赁，真格租房，房地产，房产网，租房，出租，整租，合租，别墅，住宅，租金，房东，经纪人，中介"/>
-<%@ include file="/zinclude/public.jsp"%>
 <link href="/css/error/error.css" rel="stylesheet" type="text/css">
 
 </head>

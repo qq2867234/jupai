@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jupai.search.persistence.ServiceMapper">
+	
+	<select id="searchRooms" resultType="HashMap">
+		SELECT * FROM room WHERE published = 1 AND 
+			round(12742000*asin(sqrt(pow(sin((lat-39.921454)*0.017453)/2,2)+cos(lat*0.017453)*cos(39.921454*0.017453)*pow(sin((lng-116.562352)*0.017453)/2,2)))) <![CDATA[ < ]]> 2000
+	</select>
+	
+	<select id="countRooms" resultType="int">
+		select count(*) from room
+	</select>
+	
+</mapper>      

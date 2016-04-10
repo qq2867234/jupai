@@ -9,7 +9,6 @@
 <title>404</title>
 <meta charset="utf-8">
 <meta name="description" content="简单好用的房产网。提供可信的房地产租售信息，帮您轻松获得专业服务，让房产租售事半功倍"/>
-<%@ include file="/zinclude/public.jsp"%>
 <link href="/css/error/error.css" rel="stylesheet" type="text/css">
 
 </head>

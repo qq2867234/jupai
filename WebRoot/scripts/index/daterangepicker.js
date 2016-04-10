@@ -87,6 +87,7 @@ function($, moment) {
         }
         //update by xuwei 2015-11-21  JQuery与Zepto兼容问题，点击事件更换
         //$("#rollback").live('click', function(){});
+        var _this = this;
         $('#rollback').click(function() {
         	if(backFun&&typeof(backFun)=="function")
         		
@@ -132,7 +133,9 @@ function($, moment) {
         			}
         			
         		}
-    			backFun();
+//    			backFun();
+        		// add
+        		_this.toggle();
     	});
     };
 
@@ -561,7 +564,7 @@ function($, moment) {
         },
 
         toggle: function(e) {
-            if (this.element.hasClass('active')) {
+            if (this.element.hasClass('active') || !this.container.is(":hidden")) {
             	if(backFun&&typeof(backFun)=="function")
         			backFun();
                 this.hide();

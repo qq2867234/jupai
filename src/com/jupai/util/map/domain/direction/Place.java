@@ -2,15 +2,15 @@ package com.jupai.util.map.domain.direction;
 
 public class Place {
 
-	private String cityName;
+	private String location;
 	private Content[] content;
 
-	public String getCityName() {
-		return cityName;
+	public String getlocation() {
+		return location;
 	}
 
-	public void setCityName(String cityName) {
-		this.cityName = cityName;
+	public void setlocation(String location) {
+		this.location = location;
 	}
 
 	public Content[] getContent() {

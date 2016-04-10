@@ -3,7 +3,7 @@ package com.jupai.account.domain;
 import com.jupai.util.InputValidator;
 
 public class BrokerVerify {
-	private String cityName;
+	private String location;
 	private String brokerageName;
 	private String salesofficeName;
 	private Integer brokerageId;
@@ -36,11 +36,11 @@ public class BrokerVerify {
 	public void setBrokerType(Byte brokerType) {
 		this.brokerType = brokerType;
 	}
-	public String getCityName() {
-		return cityName;
+	public String getlocation() {
+		return location;
 	}
-	public void setCityName(String cityName) {
-		this.cityName = cityName == null ? null : cityName.trim();
+	public void setlocation(String location) {
+		this.location = location == null ? null : location.trim();
 	}
 	public String getBrokerageName() {
 		return brokerageName;

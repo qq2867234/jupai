@@ -40,10 +40,7 @@
 	<aop:aspectj-autoproxy />
     
     <!--  enable component scanning (beware that this does not enable mapper scanning!) 扫描service-->
-    <context:component-scan base-package="com.jupai.account.service"/>
-    <context:component-scan base-package="com.jupai.weixin.service"/>
-    <context:component-scan base-package="com.jupai.mobile.service"/>
-    <context:component-scan base-package="com.jupai.pay.service"/>
+    <context:component-scan base-package="com.jupai.*.service"/>
     
     <!-- transaction manager, use JtaTransactionManager for global tx  事务管理器-->
     <bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
@@ -52,13 +49,10 @@
     <!--  创建SqlSessionFactory-->
     <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
         <property name="dataSource" ref="myDataSource" />
-        <property name="typeAliasesPackage" value="com.jupai.account.domain, com.jupai.weixin.domain, com.jupai.mobile.domain, com.jupai.pay.domain" />
+        <property name="typeAliasesPackage" value="com.jupai.*.domain" />
     </bean>
     
     <!-- 自动扫描映射器 -->
-    <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer" p:basePackage="com.jupai.account.persistence"/>
-	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer" p:basePackage="com.jupai.mobile.persistence"/>
-	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer" p:basePackage="com.jupai.weixin.persistence"/>
-	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer" p:basePackage="com.jupai.pay.persistence"/>
+    <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer" p:basePackage="com.jupai.*.persistence"/>
 	
 </beans>

@@ -3,7 +3,7 @@ package com.jupai.account.domain;
 import com.jupai.util.InputValidator;
 
 public class DID extends ID {
-	private String cityName;
+	private String location;
 	private Integer cityCode;
 	private String fullName;
 	
@@ -21,12 +21,12 @@ public class DID extends ID {
 		this.cityCode = cityCode;
 	}
 
-	public String getCityName() {
-		return cityName;
+	public String getlocation() {
+		return location;
 	}
 
-	public void setCityName(String cityName) {
-		this.cityName = cityName == null ? null : InputValidator.replace(cityName.trim());
+	public void setlocation(String location) {
+		this.location = location == null ? null : InputValidator.replace(location.trim());
 	}
 	
 }
