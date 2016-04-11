@@ -36,4 +36,6 @@ public class Runtimeconfig {
 	/** 系统通知 */
 	public static final String TEMPLATE_SYSTEM_NOTICE = ConfigUtil.getInstance().getResourceByKey("TEMPLATE_SYSTEM_NOTICE");
 	
+	public static final Integer DEFAULT_PAGE_SIZE = Integer.parseInt(ConfigUtil.getInstance().getResourceByKey("DEFAULT_PAGE_SIZE"));
+	
 }

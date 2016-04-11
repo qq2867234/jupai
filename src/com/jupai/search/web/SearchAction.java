@@ -4,17 +4,20 @@ import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
 import java.util.Map;
 
-import org.apache.commons.lang.StringUtils;
-
 import net.sourceforge.stripes.action.DefaultHandler;
 import net.sourceforge.stripes.action.ForwardResolution;
 import net.sourceforge.stripes.action.Resolution;
 import net.sourceforge.stripes.integration.spring.SpringBean;
 
+import org.apache.commons.lang.StringUtils;
+
 import com.jupai.comm.PageModel;
+import com.jupai.comm.Runtimeconfig;
 import com.jupai.comm.web.AbstractActionBean;
 import com.jupai.search.domain.Condition;
 import com.jupai.search.service.SearchService;
+import com.jupai.weixin.domain.SignPackage;
+import com.jupai.weixin.util.CommunicateUtil;
 
 public class SearchAction extends AbstractActionBean {
 
@@ -22,13 +25,13 @@ public class SearchAction extends AbstractActionBean {
 
 	private Double lng;
 	private Double lat;
-	private String startdate;
-	private String enddate;
+	private String checkInDay;
+	private String checkOutDay;
 	private String location;
-	private String sort;
+	private Byte sort;
 	
-	private Integer pageNow;
-	private Integer pageSize;
+	private Integer pageNow = 1;
+	private Integer pageSize = Runtimeconfig.DEFAULT_PAGE_SIZE;
 
 	@SpringBean
 	private SearchService searchService;
@@ -44,6 +47,12 @@ public class SearchAction extends AbstractActionBean {
 		PageModel<Map<String, Object>> pageModel = searchService.searchRooms(condition);
 		setAttributeInRequest("pageModel", pageModel);
 		setAttributeInRequest("condition", condition);
+		
+		// 微信js-sdk需要的参数
+		String queryString = getContext().getRequest().getQueryString();
+		String url = getContext().getRequest().getRequestURL().toString() + (queryString != null ? ("?"+queryString) : "");
+		SignPackage sp = CommunicateUtil.getSignPackage(url);
+		setAttributeInRequest("sp", sp);
 		return new ForwardResolution("/WEB-INF/search/search.jsp");
 	}
 	
@@ -60,11 +69,14 @@ public class SearchAction extends AbstractActionBean {
 				e.printStackTrace();
 			}
 		}
-		condition.setStartdate(startdate);
-		condition.setEnddate(enddate);
+		condition.setCheckInDay(checkInDay);
+		condition.setCheckOutDay(checkOutDay);
 		condition.setSort(sort);
 		condition.setLng(lng);
 		condition.setLat(lat);
+		
+		condition.setOffset((pageNow - 1) * pageSize);
+		condition.setPageSize(pageSize);
 		return condition;
 	}
 
@@ -76,19 +88,31 @@ public class SearchAction extends AbstractActionBean {
 		this.lat = lat;
 	}
 
-	public void setStartdate(String startdate) {
-		this.startdate = startdate;
+	public String getCheckInDay() {
+		return checkInDay;
 	}
 
-	public void setEnddate(String enddate) {
-		this.enddate = enddate;
+	public void setCheckInDay(String checkInDay) {
+		this.checkInDay = checkInDay;
+	}
+
+	public String getCheckOutDay() {
+		return checkOutDay;
+	}
+
+	public void setCheckOutDay(String checkOutDay) {
+		this.checkOutDay = checkOutDay;
 	}
 
 	public void setLocation(String location) {
 		this.location = location;
 	}
 
-	public void setSort(String sort) {
+	public Byte getSort() {
+		return sort;
+	}
+
+	public void setSort(Byte sort) {
 		this.sort = sort;
 	}
 

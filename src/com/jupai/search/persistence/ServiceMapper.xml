@@ -4,12 +4,39 @@
 <mapper namespace="com.jupai.search.persistence.ServiceMapper">
 	
 	<select id="searchRooms" resultType="HashMap">
-		SELECT * FROM room WHERE published = 1 AND 
-			round(12742000*asin(sqrt(pow(sin((lat-39.921454)*0.017453)/2,2)+cos(lat*0.017453)*cos(39.921454*0.017453)*pow(sin((lng-116.562352)*0.017453)/2,2)))) <![CDATA[ < ]]> 2000
+		SELECT id, name, location_name, price, url, default_pic, address, lng, lat 
+		FROM room 
+		WHERE published = 1 
+		<if test="location != null">
+			AND instr(location_name, #{location})
+		</if>
+		<if test="lng != null and lat != null">
+			AND round(12742000*asin(sqrt(pow(sin((lat-#{lat})*0.017453)/2,2)+cos(lat*0.017453)*cos(#{lat}*0.017453)*pow(sin((lng-#{lng})*0.017453)/2,2)))) <![CDATA[ < ]]> 2000
+		</if>
+		<if test="checkInDay != null and checkOutDay != null">
+			AND NOT EXISTS (SELECT id FROM roomstatus WHERE room.id = roomstatus.room_id AND day >= #{checkInDay} AND day <![CDATA[ < ]]> #{checkOutDay})
+		</if>
+		<if test="sort == 1">
+			order by price desc
+		</if>
+		<if test="sort == 2">
+			order by price
+		</if>
 	</select>
 	
 	<select id="countRooms" resultType="int">
-		select count(*) from room
+		select count(id) 
+		FROM room 
+		WHERE published = 1 
+		<if test="location != null">
+			AND instr(location_name, #{location})
+		</if>
+		<if test="lng != null and lat != null">
+			AND round(12742000*asin(sqrt(pow(sin((lat-#{lat})*0.017453)/2,2)+cos(lat*0.017453)*cos(#{lat}*0.017453)*pow(sin((lng-#{lng})*0.017453)/2,2)))) <![CDATA[ < ]]> 2000
+		</if>		
+		<if test="checkInDay != null and checkOutDay != null">
+			AND NOT EXISTS (SELECT id FROM roomstatus WHERE room.id = roomstatus.room_id AND day >= #{checkInDay} AND day <![CDATA[ < ]]> #{checkOutDay})
+		</if>
 	</select>
 	
 </mapper>      

@@ -22,10 +22,6 @@ public class SearchService {
 	 * @return
 	 */
 	public PageModel<Map<String, Object>> searchRooms(Condition condition) {
-		if(condition == null) {
-			condition = new Condition();
-		}
-		condition.setOffset((condition.getPageNow() - 1) * condition.getPageSize());
 		
 		List<Map<String, Object>> result = serviceMapper.searchRooms(condition);
 		int rows = serviceMapper.countRooms(condition);

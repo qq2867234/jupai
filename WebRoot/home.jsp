@@ -11,13 +11,12 @@
 <body class=" hPC">
 
 	<input type="hidden" name="location" id="location" value=""/>
-	<input  type="hidden" name="startdate" id="startdate" value="" />
-	<input  type="hidden" name="enddate" id="enddate" value="" />
+	<input  type="hidden" name="checkInDay" id="checkInDay" value="" />
+	<input  type="hidden" name="checkOutDay" id="checkOutDay" value="" />
 
     <div id="indexPage">
 		<header class="mayi-top-search head">
 	    	<img class="head_left" src="/images/index/mayi_slogon.png">
-	    	<!-- <img class="head_left" src="/images/index/images/jupai.png"> -->
 	        <a href="tel:400-069-6060" class="cancel_search" id="tel_server"><img src="/images/index/tel_icon.png"></a>		
 		</header>    
 	    <div class="index_floor section">
@@ -35,10 +34,10 @@
 			</div>
 			<div class="subparent" onclick="search();"><p>搜索</p></div>
 	    	<nav class="quick-entry-nav clearfix">
-	    		<a class="quick-entry-link" href="http://m.mayi.com/nearby"><img width="50" height="50" src="/images/index/near_house.png"><span>附近房源</span></a>
-	        	<a class="quick-entry-link" href="http://m.mayi.com/login?returnurl=/order/list/"><img width="50" height="50" src="/images/index/my_order.png"><span>我的订单</span></a>
-	        	<a class="quick-entry-link" href="http://m.mayi.com/login?returnurl=/user/mycollection/"><img width="50" height="50" src="/images/index/my_collet.png"><span>订房指导</span></a>
-	        	<a class="quick-entry-link" href="http://m.mayi.com/landlord/recruit?ch=wap"><img width="50" height="50" src="/images/index/fd_rect.png"><span>关于我们</span></a>
+	    		<a class="quick-entry-link" href="/nearby"><img width="50" height="50" src="/images/index/near_house.png"><span>附近房源</span></a>
+	        	<a class="quick-entry-link" href="/order/list/"><img width="50" height="50" src="/images/index/my_order.png"><span>我的订单</span></a>
+	        	<a class="quick-entry-link" href="/user/mycollection/"><img width="50" height="50" src="/images/index/my_collet.png"><span>订房指导</span></a>
+	        	<a class="quick-entry-link" href="/landlord/recruit"><img width="50" height="50" src="/images/index/fd_rect.png"><span>关于我们</span></a>
 	    	</nav>
 	    </div>
     
@@ -87,7 +86,7 @@ $(function() {
     $('.choice_city').click(function(){
     	$('.search_tan').show();
     });
-    setValue();
+    recoverCondition();
 });
 
 /**
@@ -107,8 +106,8 @@ function initCalendar() {
 	  
 function selectDate(sBegin, sEnd) {
 	$('#list-wap').show();
-	$('#startdate').val(sBegin)
-	$('#enddate').val(sEnd)
+	$('#checkInDay').val(sBegin)
+	$('#checkOutDay').val(sEnd)
 	var sdate = sBegin.replace('-','.').replace('-','.');
 	var edate = sEnd.replace('-','.').replace('-','.');
 	$('.checkinoutdate').text(sdate+'-'+edate);
@@ -120,20 +119,20 @@ function selectDate(sBegin, sEnd) {
 
 function search(){
 	var location = $('#location').val();
-	var startdate = $('#startdate').val();
-	var enddate = $('#enddate').val();
+	var checkInDay = $('#checkInDay').val();
+	var checkOutDay = $('#checkOutDay').val();
 	var queryString = "";
 	if(location.trim().length > 0){
 		queryString += "?location="+encodeURIComponent(encodeURIComponent(location));	
 	}
-	if(startdate.trim().length > 0 && enddate.trim().length > 0){
-		queryString += (queryString!=""?"&":"?") + "startdate=" + startdate + "&enddate=" + enddate;
+	if(checkInDay.trim().length > 0 && checkOutDay.trim().length > 0){
+		queryString += (queryString!=""?"&":"?") + "checkInDay=" + checkInDay + "&checkOutDay=" + checkOutDay;
 	}
 	window.location.href = "/Search.action" + queryString;
 }
 
 
-function setValue(){
+function recoverCondition(){
 	var sname = $('.location').text();
 	if(sname.trim()=='选择目的地'){
 		var location = $('#location').val();
@@ -148,8 +147,8 @@ function setValue(){
 	
 	var sdate = $('.checkinoutdate').text();
 	if(sdate.trim()=='入住离开日期'){
-		var checkindate = $('#startdate').val();
-		var checkoutdate = $('#enddate').val();
+		var checkindate = $('#checkInDay').val();
+		var checkoutdate = $('#checkOutDay').val();
 		if(checkindate.trim()!='' && checkoutdate.trim()!=''){
 			var newdate = checkindate.replace('-','.').replace('-','.') +'-'+checkoutdate.replace('-','.').replace('-','.');
 			$('.checkinoutdate').text(newdate);

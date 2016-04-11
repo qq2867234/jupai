@@ -1,5 +1,6 @@
 <%@ page pageEncoding="UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%> 
 <!DOCTYPE html>
 <html>
 <head>
@@ -11,19 +12,21 @@
 
 <body>
 <div id="indexPage">
-<input type="hidden" name="search_location" id="search_location" value="${condition.location }">
-<input type="hidden" name="search_startdate" id="search_startdate" value="${condition.startdate }">
-<input type="hidden" name="search_enddate" id="search_enddate" value="${condition.enddate }">
-<input type="hidden" name="search_sort" id="search_sort" value="">
-<input type="hidden" name="nearby" id="nearby" value="0">
+<input type="hidden" id="location" 		value="${condition.location }">
+<input type="hidden" id="checkInDay" 	value="${condition.checkInDay }">
+<input type="hidden" id="checkOutDay" 	value="${condition.checkOutDay }">
+<input type="hidden" id="lng" 			value="${condition.lng }">
+<input type="hidden" id="lat" 			value="${condition.lat }">
+<input type="hidden" id="sort" 			value="0">
+<input type="hidden" id="nearby" 		value="0">
 <!--排序-->
 <div class="rm-type" id="mr" style="display: none;">
 	<div class="rm-top"></div>
     <div class="mr-show">
         <ul class="price u_sort"> 
-            <li value="" data="0" class="uLi_on">默认排序</li>
-            <li value="zuigui" data="1">价格最高</li>
-            <li value="zuipianyi" data="2">价格最低</li>
+            <li data="0" class="default <c:if test='${empty condition.sort or condition.sort == 0}'>uLi_on</c:if>">默认排序</li>
+            <li data="1" class="highest <c:if test='${condition.sort == 1}'>uLi_on</c:if>">价格最高</li>
+            <li data="2" class="lowest <c:if test='${condition.sort == 2}'>uLi_on</c:if>">价格最低</li>
         </ul>            
     </div>   
 </div>
@@ -37,10 +40,42 @@
 		</header>
 		<nav class="sort">
 		    <ul style="border-bottom: 1px solid #c9cbce;">
-		     	<li id="reportrange" style="cursor:pointer"><span>日期</span></li>
-		     	<li class="js-filter" style="cursor:pointer"><span>附近</span></li>
-		        <li class="js-search" style="cursor:pointer"><span>位置区域</span></li>
-	            <li class="js-sort" style="cursor:pointer"><span>默认排序</span></li>
+		    	<c:choose>
+			     	<c:when test="${empty condition.checkInDay or empty condition.checkOutDay }">
+				     	<li id="reportrange" style="cursor:pointer"><span>日期</span></li>
+			     	</c:when>
+			     	<c:otherwise>
+			        	<li id="reportrange" style="cursor:pointer"><span class="c22bb62">${fn:replace(fn:substring(condition.checkInDay,5,10),'-','.')}-${fn:replace(fn:substring(condition.checkOutDay,5,10),'-','.')}</span></li>
+			        	
+			     	</c:otherwise>
+		     	</c:choose>
+		    	<c:choose>
+			     	<c:when test="${empty condition.lng or empty condition.lat }">
+				     	<li class="js-nearby" style="cursor:pointer"><span>附近</span></li>
+			     	</c:when>
+			     	<c:otherwise>
+				     	<li class="js-nearby" style="cursor:pointer"><span class="c22bb62">附近</span></li>
+			     	</c:otherwise>
+		     	</c:choose>
+		     	<c:choose>
+			     	<c:when test="${empty condition.location }">
+			        	<li class="js-search" style="cursor:pointer"><span>位置区域</span></li>
+			     	</c:when>
+			     	<c:otherwise>
+			        	<li class="js-search" style="cursor:pointer"><span class="c22bb62">${condition.location }</span></li>
+			     	</c:otherwise>
+		     	</c:choose>
+	            <c:choose>
+			     	<c:when test="${empty condition.sort or condition.sort == 0 }">
+		            	<li class="js-sort" style="cursor:pointer"><span>默认排序</span></li>
+			     	</c:when>
+			     	<c:when test="${condition.sort == 1 }">
+		            	<li class="js-sort" style="cursor:pointer"><span class="c22bb62">价格最高</span></li>
+			     	</c:when>
+			     	<c:when test="${condition.sort == 2 }">
+		            	<li class="js-sort" style="cursor:pointer"><span class="c22bb62">价格最低</span></li>
+			     	</c:when>
+		     	</c:choose>
 		    </ul>
 		</nav>
 	</div>
@@ -114,15 +149,32 @@
 </article>
 </div>
 
+<script type="text/javascript" src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
+
+<script type="text/javascript">
+wx.config({
+    debug: false,
+    appId: '${sp.appId}',
+    timestamp: '${sp.timestamp}',
+    nonceStr: '${sp.nonceStr}',
+    signature: '${sp.signature}',
+    jsApiList: [
+        'getLocation'
+    ]
+});
+var wxReadyStatus = false;
+wx.ready(function(){
+	wxReadyStatus = true;
+});
+</script>
 <script src="/scripts/index/jquery-1.9.1.min.js"></script>
 <script src="/scripts/index/main.js"></script>
 <script src="/scripts/index/c.js"></script>
-
 <script src="/scripts/index/moment.js"></script> 
 <script src="/scripts/index/daterangepicker.js"></script> 
-<script src="/scripts/index/backleft.js"></script>
+<script src="/scripts/index/backleft.js?v=1"></script>
 
-<script src="/scripts/search/sou.list.js"></script>
+<script src="/scripts/search/sou.list.js?v=9"></script>
 <!-- <script src="/scripts/search/sou.more.js"></script> -->
 
 <%@ include file="/WEB-INF/include/location.jsp"%>

@@ -62,6 +62,7 @@
 
 <script>
 	$(function(){
+		// 选择
 		$('.locationUl li').on('click', function(){
 			$('.search_tan').hide();
 			var location = $(this).text();
@@ -72,8 +73,11 @@
 			}
 			$('.location').text(location);
 			$('.location').addClass('c22bb62');
+			
+			$('.js-search span').text(location).addClass('c22bb62');
 		});
 		
+		// 返回
 		$('.search_tan .back').click(function(){
 			$('.search_tan').hide();
 		});

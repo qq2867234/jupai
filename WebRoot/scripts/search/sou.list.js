@@ -1,8 +1,24 @@
+var $checkInDay = $("#checkInDay");
+var $checkOutDay = $("#checkOutDay");
+var $location = $("#location");
+var $sort = $("#sort");
+var $lng = $("#lng");
+var $lat = $("#lat");
+
 $(function() {	
+	// 位置搜索
+	$('.locationUl li').on('click', function(){
+		$location.val($(this).text());
+		$lng.val("");
+		$lat.val("");
+		$('.js-search span').text($(this).text()).addClass('c22bb62');
+		search();
+	});
+	
 	$('.u_sort li').click(function(){
 		$('.u_sort li').removeClass('uLi_on');
 		$(this).addClass('uLi_on');
-	})
+	});
 	$('.js-sort').click(function(event) {
 		if($(".rm-type").is(":hidden")) {
 			$('.rm-type').show();
@@ -12,7 +28,7 @@ $(function() {
 			$('.rm-top').hide();
 		}
 		event.stopPropagation();
-	})
+	});
 	$(document).click(function() {
 		$('.rm-type').hide();
 		$('.rm-top').hide();
@@ -20,82 +36,133 @@ $(function() {
 	
 	// 排序
 	$('.price.u_sort li').click(function(event) {
-		changeUrlParamVlaue("sort", $(this).attr("data"));
-		// TODO 排序搜索
-	})
+		$sort.val($(this).attr("data"));
+		search();
+	});
 	
+	// 附近
+	$(".js-nearby").click(function(event) {
+		// 取消附近搜索
+		if($lng.val() != "" && $lat.val() != "") {
+			showTip("取消附近搜索", 3);
+			$lng.val("");
+			$lat.val("");
+			search();
+			return ;
+		}
+		// 附近搜索
+		if(wxReadyStatus) {
+			showTip("定位中...", 10);
+			wx.getLocation({
+				type: 'wgs84', // 默认为wgs84的gps坐标，如果要返回直接给openLocation用的火星坐标，可传入'gcj02'
+				success: function (res) {
+					$lng.val(res.longitude);
+					$lat.val(res.latitude);
+					$location.val("");
+					search();
+				},
+				fail: function() {
+					showTip("定位失败", 2);
+				}
+			});
+		} else {
+			showTip("定位失败，请重试", 2);
+		}
+		event.stopPropagation();
+	});
+	
+	// 位置弹窗
 	$('.js-search').click(function(){
 		$('.search_tan').show();
-	})
+	});
 	
-	$('.search_tan .back').click(function(){
-		$('.search_tan').hide();
-	})
-	
-    initTime();   
+    initCalendar();   
 
 	initNearBy();
-})
+});
+
+
+function search(){
+	var location = $location.val();
+	var checkInDay = $checkInDay.val();
+	var checkOutDay = $checkOutDay.val();
+	var sort = $sort.val();
+	var lng = $lng.val();
+	var lat = $lat.val();
+	var queryString = "";
+	if(location != ""){
+		queryString += "&location="+encodeURIComponent(encodeURIComponent(location));	
+	}
+	if(checkInDay != "" && checkOutDay != ""){
+		queryString += "&checkInDay=" + checkInDay + "&checkOutDay=" + checkOutDay;
+	}
+	if(sort != ""){
+		queryString += "&sort=" + sort;
+	}
+	if(lng != "" && lat != "") {
+		queryString += "&lng=" + lng + "&lat=" + lat;
+	}
+	window.location.href = "/Search.action?searchRooms" + queryString;
+}
 
 /**
  * 初始化时间选择
  */
-function initTime()
+function initCalendar()
 {	  
+	var checkInDay = $checkInDay.val();
+	var checkOutDay = $checkOutDay.val();
 	var options = {
-		 startDate:$("#search_startdate").val(),
-		 endDate:$("#search_enddate").val(),
+		 startDate:checkInDay,
+		 endDate:checkOutDay,
 		 veiwType:'view',
 		 enterFun:function(){$("#indexPage").hide();},
 		 backFun:function(){
-			 $(".dropdown-menu").hide();
 			 $("#indexPage").show();
-			 $("#reportrange").removeClass("active");
 		}
 	}; 
 	
 	$('#reportrange').daterangepicker(options, selectDate); 
 	  
-//	  if(m.sBegin!=''&&m.sEnd!=''){
-//		  $('#reportrange span').html('<b>'+(m.sBegin.substring(5,m.sBegin.length)).replace('-','.')+'</b><b>-'+(m.sEnd.substring(5,m.sEnd.length)).replace('-','.')+'</b>');	  
-//		  $('#reportrange').addClass("avtive");
-//		  $('#dateClearUp').show();
-//	  }
-//	  else
-//		  $('#dateClearUp').hide(); 
+	  if(checkInDay!=''&&checkOutDay!=''){
+		  showCheckInOutDay(checkInDay, checkOutDay);		  
+		  $('#dateClearUp').show();
+	  }
+	  else
+		  $('#dateClearUp').hide(); 
 }
 
 //选择完日期进行处理
-function selectDate(sBegin, sEnd) {
-	changeUrlParamVlaue("startdate", sBegin);
-	changeUrlParamVlaue("enddate", sEnd);
+function selectDate(checkInDay, checkOutDay) {
+	$checkInDay.val(checkInDay);
+	$checkOutDay.val(checkOutDay);
+	showCheckInOutDay(checkInDay, checkOutDay);
 	$('#list-wap').show();
-	$('#reportrange span').html('<b>'+(sBegin.substring(5,sBegin.length)).replace('-','.')+'</b><b>-'+(sEnd.substring(5,sEnd.length)).replace('-','.')+'</b>');	  
-//	$('#reportrange').addClass("avtive");
 	$('#dateClearUp').show();
-	// TODO 日期搜索
+	search();
+}
+
+function showCheckInOutDay(checkInDay, checkOutDay) {
+	  $('#reportrange span').html((checkInDay.substring(5,10)).replace('-','.')+'-'+(checkOutDay.substring(5,10)).replace('-','.')).addClass("c22bb62");	  
 }
 
 // 清除日期
 function dateSearch()
 {
-	changeUrlParamVlaue("startdate","");
-	changeUrlParamVlaue("enddate","");
+	$checkInDay.val("");
+	$checkOutDay.val("");
 	// add 
 	// 隐藏清除按钮
 	$('#dateClearUp').hide(); 
 	// 隐藏日历
-//	$(".dropdown-menu").hide();
 	$("#reportrange").data("daterangepicker").toggle();
 	// 显示搜索页面
 	$("#indexPage").show();
-	
 	// 还原日历状态
-	$("#reportrange").html("<span>日期</span>").removeClass("active").removeClass("avtive");
-	
+	$("#reportrange").html("<span>日期</span>");
 	$('.in-range').each(function(){
 		$(this).removeClass('in-range');
-	})
+	});
 	$('.start-date').each(function(){
 		// t-2016-04-07
 		var startDate = $('.start-date').attr('id');
@@ -105,12 +172,12 @@ function dateSearch()
 			$('.start-date').text(parseInt(startDate.split("-")[3]));
 		}
 		$(this).removeClass('start-date active');
-	})
+	});
 	$('.end-date').each(function(){
 		$('.end-date').text(parseInt($('.end-date').attr('id').split("-")[3]));
 		$(this).removeClass('end-date active');
-	})
-	// TODO 日期搜索
+	});
+	search();
 }
 ///////////////////////////////////////
 
@@ -121,28 +188,30 @@ function initNearBy()
 	var nearby = $("#nearby").val();
 	if(nearby=="1")
 	{
-	  $('#toploading').show();
 	  navigator.geolocation.getCurrentPosition(findposition, locationError);
 	}
 }
 function  findposition(position)
 {
-	 var lon = position.coords.longitude;
+	 var lng = position.coords.longitude;
      var lat = position.coords.latitude;  
-     var gpsPoint = new BMap.Point(lon,lat);
+     alert(lng+","+lat)
+     var gpsPoint = new BMap.Point(lng,lat);
      BMap.Convertor.translate(gpsPoint,0,translateCallback);    
 }
 //百度坐标转换
 function translateCallback(point){
-	 var lon = point.lng;
+	 var lng = point.lng;
 	 var lat = point.lat;	
-	 sendRequest(lat+","+lon);	
+	 alert(lng+","+lat)
+//	 sendRequest(lat+","+lng);	
 }
 function locationError()
 {
+	alert("获取当前位置失败,默认跳转到当前城市列表");
 	$("#errormsg b").html("获取当前位置失败,默认跳转到当前城市列表");	
 	$("#errormsg").show();
-	sendRequest("");
+//	sendRequest("");
 }
 function sendRequest(latlng)
 {			
@@ -215,52 +284,6 @@ var ajaxFun = function(d) {
     });
 };
 
-
-//改变多选的值
-function changeMoreSelcet(key,replacestr)
-{
-	var search_key = $("#search_"+key).val();
-    var replacestr = replacestr.replace(key+"|","");
-    var newstr = replaceMoreSelect(search_key,replacestr,"_");
-    changeUrlParamVlaue(key,newstr);		
-}
-
-//多选替换
-function replaceMoreSelect(str,replacestr,sperator)
-{
-	var newstr = "";
-	if(str!=''&&replacestr!='')
-	{
-		var strs = str.split(sperator);
-		var replacestrs = replacestr.split(sperator);
-		for(var i=0;i<strs.length;i++)
-		{
-			var isadd = true;
-			for(var j=0;j<replacestrs.length;j++)
-			{
-				if(strs[i]==replacestrs[j])
-				{
-					isadd = false;
-					break;
-				}
-			}	
-			if(isadd)
-			{
-				if(newstr=="")
-					newstr+=strs[i];
-				else
-					newstr+=sperator+strs[i];
-			}	
-		}			
-		return newstr;
-	}
-	else
-	{
-		return str;
-	}
-}
-
-
 var EARTH_RADIUS = 6371004; //单位M 
 
 var PI = Math.PI;
@@ -303,7 +326,7 @@ Date.prototype.format = function(format) {
         "q+" :Math.floor((this.getMonth() + 3) / 3), // quarter
         "S" :this.getMilliseconds()
     // millisecond
-    }
+    };
     if (/(y+)/.test(format)) {
         format = format.replace(RegExp.$1, (this.getFullYear() + "")
                 .substr(4 - RegExp.$1.length));
@@ -315,7 +338,7 @@ Date.prototype.format = function(format) {
         }
     }
     return format;
-}
+};
 
 //timestamp为时间戳
 //format为时间格式 例： "yyyy/MM/dd hh:mm:ss"

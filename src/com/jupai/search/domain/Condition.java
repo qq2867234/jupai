@@ -4,10 +4,10 @@ public class Condition {
 
 	private Double lng;
 	private Double lat;
-	private String startdate;
-	private String enddate;
+	private String checkInDay;
+	private String checkOutDay;
 	private String location;
-	private String sort;
+	private Byte sort;
 
 	private Integer pageNow = 1;
 	private Integer offset = 0;
@@ -29,20 +29,20 @@ public class Condition {
 		this.lat = lat;
 	}
 
-	public String getStartdate() {
-		return startdate;
+	public String getCheckInDay() {
+		return checkInDay;
 	}
 
-	public void setStartdate(String startdate) {
-		this.startdate = startdate;
+	public void setCheckInDay(String checkInDay) {
+		this.checkInDay = checkInDay;
 	}
 
-	public String getEnddate() {
-		return enddate;
+	public String getCheckOutDay() {
+		return checkOutDay;
 	}
 
-	public void setEnddate(String enddate) {
-		this.enddate = enddate;
+	public void setCheckOutDay(String checkOutDay) {
+		this.checkOutDay = checkOutDay;
 	}
 
 	public String getLocation() {
@@ -53,11 +53,11 @@ public class Condition {
 		this.location = location;
 	}
 
-	public String getSort() {
+	public Byte getSort() {
 		return sort;
 	}
 
-	public void setSort(String sort) {
+	public void setSort(Byte sort) {
 		this.sort = sort;
 	}
 
