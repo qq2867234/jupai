@@ -6,7 +6,7 @@
 		left:0;
 		top:0;
 		width:100%;
-		min-height:1042px;
+		min-height:500px;
 		background:#fff;
 		display:none;
 		z-index:1001;
@@ -75,11 +75,13 @@
 			$('.location').addClass('c22bb62');
 			
 			$('.js-search span').text(location).addClass('c22bb62');
+			$('#indexPage').show();
 		});
 		
 		// 返回
 		$('.search_tan .back').click(function(){
 			$('.search_tan').hide();
+			$('#indexPage').show();
 		});
 	});
 </script>

@@ -1,7 +1,7 @@
 @charset "utf-8";
 /* CSS Document */
 .index {
-	height: inherit;
+	/* height: inherit; */
 }
 
 .index nav {
@@ -36,6 +36,7 @@
 
 .index mark img {
 	width: 100%;
+	min-height: 100px;
 }
 
 .index dl {
@@ -217,7 +218,6 @@
 .list-mian {
 	padding: 0px;
 	margin: 0px;
-	min-height: 300px;
 }
 
 .list-mian a {

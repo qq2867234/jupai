@@ -6,6 +6,7 @@ var $lng = $("#lng");
 var $lat = $("#lat");
 
 $(function() {	
+	adjustFooter();
 	// 位置搜索
 	$('.locationUl li').on('click', function(){
 		$location.val($(this).text());
@@ -15,9 +16,12 @@ $(function() {
 		search();
 	});
 	
+	// 排序
 	$('.u_sort li').click(function(){
 		$('.u_sort li').removeClass('uLi_on');
 		$(this).addClass('uLi_on');
+		$sort.val($(this).attr("data"));
+		search();
 	});
 	$('.js-sort').click(function(event) {
 		if($(".rm-type").is(":hidden")) {
@@ -34,13 +38,7 @@ $(function() {
 		$('.rm-top').hide();
 	});
 	
-	// 排序
-	$('.price.u_sort li').click(function(event) {
-		$sort.val($(this).attr("data"));
-		search();
-	});
-	
-	// 附近
+	// 附近搜索
 	$(".js-nearby").click(function(event) {
 		// 取消附近搜索
 		if($lng.val() != "" && $lat.val() != "") {
@@ -56,10 +54,7 @@ $(function() {
 			wx.getLocation({
 				type: 'wgs84', // 默认为wgs84的gps坐标，如果要返回直接给openLocation用的火星坐标，可传入'gcj02'
 				success: function (res) {
-					$lng.val(res.longitude);
-					$lat.val(res.latitude);
-					$location.val("");
-					search();
+					nearbySearch(res.longitude, res.latitude);
 				},
 				fail: function() {
 					showTip("定位失败", 2);
@@ -74,11 +69,10 @@ $(function() {
 	// 位置弹窗
 	$('.js-search').click(function(){
 		$('.search_tan').show();
+		$('#indexPage').hide();
 	});
 	
     initCalendar();   
-
-	initNearBy();
 });
 
 
@@ -103,6 +97,24 @@ function search(){
 		queryString += "&lng=" + lng + "&lat=" + lat;
 	}
 	window.location.href = "/Search.action?searchRooms" + queryString;
+}
+
+function nearbySearch(lng, lat) {
+    var pointArr = [];
+    pointArr.push(new BMap.Point(lng, lat));
+    new BMap.Convertor().translate(pointArr, 1, 5, function (data){
+        if(data.status === 0) {
+             $lng.val(data.points[0].lng);
+	       	 $lat.val(data.points[0].lat);
+        }
+        // 坐标转换异常，直接使用未转换的坐标
+        else {
+        	 $lng.val(lng);
+	       	 $lat.val(lat);
+        }
+        $location.val("");
+        search();
+    });
 }
 
 /**
@@ -179,94 +191,59 @@ function dateSearch()
 	});
 	search();
 }
-///////////////////////////////////////
 
-
-//初始化当前位置
-function initNearBy()
-{
-	var nearby = $("#nearby").val();
-	if(nearby=="1")
-	{
-	  navigator.geolocation.getCurrentPosition(findposition, locationError);
+var pageNow = 2;
+// 下一页
+function nextPage(pages) {
+	// 已经到最后一页
+	if(pageNow > pages) return;
+	// 正在加载最后一页
+	if(pageNow == pages) {
+		$(".btn-more").hide();
 	}
+	$('.btn-more').hide();
+    $('.loading').show();
+	ajaxFun({
+        url: '/Search.action?ajaxSearchRooms',
+        data: {
+        	location: $location.val(),
+        	checkInDay: $checkInDay.val(),
+        	checkOutDay: $checkOutDay.val(),
+        	sort: $sort.val(),
+        	lng: $lng.val(),
+        	lat: $lat.val(),
+        	pageNow: pageNow++
+        },
+        success: function(data) {
+			if(data != undefined) {
+				$.each(data, function(i, room) {
+					var html = '<div class="cont"><a href="/Search.action?goToRoomDetailPage&roomId='+room.id+'">';
+					html += '<mark class="n-img"><img src="'+room.default_pic+'"  alt="房间图片"></mark>';
+					html += '<dl><dt><b class="dx-b01 fl">房间名：'+room.name+'</b><b class="dx-b01 fr price">¥ '+room.price+'</b></dt></dl> </a></div>';	               
+					$(".list-mian").append(html);
+				});
+			}
+			if(pageNow <= pages) {
+				$('.btn-more').show();
+			}
+			$('.loading').hide();
+			adjustFooter();
+		},
+		error: function(data) {
+			$('.loading').hide();
+			alert('访问失败了，请刷新重试');
+			adjustFooter();
+		}
+	});
 }
-function  findposition(position)
-{
-	 var lng = position.coords.longitude;
-     var lat = position.coords.latitude;  
-     alert(lng+","+lat)
-     var gpsPoint = new BMap.Point(lng,lat);
-     BMap.Convertor.translate(gpsPoint,0,translateCallback);    
-}
-//百度坐标转换
-function translateCallback(point){
-	 var lng = point.lng;
-	 var lat = point.lat;	
-	 alert(lng+","+lat)
-//	 sendRequest(lat+","+lng);	
-}
-function locationError()
-{
-	alert("获取当前位置失败,默认跳转到当前城市列表");
-	$("#errormsg b").html("获取当前位置失败,默认跳转到当前城市列表");	
-	$("#errormsg").show();
-//	sendRequest("");
-}
-function sendRequest(latlng)
-{			
-	$('#toploading').show();
-	if(latlng==null)
-		latlng = "";
-	var d = {latlng:latlng,distance:"2000"};
-	var ctx=$('#ctx').val();
-	var url  = ctx+"/ajax/findposition";
-	var para = {
-            type: "get",
-            url: url,
-            data: d,
-            success: function(d) {             
-            	var citypinyin = d.citypinyin;
-            	var skeyword = d.skeyword;
-            	var location = d.location;
-            	var skeywordShow = d.skeywordShow;            	
-            	$("#search_citypy").val(citypinyin);            	
-            	$("#search_skeyword").val(skeyword);             	
-            	if(skeyword!='')
-            	{
-	            	$(".adress_of").html("距离："+skeywordShow+"<span></span>");
-	            	if($(".fc2015").css("display")=="none")
-	            	{
-	            		$("#top_div").css("bottom",10);
-	            		$(".index-footer").css("padding-bottom",34);
-	            		$('.adress_of').css('bottom','0');
-	            		$('.adress_of').show();
-	            	} 
-	            	else
-	            	{
-	            		$("#top_div").css("bottom",10);
-	            		$(".index-footer").css("padding-bottom",80);
-	            		$('.adress_of').css('bottom','50');
-	            		$('.adress_of').show();
-	            	}	            	
-            	}
-            	else
-            		$('.adress_of').hide();
-            	$("#location").html(location);
-            	$("#skeyword").html(skeywordShow);  
-            	$("#query_str").val(citypinyin);  
-            	$("#sortzuijin").show();             	
-            	soumore();   
-            	
-            	//发送日志
-            	MY.log_type=3;
-            	$("#my_p_y").val(citypinyin);  
-        		MY.send_p();
-            },
-            error: function() {            	
-            }
-    };
-	ajaxFun(para);
+
+function adjustFooter(){
+	$("#common_footer").show();
+	$(".section").css('height', 'auto');
+	var prHeight = document.documentElement.clientHeight-$(".head-fixed").outerHeight(true)-81+14;
+	if($(".section").height() < prHeight){
+		$(".section").css('height',prHeight+'px');
+	}
 }
 
 var ajaxFun = function(d) {

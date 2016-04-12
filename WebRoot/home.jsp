@@ -34,7 +34,7 @@
 			</div>
 			<div class="subparent" onclick="search();"><p>搜索</p></div>
 	    	<nav class="quick-entry-nav clearfix">
-	    		<a class="quick-entry-link" href="/nearby"><img width="50" height="50" src="/images/index/near_house.png"><span>附近房源</span></a>
+	    		<a class="quick-entry-link" href="/Search.action?searchRooms&nearby=1"><img width="50" height="50" src="/images/index/near_house.png"><span>附近房源</span></a>
 	        	<a class="quick-entry-link" href="/order/list/"><img width="50" height="50" src="/images/index/my_order.png"><span>我的订单</span></a>
 	        	<a class="quick-entry-link" href="/user/mycollection/"><img width="50" height="50" src="/images/index/my_collet.png"><span>订房指导</span></a>
 	        	<a class="quick-entry-link" href="/landlord/recruit"><img width="50" height="50" src="/images/index/fd_rect.png"><span>关于我们</span></a>
@@ -44,24 +44,24 @@
     	<aside class="i-aside">	
         	<ul>
        			<li>
-       					<a href="http://m.mayi.com/tp_findspring2016?s=wap">
-       							<img src="/images/index/u38.jpg">
-       					</a>
+  					<a href="http://m.mayi.com/tp_findspring2016?s=wap">
+						<img src="/images/index/u38.jpg">
+  					</a>
        			</li>	
        			<li>
-       					<a href="http://m.mayi.com/tp_womenday2016?s=wap">
-       							<img src="/images/index/u40.jpg">
-       					</a>
+  					<a href="http://m.mayi.com/tp_womenday2016?s=wap">
+						<img src="/images/index/u40.jpg">
+  					</a>
        			</li>	
        			<li>
-       					<a href="http://m.mayi.com/goodlodgeunit?s=wap">
-       							<img src="/images/index/u42.jpg">
-       					</a>
+ 					<a href="http://m.mayi.com/goodlodgeunit?s=wap">
+						<img src="/images/index/u42.jpg">
+ 					</a>
        			</li>	
        			<li>
-       					<a href="http://m.mayi.com/tp_qingmingjie?s=wap">
-       							<img src="/images/index/u36.jpg">
-       					</a>
+  					<a href="http://m.mayi.com/tp_qingmingjie?s=wap">
+						<img src="/images/index/u36.jpg">
+  					</a>
        			</li>	
             </ul>
         </aside>
@@ -82,11 +82,12 @@
 	
 <script>
 $(function() {
+    recoverCondition();
     initCalendar();
     $('.choice_city').click(function(){
     	$('.search_tan').show();
+    	$('#indexPage').hide();
     });
-    recoverCondition();
 });
 
 /**

@@ -5,7 +5,7 @@ import java.util.Map;
 
 import com.jupai.search.domain.Condition;
 
-public interface ServiceMapper {
+public interface SearchMapper {
 	
 	List<Map<String, Object>> searchRooms(Condition condition);
 

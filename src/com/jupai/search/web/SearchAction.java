@@ -2,6 +2,7 @@ package com.jupai.search.web;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
+import java.util.List;
 import java.util.Map;
 
 import net.sourceforge.stripes.action.DefaultHandler;
@@ -11,6 +12,7 @@ import net.sourceforge.stripes.integration.spring.SpringBean;
 
 import org.apache.commons.lang.StringUtils;
 
+import com.alibaba.fastjson.JSONObject;
 import com.jupai.comm.PageModel;
 import com.jupai.comm.Runtimeconfig;
 import com.jupai.comm.web.AbstractActionBean;
@@ -22,6 +24,8 @@ import com.jupai.weixin.util.CommunicateUtil;
 public class SearchAction extends AbstractActionBean {
 
 	private static final long serialVersionUID = -5907025986150938131L;
+	
+	private Integer roomId;
 
 	private Double lng;
 	private Double lat;
@@ -29,6 +33,8 @@ public class SearchAction extends AbstractActionBean {
 	private String checkOutDay;
 	private String location;
 	private Byte sort;
+	
+	private Byte nearby;
 	
 	private Integer pageNow = 1;
 	private Integer pageSize = Runtimeconfig.DEFAULT_PAGE_SIZE;
@@ -42,18 +48,25 @@ public class SearchAction extends AbstractActionBean {
 	 */
 	@DefaultHandler
 	public Resolution searchRooms() {
-		Condition condition = formatCondition();
-		System.out.println(condition.getLocation());
-		PageModel<Map<String, Object>> pageModel = searchService.searchRooms(condition);
-		setAttributeInRequest("pageModel", pageModel);
-		setAttributeInRequest("condition", condition);
-		
+		if(nearby == null) {
+			Condition condition = formatCondition();
+			PageModel<Map<String, Object>> pageModel = searchService.searchRooms(condition);
+			setAttributeInRequest("pageModel", pageModel);
+			setAttributeInRequest("condition", condition);
+		}
+		setAttributeInRequest("nearby", nearby);
 		// 微信js-sdk需要的参数
 		String queryString = getContext().getRequest().getQueryString();
 		String url = getContext().getRequest().getRequestURL().toString() + (queryString != null ? ("?"+queryString) : "");
 		SignPackage sp = CommunicateUtil.getSignPackage(url);
 		setAttributeInRequest("sp", sp);
 		return new ForwardResolution("/WEB-INF/search/search.jsp");
+	}
+	
+	public Resolution ajaxSearchRooms() {
+		Condition condition = formatCondition();
+		List<Map<String, Object>> result = searchService.searchRoomList(condition);		
+		return jsonStreamingResolution(JSONObject.toJSONString(result));
 	}
 	
 	public Resolution goToRoomDetailPage() {
@@ -76,6 +89,7 @@ public class SearchAction extends AbstractActionBean {
 		condition.setLat(lat);
 		
 		condition.setOffset((pageNow - 1) * pageSize);
+		condition.setPageNow(pageNow);
 		condition.setPageSize(pageSize);
 		return condition;
 	}
@@ -116,12 +130,36 @@ public class SearchAction extends AbstractActionBean {
 		this.sort = sort;
 	}
 
+	public Integer getPageNow() {
+		return pageNow;
+	}
+
 	public void setPageNow(Integer pageNow) {
 		this.pageNow = pageNow;
 	}
 
+	public Integer getPageSize() {
+		return pageSize;
+	}
+
 	public void setPageSize(Integer pageSize) {
 		this.pageSize = pageSize;
+	}
+
+	public Byte getNearby() {
+		return nearby;
+	}
+
+	public void setNearby(Byte nearby) {
+		this.nearby = nearby;
+	}
+
+	public Integer getRoomId() {
+		return roomId;
+	}
+
+	public void setRoomId(Integer roomId) {
+		this.roomId = roomId;
 	}
 
 }
