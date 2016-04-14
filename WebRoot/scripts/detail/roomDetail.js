@@ -2,7 +2,7 @@ var submitFlag ="1"; // 防止重复提交
 
 $(function() {
 	//提交订单
-    $(".order-fix .btn-ok").on("click",submitOrder);
+    $(".order-fix .btn-ok").on("click", submitOrder);
     
 	$("#confirmDate").on("click", function(e) {
 		$("#reportrange").data("daterangepicker").toggle();
@@ -11,45 +11,38 @@ $(function() {
 	});
 });     
 
-function submitOrder()
-{ 	
-    var d = {
-        'roomid': roomId,
-        'roomnum': 1,
-        'checkinday': $startdate.text(),
-        'checkoutday': $enddate.text()
-    };
-    if($startdate.text()=="选择日期"||$enddate.text()=="选择日期")
-    {
+function submitOrder() { 	
+    if($checkInDay.text()=="选择日期" || $checkOutDay.text()=="选择日期") {
     	$(".add_tx").show();;
     	return ;
     }
-    
-    var ua = window.navigator.userAgent.toLowerCase();
-    
-    var source="";
-    if(ua.match(/MicroMessenger/i) == 'micromessenger'){
-    	source="public";
-    }else{
-		source="wap";
-    }
-    
+    disable(true);
     ajaxFun({
         type: "get",
-        data: d,
-        url: Urls.detail.checkstock,
-        success: function(d) {
-			if(d.status == 0){
-				submitFlag="1";
-				showTip(d.tipmsg);
-			}else{
+        url: "/Order.action?isCanRent",
+        data: {
+    		'roomId': $roomId.val(),
+    		'checkInDay': $checkInDay.text(),
+    		'checkOutDay': $checkOutDay.text()
+        },
+        success: function(data) {
+        	disable(false);
+			if(data.isCanRent){
 				if(submitFlag=="1"){
 					submitFlag="2";
-//					window.location.href ='/order/pre?roomId=' + roomId + '&checkinday=' + $startdate.text() + '&checkoutday=' + $enddate.text()+'&roomNum='+$("#roomNum").val()+'&phone='+$("#phone").val()+'&source='+source ;
-					// TODO 跳转到订单页面
+					window.location.href = "https://open.weixin.qq.com/connect/oauth2/authorize?appid="+$("#appid").val()+
+						"&redirect_uri=" + encodeURIComponent('http://'+$("#domain").val()+'/Order.action?goToOrderDetailPage&roomId=' + $roomId.val() + '&checkInDay=' + $checkInDay.text() + '&checkOutDay=' + $checkOutDay.text())+
+						"&response_type=code&scope=snsapi_base&state="+$roomId.val()+"#wechat_redirect";
 				}
+			}else{
+				submitFlag="1";
+				showTip("行程内已有房间被预定完！");
 			}
-        }
+        },
+        error: function() {
+			showTip("系统异常，请稍后再试");
+			disable(false);
+		}
     });
 }
 
@@ -57,8 +50,12 @@ function cancelInputDate() {
 	$(".add_tx").hide();
 }
 
-var op='';
-if(op=='submit')
-{
-	submitOrder();
+function disable(state) {
+	if(state) {
+		$(".footer .or-btn").text('处理中...');
+		$(".footer .or-btn").attr("disabled", "true");
+	} else {
+		$(".footer .or-btn").text('立即预定');
+		$(".footer .or-btn").removeAttr("disabled");
+	}
 }

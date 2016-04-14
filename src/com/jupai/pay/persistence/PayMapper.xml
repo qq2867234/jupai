@@ -2,32 +2,18 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.jupai.pay.persistence.PayMapper">
 
-	<select id="isCharged" parameterType="String" resultType="Integer">
-		select status from pay where order_no = #{orderNo}
-	</select>
-	
-	<!-- 创建支付订单 -->
-	<insert id="addPay" parameterType="com.jupai.pay.domain.Pay">
-		insert into pay (order_no, zid, type, amount, pid, channel, role, charge_id, city_code) values (#{orderNo}, #{zid}, #{type}, 
-		#{amount}, #{pid}, #{channel}, #{role}, #{chargeId}, #{cityCode})
-	</insert>
-	
 	<!-- 更新支付状态 -->
 	<update id="updatePayStatus">
-		update pay set status = #{status} where order_no = #{orderNo}
+		update `order` set pay_status = #{status} where order_no = #{orderNo}
 	</update>
 	
-	<select id="getRentPrice" resultType="Integer">
-		select price from contract where pid = #{pid} and landord_zid = #{zid}
+	<select id="isCharged" parameterType="String" resultType="Integer">
+		select pay_status from `order` where order_no = #{orderNo}
 	</select>
 	
 	<select id="getChargeId" resultType="String">
-		select charge_id from pay where zid = #{zid} and pid = #{pid} and status = #{status}
+		select charge_id from `order` where uid = #{uid} and status = #{status}
 		and TIMESTAMPDIFF( MINUTE, createdtime, now()) <![CDATA[<= ]]> #{orderTimeExpire} and channel = #{channel}
-	</select>
-	
-	<select id="getOderInfo" resultType="HashMap" parameterType="String">
-		select role, zid, pid, city_code from pay where order_no = #{orderNo}
 	</select>
 	
 </mapper>

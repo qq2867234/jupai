@@ -6,8 +6,6 @@ import java.util.regex.Pattern;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 
-import com.jupai.account.domain.Account;
-
 public class UserTrackUtil {
 	
 	public static void main(String[] args) {
@@ -119,20 +117,6 @@ public class UserTrackUtil {
 		return result.toString();
 	}
 
-	/**
-	 *  获取用户的Id
-	 * @param request
-	 * @return
-	 */
-	public static Integer getZid(HttpServletRequest request) {
-		Account bean = (Account) request.getSession().getAttribute("account");
-		if (bean != null)
-			return bean.getZid();
-		else
-			return null;
-
-	}
-	
 	/**
 	 *  判断是手机还是电脑访问
 	 * @param request

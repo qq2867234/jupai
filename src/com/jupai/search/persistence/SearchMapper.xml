@@ -14,7 +14,7 @@
 			AND round(12742000*asin(sqrt(pow(sin((lat-#{lat})*0.017453)/2,2)+cos(lat*0.017453)*cos(#{lat}*0.017453)*pow(sin((lng-#{lng})*0.017453)/2,2)))) <![CDATA[ < ]]> 2000
 		</if>
 		<if test="checkInDay != null and checkOutDay != null">
-			AND NOT EXISTS (SELECT id FROM roomstatus WHERE room.id = roomstatus.room_id AND day >= #{checkInDay} AND day <![CDATA[ < ]]> #{checkOutDay})
+			AND NOT EXISTS (SELECT id FROM roomstatus WHERE room.id = roomstatus.room_id AND date >= #{checkInDay} AND date <![CDATA[ < ]]> #{checkOutDay} AND is_rent = 0)
 		</if>
 		<if test="sort == 1">
 			order by price desc
@@ -33,11 +33,32 @@
 			AND instr(location_name, #{location})
 		</if>
 		<if test="lng != null and lat != null">
-			AND round(12742000*asin(sqrt(pow(sin((lat-#{lat})*0.017453)/2,2)+cos(lat*0.017453)*cos(#{lat}*0.017453)*pow(sin((lng-#{lng})*0.017453)/2,2)))) <![CDATA[ < ]]> 2000
+			AND round(12742000*asin(sqrt(pow(sin((lat-#{lat})*0.017453)/2,2)+cos(lat*0.017453)*cos(#{lat}*0.017453)*pow(sin((lng-#{lng})*0.017453)/2,2)))) <![CDATA[ < ]]> 3000
 		</if>		
 		<if test="checkInDay != null and checkOutDay != null">
-			AND NOT EXISTS (SELECT id FROM roomstatus WHERE room.id = roomstatus.room_id AND day >= #{checkInDay} AND day <![CDATA[ < ]]> #{checkOutDay})
+			AND NOT EXISTS (SELECT id FROM roomstatus WHERE room.id = roomstatus.room_id AND date >= #{checkInDay} AND date <![CDATA[ < ]]> #{checkOutDay} AND is_rent = 0)
 		</if>
 	</select>
+	
+	<select id="getRoomDetail" resultType="HashMap">
+		select id, name, price, intro from room where id = #{roomId}
+	</select>
+	
+	<select id="getRoomImages" resultType="String">
+		select pic from roomimage where room_id = #{roomId}
+	</select>
+	
+	<select id="getRoomStatus" resultType="HashMap">
+		select date, price*100 price, is_rent isRent from roomstatus where room_id = #{roomId} and date >= #{startDate} and date <![CDATA[ < ]]> #{endDate}
+	</select>
+	
+	
+	<insert id="addRoomStatus">
+		insert into roomstatus(room_id, date, price, is_rent)
+		select 
+		SELECT #{roomId}, DATE_ADD(#{startDate},INTERVAL id-1 DAY), #{price}, #{isRent}
+		FROM sequence 
+		WHERE id <![CDATA[ <= ]]> DATEDIFF(#{endDate}, #{startDate}) + 1
+	</insert>
 	
 </mapper>      

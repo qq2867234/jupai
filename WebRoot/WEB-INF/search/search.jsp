@@ -79,7 +79,7 @@
 	        	<!-- 有结果 -->
 	        	<c:forEach items="${pageModel.result }" var="room">
 	        		<div class="cont">
-			            <a href="/Search.action?goToRoomDetailPage&roomId=${room.id }">
+			            <a url="/Search.action?goToRoomDetailPage&roomId=${room.id }">
 			                <mark class="n-img"><img src="${room.default_pic }"  alt="房间图片"></mark>
 			                <dl>
 			                    <dt>
@@ -177,8 +177,7 @@ wx.ready(function(){
 <script src="/scripts/index/daterangepicker.js"></script> 
 <script src="/scripts/index/backleft.js?v=1"></script>
 
-<script src="/scripts/search/sou.list.js?v=27"></script>
-<!-- <script src="/scripts/search/sou.more.js"></script> -->
+<script src="/scripts/search/search.js"></script>
 
 <%@ include file="/WEB-INF/include/location.jsp"%>
 </body>

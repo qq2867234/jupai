@@ -20,6 +20,7 @@ import com.jupai.search.domain.Condition;
 import com.jupai.search.service.SearchService;
 import com.jupai.weixin.domain.SignPackage;
 import com.jupai.weixin.util.CommunicateUtil;
+import com.jupai.weixin.util.WeChatUrl;
 
 public class SearchAction extends AbstractActionBean {
 
@@ -34,6 +35,9 @@ public class SearchAction extends AbstractActionBean {
 	private String location;
 	private Byte sort;
 	
+	private String startDate;
+	private String endDate;
+	
 	private Byte nearby;
 	
 	private Integer pageNow = 1;
@@ -43,7 +47,7 @@ public class SearchAction extends AbstractActionBean {
 	private SearchService searchService;
 
 	/**
-	 * 搜索
+	 * 搜索房源
 	 * @return
 	 */
 	@DefaultHandler
@@ -63,16 +67,45 @@ public class SearchAction extends AbstractActionBean {
 		return new ForwardResolution("/WEB-INF/search/search.jsp");
 	}
 	
+	/**
+	 * 搜索房源（返回json）
+	 * @return
+	 */
 	public Resolution ajaxSearchRooms() {
 		Condition condition = formatCondition();
 		List<Map<String, Object>> result = searchService.searchRoomList(condition);		
 		return jsonStreamingResolution(JSONObject.toJSONString(result));
 	}
 	
+	/**
+	 * 跳转到房源详情页面
+	 * @return
+	 */
 	public Resolution goToRoomDetailPage() {
+		Map<String, Object> room = searchService.getRoomDetail(roomId);
+		setAttributeInRequest("room", room);
+		setAttributeInRequest("checkInDay", checkInDay);
+		setAttributeInRequest("checkOutDay", checkOutDay);
+		setAttributeInRequest("appid", Runtimeconfig.WEIXIN_APPID);
+		setAttributeInRequest("domain", Runtimeconfig.DOMAIN);
 		return new ForwardResolution("/WEB-INF/room/roomDetail.jsp");
 	}
 	
+	/**
+	 * 获取房态
+	 * @return
+	 */
+	public Resolution getRoomStatus() {
+		JSONObject json = new JSONObject();
+		Map<String, Object> data = searchService.getRoomStatus(roomId, endDate);
+		json.put("data", data);
+		return jsonStreamingResolution(json);
+	}
+	
+	/**
+	 * 格式化查询条件
+	 * @return
+	 */
 	public Condition formatCondition() {
 		Condition condition = new Condition();
 		if(StringUtils.isNotBlank(location)) {
@@ -160,6 +193,42 @@ public class SearchAction extends AbstractActionBean {
 
 	public void setRoomId(Integer roomId) {
 		this.roomId = roomId;
+	}
+
+	public String getStartDate() {
+		return startDate;
+	}
+
+	public void setStartDate(String startDate) {
+		this.startDate = startDate;
+	}
+
+	public String getEndDate() {
+		return endDate;
+	}
+
+	public void setEndDate(String endDate) {
+		this.endDate = endDate;
+	}
+
+	public SearchService getSearchService() {
+		return searchService;
+	}
+
+	public void setSearchService(SearchService searchService) {
+		this.searchService = searchService;
+	}
+
+	public Double getLng() {
+		return lng;
+	}
+
+	public Double getLat() {
+		return lat;
+	}
+
+	public String getLocation() {
+		return location;
 	}
 
 }

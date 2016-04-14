@@ -15,9 +15,6 @@ import net.sourceforge.stripes.validation.ValidationErrors;
 import org.apache.log4j.Logger;
 
 import com.alibaba.fastjson.JSONObject;
-import com.jupai.account.domain.Account;
-import com.jupai.util.CookieUtil;
-import com.jupai.weixin.util.WeChatApi;
 
 public abstract class AbstractActionBean implements ActionBean, Serializable, ValidationErrorHandler {
 
@@ -50,83 +47,6 @@ public abstract class AbstractActionBean implements ActionBean, Serializable, Va
 		return null;
 	}
 	
-	/**
-	 * checkLoginStatusForLocal方法简介
-	 * <p>用于本地判断用户是否登录
-	 * @return boolea 如果session中有值则返回 <b>true</b> 否则返回<b>false</b>
-	 * */
-	protected boolean checkLoginStatusForLocal() {
-		Account account = (Account) getAttributeFromSession("account");
-		if (account == null) {
-			return false;
-		} else {
-			return true;
-		}
-	}
-
-	/**
-	 * getCurrentAccount方法简介
-	 * <p>用户获取当前登录用户的信息
-	 * @param Account
-	 * @see Account
-	 * */
-	protected Account getCurrentAccount() {
-		Account account = (Account) getAttributeFromSession("account");
-		return account;
-	}
-
-	/**
-	 * getCurrZid方法简介
-	 * <p>获取session中的zid
-	 * @retrun Integer 当前登录用户的zid
-	 * */
-	protected Integer getCurrZid() {
-		Integer zid = null;
-		Account account = (Account) getAttributeFromSession("account");
-		if (account != null) {
-			zid = account.getZid();
-		} else {
-			zid = null;
-		}
-		return zid;
-	}
-
-	/***
-	 * getCurrRole方法简介
-	 * <p>获得当前用户的角色
-	 * @return
-	 */
-	protected Byte getCurrRole() {
-		Byte role = null;
-		Account account = (Account) getAttributeFromSession("account");
-		if (account != null) {
-			role = account.getRole();
-		} else {
-			role = null;
-		}
-		return role;
-	}
-
-	/**
-	 * getHighNumber方法简介
-	 * <p>获得Account用户存储图片的后半部路径
-	 * */
-	protected String getHighNumber() {
-		Integer zid = getCurrZid();
-		String zPath = String.valueOf(zid / 10000);
-		return zPath;
-	}
-
-	/**
-	 * getHomeHighNumber方法简介
-	 * <p>获得房产图片的动态路径
-	 * @return
-	 */
-	protected String getHomeHighNumber(Long HomeId) {
-		String hPath = String.valueOf(HomeId / 1000);
-		return hPath;
-	}
-
 	/**
 	 * setAttributeInRequest方法简介
 	 * <p>向request中存储数据
@@ -183,38 +103,6 @@ public abstract class AbstractActionBean implements ActionBean, Serializable, Va
 	 */
 	protected void removeAttributeFromSession(String key) {
 		getContext().getRequest().getSession().removeAttribute(key);
-	}
-
-	/**
-	 * 设置图片上传错误信息
-	 * @param message
-	 * @param type 1表示上传图片，2表示普通信息
-	 * @return
-	 */
-	protected String getError(String message, int type) {
-		JSONObject obj = new JSONObject();
-		if (type == 1) {
-			obj.put("error", 1);
-			obj.put("message", message);
-			return obj.toJSONString();
-		} else if (type == 2) {
-			obj.put("status", "n");
-			obj.put("info", message);
-			return obj.toJSONString();
-		} else if (type == 3) {
-			obj.put("status", "e");
-			obj.put("info", message);
-			return obj.toJSONString();
-		} else {
-			return "";
-		}
-	}
-
-	/**
-	 * 更新cookie
-	 */
-	public void updateCookie(String key, String value) {
-		CookieUtil.addCookie(key, value, -1, "/", getContext().getResponse());
 	}
 
 	/**

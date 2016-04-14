@@ -12,7 +12,7 @@ import com.jupai.weixin.domain.TextResponseMessage;
 import com.jupai.weixin.handler.factory.HandlerFactory;
 import com.jupai.weixin.handler.inter.IRequestHandler;
 import com.jupai.weixin.util.MessageUtil;
-@Service("CoreService")
+@Service
 public class CoreService {
 	 /** 
      * 处理微信发来的请求 

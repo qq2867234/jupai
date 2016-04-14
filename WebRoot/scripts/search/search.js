@@ -72,6 +72,15 @@ $(function() {
 		$('#indexPage').hide();
 	});
 	
+	$(".cont a").click(function(event) {
+		if($checkInDay.val() != "" && $checkOutDay.val() != "") {
+			window.location.href=$(this).attr("url")+"&checkInDay="+$checkInDay.val()+"&checkOutDay="+$checkOutDay.val();
+		} else {
+			window.location.href=$(this).attr("url");
+		}
+		event.stopPropagation();
+	});
+	
     initCalendar();   
 });
 

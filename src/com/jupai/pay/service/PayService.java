@@ -1,7 +1,5 @@
 package com.jupai.pay.service;
 
-import java.util.Map;
-
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -19,22 +17,6 @@ public class PayService {
 	private PayMapper payMapper;
 	
 	/**
-	 * 创建支付流水
-	 * @param zid
-	 * @param orderNo
-	 * @param type
-	 * @param amount
-	 * @param pid
-	 * @param channel 
-	 * @param string 
-	 * @param role 
-	 * @param cityCode 
-	 */
-	public void addPay(Integer zid, String orderNo, Byte type, Float amount, Integer pid, String channel, Byte role, String chargeId, Integer cityCode) {
-		payMapper.addPay(zid, orderNo, type, amount, pid, channel, role, chargeId, cityCode);
-	}
-	
-	/**
 	 * 更新支付状态
 	 * @param orderNo
 	 * @param status
@@ -42,20 +24,11 @@ public class PayService {
 	 */
 	@Transactional
 	public boolean payCallback(String orderNo, Byte status) {
-		int affectedRows;
 		try {
 			// 更新支付状态
-			affectedRows = payMapper.updatePayStatus(orderNo, status);
+			int affectedRows = payMapper.updatePayStatus(orderNo, status);
 			if (affectedRows == 1) {
 				log.info("updatePayStatus success: " + orderNo);
-				// 支付成功
-				if(status == Pay.Status.PAY_SUCCESS.value()) {
-					Map<String, Object> infor = payMapper.getOderInfo(orderNo);
-					byte role = Byte.parseByte(infor.get("role").toString());
-					int zid = (int) infor.get("zid");
-					int pid = (int) infor.get("pid");
-					int cityCode = (int) infor.get("city_code");
-				}
 				return true;
 			} else {
 				log.error("updatePayStatus affected rows is zero. orderNo=" + orderNo);
@@ -152,15 +125,6 @@ public class PayService {
 		}
 	}
 
-	/***
-	 * 获得合同中的租金
-	 * @param pid
-	 * @param zid
-	 * @return
-	 */
-	public int getRentPrice(Integer pid, int zid) {
-		return payMapper.getRentPrice(pid, zid);
-	}
 
 	/**
 	 * 获得已有订单号
@@ -171,8 +135,8 @@ public class PayService {
 	 * @param orderTimeExpire 
 	 * @return
 	 */
-	public String getChargeId(Integer pid, int zid, String channel, byte status, Integer orderTimeExpire) {
-		return payMapper.getChargeId(pid, zid, channel, status, orderTimeExpire);
+	public String getChargeId(Integer uid, String channel, byte status, Integer orderTimeExpire) {
+		return payMapper.getChargeId(uid, channel, status, orderTimeExpire);
 	}
 	
 	/**

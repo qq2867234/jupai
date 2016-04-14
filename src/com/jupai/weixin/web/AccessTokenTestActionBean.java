@@ -17,12 +17,9 @@ public class AccessTokenTestActionBean extends AbstractActionBean {
 	private String nonce;
 	private String echostr;
 	
+	@SpringBean
 	private CoreService coreService;
-	@SpringBean("CoreService")
-	public void injectCoreService(CoreService coreService) {
-		this.coreService = coreService;
-	}
-	
+
 	public Resolution checkURL() {
 		if (SignUtil.checkSignature(signature, timestamp, nonce)) {
 			String method = getContext().getRequest().getMethod();
@@ -43,27 +40,12 @@ public class AccessTokenTestActionBean extends AbstractActionBean {
 	    return null; 
 	}
 	
-	public void setSignature(String signature) {
-		this.signature = signature;
-	}
-
 	public void setTimestamp(String timestamp) {
 		this.timestamp = timestamp;
 	}
 
 	public void setNonce(String nonce) {
 		this.nonce = nonce;
-	}
-
-	public void setEchostr(String echostr) {
-		this.echostr = echostr;
-	}
-
-	@Override
-	public Resolution handleValidationErrors(ValidationErrors arg0)
-			throws Exception {
-		// TODO Auto-generated method stub
-		return null;
 	}
 
 }

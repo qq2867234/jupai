@@ -14,31 +14,11 @@ import java.util.Random;
 public class IdGenerator {
 	
 	public static String getOrderNo() {
-		return new StringBuilder(18).append(getDateTimeString()).append(random3()).append(random3()).toString();
-	}
-	
-	public static void main(String[] args) {
-		System.out.println(getContractId(110000, 1));
-	}
-	
-	/**
-	 * 生成合同编号
-	 * <p> 规则：城市首拼+城市编号+年月+2位随机数+pid+2位随机数
-	 * @param cityCode
-	 * @param pid
-	 * @return
-	 */
-	public static String getContractId(Integer cityCode, int pid) {
-		StringBuilder contractId = new StringBuilder(20);
-		if(cityCode == 110000) {
-			contractId.append("BJ");
-		}
-		contractId.append(getDateString()).append(random2()).append(pid).append(random2());
-		return contractId.toString();
+		return new StringBuilder(16).append(getDateTimeString()).append(random2()).append(random2()).toString();
 	}
 	
 	public static String getDateTimeString(){
-		return new SimpleDateFormat("yyyyMMddHHmmss").format(new Timestamp(System.currentTimeMillis()));
+		return new SimpleDateFormat("yyMMddHHmmss").format(new Timestamp(System.currentTimeMillis()));
 	}
 	
 	public static String getDateString(){

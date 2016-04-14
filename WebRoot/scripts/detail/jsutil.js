@@ -1,21 +1,3 @@
-/*60秒计时*/
-$.fn.showTime = function(c) {
-  var d = this,
-  g = c.second || 60,
-  f = c.text || "",
-  e = setInterval(function() {
-      if (g <= 1) {
-          clearInterval(e);
-          c.callback(d);
-          return;
-      }
-      $(d).html(--g + f);
-  },
-  1000);
-  $(d).html(g + f);
-  return this;
-}
-/*60秒计时*/
 /*md5 加密*/
 var rotateLeft = function(lValue, iShiftBits) {
     return (lValue << iShiftBits) | (lValue >>> (32 - iShiftBits));

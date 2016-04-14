@@ -1,6 +1,6 @@
-var roomId = $("input[name='roomId']").val(),
-	$startdate = $("#startdate"),
-	$enddate = $("#enddate"),
+var $roomId = $("#roomId"),
+	$checkInDay = $("#checkInDay"),
+	$checkOutDay = $("#checkOutDay"),
 	calendarButton = $("#reportrange"),
 	special;
 
@@ -21,8 +21,9 @@ function generateCalendar() {
     // 获取房态信息
     ajaxFun({
         type: "get",
-        url: "/calendar.json",
+        url: "/Search.action?getRoomStatus",
         data: {
+        	"roomId": $roomId.val(),
             'endDate': priceEndDate.getFullYear() + "-" + (priceEndDate.getMonth() < 10 ? "0" + priceEndDate.getMonth() : priceEndDate.getMonth()) + "-01"
         },
         success: function(d) {
@@ -46,8 +47,8 @@ function generateCalendar() {
     
 function showClendar(){
 	var options = {
-	   startDate: $startdate.text() != "选择日期" ? $startdate.text() : "",
- 	   endDate: $startdate.text() != "选择日期" ? $startdate.text() : "",
+	   startDate: $checkInDay.text() != "选择日期" ? $checkInDay.text() : "",
+ 	   endDate: $checkInDay.text() != "选择日期" ? $checkInDay.text() : "",
  	   veiwType:'view',
 // 	   mindays:1, // 最少入住天数
  	   special:special,
@@ -80,14 +81,14 @@ function showClendar(){
 }
 
 //日历日期选择后日期与晚数赋值
-function selectdate(startdate,enddate){
+function selectdate(checkInDay,checkOutDay){
 	// 入住离开日期
-  	$startdate.text(startdate);
-  	$enddate.text(enddate);
+  	$checkInDay.text(checkInDay);
+  	$checkOutDay.text(checkOutDay);
     // 每晚价格
 	$("#dayprice").text($(".table-condensed .start-date .perice-off input").val());
 	// 总晚数
-	var totalDays = $DTU.getDateMargin(stringToDate(startdate),stringToDate(enddate));
+	var totalDays = $DTU.getDateMargin(stringToDate(checkInDay),stringToDate(checkOutDay));
 	$('#totalDays').text(' ' + totalDays + ' ').parent().css("display", "inline-block");
 	// 房间总价
 	var totalMoney = 0;

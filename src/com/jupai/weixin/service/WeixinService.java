@@ -7,7 +7,7 @@ import com.alibaba.fastjson.JSONObject;
 import com.jupai.weixin.util.WeChatApi;
 import com.jupai.weixin.util.WeChatUrl;
 
-@Service("WeixinService")
+@Service
 public class WeixinService {
 	
 	private Logger log = Logger.getLogger(WeixinService.class);

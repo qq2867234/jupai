@@ -5,7 +5,8 @@
 	<title>居派</title>
 	<!-- meta 以及 公用的css -->
 	<%@ include file="/WEB-INF/include/public.jsp" %>
-	<link rel="stylesheet" href="/css/index/index.css">
+	<link rel="stylesheet" href="/css/index/
+	index.css">
 </head>
 
 <body class=" hPC">
@@ -35,7 +36,7 @@
 			<div class="subparent" onclick="search();"><p>搜索</p></div>
 	    	<nav class="quick-entry-nav clearfix">
 	    		<a class="quick-entry-link" href="/Search.action?searchRooms&nearby=1"><img width="50" height="50" src="/images/index/near_house.png"><span>附近房源</span></a>
-	        	<a class="quick-entry-link" href="/order/list/"><img width="50" height="50" src="/images/index/my_order.png"><span>我的订单</span></a>
+	        	<a class="quick-entry-link" href="https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx5608af55575e414b&redirect_uri=http%3A%2F%2Fmountain.ngrok.cc%2FOrder.action%3FgoToOrderListPage&response_type=code&scope=snsapi_base&state=jp#wechat_redirect"><img width="50" height="50" src="/images/index/my_order.png"><span>我的订单</span></a>
 	        	<a class="quick-entry-link" href="/user/mycollection/"><img width="50" height="50" src="/images/index/my_collet.png"><span>订房指导</span></a>
 	        	<a class="quick-entry-link" href="/landlord/recruit"><img width="50" height="50" src="/images/index/fd_rect.png"><span>关于我们</span></a>
 	    	</nav>
