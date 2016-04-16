@@ -156,7 +156,7 @@ input {
 .plr12 {
 	padding: 30px 12px 0px 12px;
 }
-.select-add{ background:url(/images/public/close.png) no-repeat; width:31px; height:31px; background-size:31px 31px; display:block; position:absolute; right:10px; top:10px;}
+.select-add{ background:url(../images/close.png) no-repeat; width:31px; height:31px; background-size:31px 31px; display:block; position:absolute; right:10px; top:10px;}
 
 .mt10 {
 	margin-top: 10px;
@@ -255,19 +255,19 @@ input {
 
 header nav .back,header nav .login-out {
 	background:
-		url("/images/public/user_cen.png") no-repeat;
+		url("../images/user_cen.png") no-repeat;
 	background-size: 111px 30px;
 }
 
 .local-search.mark:after,.search .list-item i {
 	background:
-		url("/images/public/search.png")no-repeat;
+		url("../images/search.png")no-repeat;
 	background-size: 90px 24px;
 }
 
 #goTop,.sort li i,.mark:before,.mark:after,.mark-left a:before,.mark-right a:after,.mark-right li:after,.facility li i,.state i,.login .del,.grade .scale-slider-btn,.close
 	{
-	background:url("/images/public/list.png") no-repeat;
+	background:url("../images/list.png") no-repeat;
     background-size:208px 306px;
 }
 
@@ -476,14 +476,14 @@ footer nav a.active {
 
 /*loading*/
 .localing,.loading {
-	background: url("/images/public/loading.gif") no-repeat scroll center center;
+	background: url("../images/loading.gif") no-repeat scroll center center;
 	display: block;
 	width: 100%;
 	height: 24px;
 }
 
 .loading {
-	background-image: url("/images/public/loading.gif");
+	background-image: url("../images/loading_g.gif");
 }
 
 /*状态*/
@@ -766,6 +766,16 @@ footer nav a.active {
 .map-list-rooms .mapcon .mapCtr {
 	position: relative;
 	display: none;
+}
+
+.map-list-rooms .mapCtr .localCen,.map-list-rooms .mapCtr .up,.map-list-rooms .mapCtr .down,#map .b-rooms
+	{
+	position: absolute;
+	bottom: 15px;
+	width: 35px;
+	height: 35px;
+	background: url("../images/mark.png") no-repeat;
+	background-size: 170px 90px;
 }
 
 .map-list-rooms .mapCtr .localCen {
@@ -1190,7 +1200,7 @@ footer nav a.active {
 }
 
 .grade span {
-	background: url("/images/public/eva.png") no-repeat scroll -40px 0px;
+	background: url("../images/eva.png") no-repeat scroll -40px 0px;
 	background-size: 80px 35px;
 	width: 40px;
 	display: inline-block;
@@ -1330,6 +1340,17 @@ footer nav a.active {
 	color:#FF725D;;
 }
 
+.room-list li  i{
+	display: inline-block;
+	position: absolute;
+	background:url(../images/speed.png) no-repeat;
+	background-size:55px 55px;
+	width: 55px;
+	height: 55px;
+	left: 10px;
+	top: 10px;
+	z-index: 10;}
+
 .room-list li .tabs{margin-top:1px; overflow:hidden; height:22px;}
 .room-list li .tabs span {
 	color:#999;
@@ -1416,7 +1437,7 @@ footer nav a.active {
 	height: 47px;
 	line-height: 40px;
 	background:
-		url("/images/public/price.png")no-repeat;
+		url("../images/price.png")no-repeat;
 	background-size:55px 47px;
 	font-size: 16px;
 	color: #fff;
@@ -2204,6 +2225,29 @@ footer nav a.active {
     right: 0;
     top: 10px;
     width: 40px;
+}
+
+/*响应式*/
+.local-search {
+	background: url("../images/map_b.png") repeat scroll 0 0px/ 100% 100%
+		rgba(0, 0, 0, 0);
+}
+
+@media screen and (max-width: 950px) {
+	.content .local-search {
+		background: url("../images/map_b.png") no-repeat scroll center 0;
+	}
+}
+
+@media screen and (max-width: 640px) {
+	.content .local-search {
+		background: url("../images/map_c.png") no-repeat scroll center 0;
+	}
+}
+@media screen and (max-width: 320px) {
+	.content .local-search {
+		background: url("../images/map_n.png") no-repeat scroll center 0;
+	}
 }
 
 .i-img-list {

@@ -31,11 +31,8 @@
 	<insert id="createOrder" parameterType="com.jupai.order.domain.Order" >
 	    insert into `order`
 	    <trim prefix="(" suffix=")" suffixOverrides="," >
-	      <if test="orderNo != null" >
-	        order_no,
-	      </if>
-	      <if test="uid != null" >
-	        uid,
+	      <if test="id != null" >
+	        id,
 	      </if>
 	      <if test="openid != null" >
 	        openid,
@@ -48,6 +45,9 @@
 	      </if>
 	      <if test="mobile != null" >
 	        mobile,
+	      </if>
+	      <if test="idNumber != null" >
+	        id_number,
 	      </if>
 	      <if test="checkInDay != null" >
 	        check_in_day,
@@ -67,11 +67,8 @@
 	      </if>
 	    </trim>
 	    <trim prefix="values (" suffix=")" suffixOverrides="," >
-	      <if test="orderNo != null" >
-	        #{orderNo,jdbcType=VARCHAR},
-	      </if>
-	      <if test="uid != null" >
-	        #{uid,jdbcType=INTEGER},
+	      <if test="id != null" >
+	        #{id,jdbcType=VARCHAR},
 	      </if>
 	      <if test="openid != null" >
 	        #{openid,jdbcType=INTEGER},
@@ -84,6 +81,9 @@
 	      </if>
 	      <if test="mobile != null" >
 	        #{mobile,jdbcType=VARCHAR},
+	      </if>
+	      <if test="idNumber != null" >
+	        #{idNumber,jdbcType=VARCHAR},
 	      </if>
 	      <if test="checkInDay != null" >
 	        #{checkInDay,jdbcType=DATE},
@@ -104,7 +104,47 @@
 	    </trim>
 	</insert>
 	
+	<!-- 获取订单列表 -->
+	<!-- 支付状态 0-未支付  1-支付成功 2-申请退款  3-退款成功 4-退款失败 -1-支付失败  -2-取消支付 -->
 	<select id="getOrderList" resultType="HashMap">
-		select o.*, r.name roomName, r.address from `order` o, room r where o.openid = #{openid} and o.room_id = r.id
+		select o.id orderId, o.room_id roomId, o.name, o.mobile, o.check_in_day checkInDay, o.check_out_day checkOutDay, o.days, 
+			o.amount, o.pay_status payStatus, o.createdtime, o.updatedtime, r.name roomName, r.address,
+			case
+				when o.pay_status = -1 then '付款失败'
+				when o.pay_status = -2 then '已取消付款'
+				when o.pay_status = 0  then '待付款'
+				when o.pay_status = 1  then '已付款'
+				when o.pay_status = 2  then '申请退订中'
+				when o.pay_status = 3  then '已退款'
+				when o.pay_status = 4  then '退款失败'
+			end status
+		from `order` o, room r 
+		where o.openid = #{openid} and o.pay_status > 0 and o.room_id = r.id 
+		order by o.createdtime desc
 	</select>
+	
+	<select id="getCheckInGuide" resultType="HashMap">
+		select id, guide_pic, guide_desc from room where id = #{roomId}
+	</select>
+	
+	<select id="getOrderInfo" resultType="HashMap">
+		select o.id orderId, o.room_id roomId, o.name, o.mobile, o.check_in_day checkInDay, o.check_out_day checkOutDay, o.days, 
+			o.amount, o.pay_status payStatus, o.createdtime, o.updatedtime, r.name roomName, r.address,
+			case
+				when o.pay_status = -1 then '付款失败'
+				when o.pay_status = -2 then '已取消付款'
+				when o.pay_status = 0  then '待付款'
+				when o.pay_status = 1  then '已付款'
+				when o.pay_status = 2  then '申请退订中'
+				when o.pay_status = 3  then '已退款'
+				when o.pay_status = 4  then '退款失败'
+			end status
+		from `order` o, room r where o.id = #{orderId} and o.openid = #{openid} and o.room_id = r.id
+	</select>
+	
+	<update id="updateRoomStatusByOrderId">
+		update roomstatus rs, `order` o
+		set rs.is_rent = 0
+		where o.id = #{orderId} and rs.room_id = o.room_id and rs.date >= o.check_in_day and rs.date <![CDATA[ < ]]> o.check_out_day AND o.pay_status = 1
+	</update>
 </mapper>      

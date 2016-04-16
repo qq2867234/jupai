@@ -18,12 +18,13 @@ import com.jupai.comm.Runtimeconfig;
 import com.jupai.comm.web.AbstractActionBean;
 import com.jupai.order.domain.Order;
 import com.jupai.order.service.OrderService;
-import com.jupai.pay.domain.Pay;
 import com.jupai.pay.service.PayService;
 import com.jupai.pay.util.ChargeFactory;
 import com.jupai.pay.util.WebHooksVerify;
 import com.jupai.util.CSRFTokenManager;
 import com.jupai.util.IdGenerator;
+import com.jupai.util.InputValidator;
+import com.jupai.weixin.util.WeChatUrl;
 import com.pingplusplus.model.Charge;
 
 public class PayActionBean extends AbstractActionBean {
@@ -52,13 +53,14 @@ public class PayActionBean extends AbstractActionBean {
 	private String openid;
 	
 	/** 支付订单号 */
-	public String orderNo;
+	public String orderId;
 	
 	private Integer roomId;
 	private String checkInDay;
 	private String checkOutDay;
 	private String name;
 	private String mobile;
+	private String idNumber;
 	
 	/** 用来防止CSRF攻击的token */
 	private String csrfToken;
@@ -102,14 +104,30 @@ public class PayActionBean extends AbstractActionBean {
 			json.put("info", "请填写手机号");
 			return jsonStreamingResolution(json);
 		}
+		if(!InputValidator.virMobile(mobile)) {
+			json.put("status", "-1");
+			json.put("info", "请填写有效的手机号");
+			return jsonStreamingResolution(json);
+		}
+		if(idNumber == null) {
+			json.put("status", "-1");
+			json.put("info", "请填写身份证号");
+			return jsonStreamingResolution(json);
+		}
+		if(!InputValidator.virIdNumber(idNumber)) {
+			json.put("status", "-1");
+			json.put("info", "请填写有效的身份证号");
+			return jsonStreamingResolution(json);
+		}
 		if(channel == null) {
 			json.put("status", "-1");
 			json.put("info", "请选择支付方式");
 			return jsonStreamingResolution(json);
 		}
+		String openid = getCurrentOpenid();
 		if(openid == null) {
 			json.put("status", "-1");
-			json.put("info", "微信授权失败，请重试");
+			json.put("info", "请求超时，请返回重试");
 			return jsonStreamingResolution(json);
 		}
 		try {
@@ -119,11 +137,10 @@ public class PayActionBean extends AbstractActionBean {
 				json.put("info", "行程内已有房间被预定完");
 				return jsonStreamingResolution(json);
 			}
-			// 获取订单定额
+			// 获取订单定额(根据入住日期计算)
 			Integer amount = orderService.getOrderAmount(roomId, checkInDay, checkOutDay);
 			
 			Map<String, String> extra = null;
-			String orderNo = "";
 			switch (channel) {
 				case "alipay_wap": // 支付宝手机网页支付（支付完成将额外返回付款用户的支付宝账号 buyer_account）
 					extra = new HashMap<String, String>();
@@ -140,26 +157,32 @@ public class PayActionBean extends AbstractActionBean {
 					return jsonStreamingResolution(json);
 			}
 			// 生成订单号
-			orderNo = IdGenerator.getOrderNo();
+			String orderId = IdGenerator.getOrderId();
 			// 创建charge对象
-			Charge charge = ChargeFactory.create(amount * 100, "居派预付定金", "贴心的服务，放心的选择", orderNo, channel, "127.0.0.1", extra);
+			Charge charge = ChargeFactory.create(amount * 100, "居派住宿费用", "贴心的服务，放心的选择", orderId, channel, "127.0.0.1", extra);
 			
 			// 创建订单(目前默认是支付服务费，之后有添加新的支付类型，再通过参数来获取支付类型)
 			Order order = new Order();
+			order.setId(orderId);
 			order.setOpenid(openid);
 			order.setRoomId(roomId);
 			order.setName(name);
 			order.setMobile(mobile);
+			order.setIdNumber(idNumber);
 			order.setCheckInDay(checkInDay);
 			order.setCheckOutDay(checkOutDay);
-			order.setOrderNo(orderNo);
 			order.setAmount(amount);
 			order.setChannel(channel);
 			order.setChargeId(charge.getId());
-			orderService.createOrder(order);
+			int affectedRows = orderService.createOrder(order);
+			if(affectedRows > 0) {
+				json.put("status", "1");
+				json.put("charge", charge);
+			} else {
+				json.put("status", "-1");
+				json.put("info", "创建订单失败，请重试");
+			}
 			
-			json.put("status", "1");
-			json.put("charge", charge);
 		} catch (Exception e) {
 			logger.error("createCharge error.", e);
 			json.put("status", "-1");
@@ -175,8 +198,9 @@ public class PayActionBean extends AbstractActionBean {
 	public Resolution goToPaySuccessPage() {
 		setAttributeInRequest("title", "支付结果");
 		setAttributeInRequest("info", "支付成功");
+		setAttributeInRequest("desc", "在我的订单可以查看入住指南");
 		setAttributeInRequest("btn1", "我的订单");
-		setAttributeInRequest("url1", "/Order.action?goToOrderListPage"); 
+		setAttributeInRequest("url1", WeChatUrl.oAuthRedirectToUrlForCode("http://"+Runtimeconfig.DOMAIN+"/Order.action?goToOrderListPage", "")); 
 		setAttributeInRequest("num", 1);
 		setAttributeInRequest("status", "y");
 		return new ForwardResolution("/WEB-INF/weixin/result.jsp");
@@ -190,9 +214,9 @@ public class PayActionBean extends AbstractActionBean {
 		setAttributeInRequest("title", "支付结果");
 		setAttributeInRequest("info", "取消成功");
 		setAttributeInRequest("btn1", "我的订单");
-		setAttributeInRequest("url1", "/Order.action?goToOrderListPage"); 
+		setAttributeInRequest("url1", WeChatUrl.oAuthRedirectToUrlForCode("http://"+Runtimeconfig.DOMAIN+"/Order.action?goToOrderListPage", "")); 
 		setAttributeInRequest("num", 1);
-		setAttributeInRequest("status", "n");
+		setAttributeInRequest("status", "y");
 		return new ForwardResolution("/WEB-INF/weixin/result.jsp");
 	}
 	
@@ -225,16 +249,15 @@ public class PayActionBean extends AbstractActionBean {
 				return status500(getContext().getResponse());
 			// 解析异步通知数据
 			JSONObject event = JSONObject.parseObject(body);
-	        JSONObject data = event.getJSONObject("data");
-	        JSONObject object = data.getJSONObject("object");
+	        JSONObject object = event.getJSONObject("data").getJSONObject("object");
 	        boolean updatePayStatusSuccess;
 			switch (event.getString("type")) {
 				case "charge.succeeded": // 支付成功
-					updatePayStatusSuccess = payService.payCallback(object.getString("order_no"), Pay.Status.PAY_SUCCESS.value());
+					updatePayStatusSuccess = payService.chargeSucceeded(object.getString("order_no"));
 					CSRFTokenManager.clearCSRFToken(getContext().getRequest().getSession());
 					break;
 				case "refund.succeeded": // 退款成功
-					updatePayStatusSuccess = payService.payCallback(object.getString("order_no"), Pay.Status.REFUND_SUCCESS.value());
+					updatePayStatusSuccess = payService.refundSucceeded(object.getString("charge"));
 					CSRFTokenManager.clearCSRFToken(getContext().getRequest().getSession());
 					break;
 				default:
@@ -254,8 +277,8 @@ public class PayActionBean extends AbstractActionBean {
 	 */
 	public Resolution isCharged() {
 		JSONObject json = new JSONObject();
-		if(!StringUtils.isBlank(orderNo)) {
-			int isCharged = payService.isCharged(orderNo);
+		if(!StringUtils.isBlank(orderId)) {
+			int isCharged = payService.isCharged(orderId);
 			json.put("status", isCharged);
 		} else {
 			json.put("status", "e");
@@ -295,8 +318,8 @@ public class PayActionBean extends AbstractActionBean {
 		this.checkOutDay = checkOutDay;
 	}
 
-	public void setOrderNo(String orderNo) {
-		this.orderNo = orderNo;
+	public void setOrderId(String orderId) {
+		this.orderId = orderId;
 	}
 
 	public void setCsrfToken(String csrfToken) {
@@ -313,6 +336,10 @@ public class PayActionBean extends AbstractActionBean {
 
 	public void setOpenid(String openid) {
 		this.openid = openid;
+	}
+
+	public void setIdNumber(String idNumber) {
+		this.idNumber = idNumber;
 	}
 
 }

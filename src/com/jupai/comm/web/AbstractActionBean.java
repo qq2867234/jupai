@@ -48,6 +48,14 @@ public abstract class AbstractActionBean implements ActionBean, Serializable, Va
 	}
 	
 	/**
+	 * 获取当前用户的openid
+	 * @return
+	 */
+	protected String getCurrentOpenid() {
+		return (String) getContext().getRequest().getAttribute("openid");
+	}
+	
+	/**
 	 * setAttributeInRequest方法简介
 	 * <p>向request中存储数据
 	 * @param key 

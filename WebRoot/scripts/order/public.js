@@ -65,7 +65,7 @@ $(document).ready(function() {
     });
     $(".fc-text").click(function() { 
     	$(".fc").hide();
-        window.open('http://www.mayi.com/app/download');
+        window.open('http://www.jupai.com/app/download');
     });
     
     /*立即下载弹框*/
@@ -73,7 +73,7 @@ $(document).ready(function() {
     	//底部下载弹框关闭时保存Cookie信息、生命周期为24小时
 		var date = new Date(); 
 		date.setTime(date.getTime() + 24*60*60*1000);//Cookie生存周期为24小时
-		document.cookie = "downloadCookie = mayi;expires=" + date.toGMTString();  
+		document.cookie = "downloadCookie = jupai;expires=" + date.toGMTString();  
         $(".fc").hide();
     });
 });

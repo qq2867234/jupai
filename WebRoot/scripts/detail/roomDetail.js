@@ -26,17 +26,19 @@ function submitOrder() {
     		'checkOutDay': $checkOutDay.text()
         },
         success: function(data) {
-        	disable(false);
 			if(data.isCanRent){
 				if(submitFlag=="1"){
 					submitFlag="2";
 					window.location.href = "https://open.weixin.qq.com/connect/oauth2/authorize?appid="+$("#appid").val()+
 						"&redirect_uri=" + encodeURIComponent('http://'+$("#domain").val()+'/Order.action?goToOrderDetailPage&roomId=' + $roomId.val() + '&checkInDay=' + $checkInDay.text() + '&checkOutDay=' + $checkOutDay.text())+
 						"&response_type=code&scope=snsapi_base&state="+$roomId.val()+"#wechat_redirect";
+				} else {
+					disable(false);
 				}
 			}else{
 				submitFlag="1";
 				showTip("行程内已有房间被预定完！");
+				disable(false);
 			}
         },
         error: function() {
@@ -52,7 +54,7 @@ function cancelInputDate() {
 
 function disable(state) {
 	if(state) {
-		$(".footer .or-btn").text('处理中...');
+		$(".footer .or-btn").text('预定中...');
 		$(".footer .or-btn").attr("disabled", "true");
 	} else {
 		$(".footer .or-btn").text('立即预定');

@@ -7,7 +7,7 @@
 	<title>居派</title>
 	<!-- meta 以及 公用的css -->
 	<%@ include file="/WEB-INF/include/public.jsp" %>
-	<link href="/css/search/search_list.css?v=12" rel="stylesheet" >
+	<link href="/css/search/search.css" rel="stylesheet" >
 </head>
 
 <body>
@@ -23,7 +23,7 @@
 	<article>
 		<!--头部-->
 		<div class="head-fixed">
-			<header class="mayi-top-search head">
+			<header class="jupai-top-search head">
 		    	<a class="back left" rel="nofollow" href="javascript:backleft();"></a>
 				<a>搜索</a>
 			</header>
@@ -74,12 +74,12 @@
 	        <aside class="index list-mian">    
 	        	<!-- 无结果 -->
 	        	<c:if test="${fn:length(pageModel.result) == 0 and empty nearby}">
-	        		<div style="width: 150px; font-size: 15px; margin: 0px auto; padding-top: 50px;">没有符合条件的房源</div>
+	        		<div style="width: 150px; font-size: 15px; margin: 0px auto; padding-top: 50px; text-align: center;">没有符合条件的房源</div>
 	        	</c:if> 
 	        	<!-- 有结果 -->
 	        	<c:forEach items="${pageModel.result }" var="room">
 	        		<div class="cont">
-			            <a url="/Search.action?goToRoomDetailPage&roomId=${room.id }">
+			            <a href="/Search.action?goToRoomDetailPage&roomId=${room.id }">
 			                <mark class="n-img"><img src="${room.default_pic }"  alt="房间图片"></mark>
 			                <dl>
 			                    <dt>
@@ -128,8 +128,10 @@
 	</div>
 </div>
 
-<script type="text/javascript" src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
-<script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=sEhlVR2sZiMlajeCYrmyYswv"></script>
+<script src="/scripts/public/jquery-1.9.1.min.js"></script>
+<script src="/scripts/search/search.js?v=123423"></script>
+<script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
+<script src="http://api.map.baidu.com/api?v=2.0&ak=sEhlVR2sZiMlajeCYrmyYswv"></script>
 
 <script type="text/javascript">
 wx.config({
@@ -151,7 +153,7 @@ wx.config({
 	})(); 
 } */
 
-var wxReadyStatus = false;
+var wxReadyStatus;
 wx.ready(function(){
 	wxReadyStatus = true;
 	if('${nearby}' == 1) {
@@ -167,17 +169,14 @@ wx.ready(function(){
 		});
 	}
 });
-
-
+wx.error(function(res){
+	wxReadyStatus = false;
+	alert("微信定位初始化失败");
+});
 </script>
-<script src="/scripts/index/jquery-1.9.1.min.js"></script>
-<script src="/scripts/index/main.js"></script>
-<script src="/scripts/index/c.js"></script>
-<script src="/scripts/index/moment.js"></script> 
-<script src="/scripts/index/daterangepicker.js"></script> 
-<script src="/scripts/index/backleft.js?v=1"></script>
-
-<script src="/scripts/search/search.js"></script>
+<script src="/scripts/public/common.js?v=1"></script>
+<script src="/scripts/public/moment.js"></script> 
+<script src="/scripts/public/daterangepicker.js"></script> 
 
 <%@ include file="/WEB-INF/include/location.jsp"%>
 </body>

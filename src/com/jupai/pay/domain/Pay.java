@@ -34,14 +34,14 @@ public class Pay {
 	
 	// 支付状态
 	public enum Status {
+		// 	<!-- 支付状态 0-未支付  1-支付成功 2-申请退款  3-退款成功 4-退款失败 -1-支付失败  -2-取消支付 -->
 		UN_PAY((byte) 0), 			// 未支付
 		PAY_SUCCESS((byte) 1), 		// 支付成功
-		PAY_CANCEL((byte) 2),		// 取消支付
-		REFUND_APPLY((byte) 3),		// 退款申请(退款中)
-		REFUND_SUCCESS((byte) 4),	// 退款成功
-		REFUND_CANCEL((byte) 5),	// 取消退款
+		REFUND_APPLY((byte) 2),		// 申请退款
+		REFUND_SUCCESS((byte) 3),	// 退款成功
+		REFUND_FAIL((byte) 4),		// 退款失败
 		PAY_FAIL((byte) -1), 		// 支付失败
-		REFUND_FAIL((byte) -2); 	// 退款失败
+		PAY_CANCEL((byte) -2); 		// 取消支付
 
 		private byte status;
 

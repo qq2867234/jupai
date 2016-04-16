@@ -7,27 +7,18 @@ public interface PayMapper {
 	/**
 	 * 更新支付状态
 	 * @param zid
-	 * @param orderNo
+	 * @param orderId
 	 * @return
 	 */
-	int updatePayStatus(@Param("orderNo")String orderNo, @Param("status")Byte status);
+	int updatePayStatus(@Param("orderId")String orderId, @Param("status")Byte status);
 	
 	/**
 	 * 检查是否已支付
-	 * @param orderNo
+	 * @param orderId
 	 * @return
 	 */
-	int isCharged(String orderNo);
+	int isCharged(String orderId);
 
-	/**
-	 * 获得已有订单号
-	 * @param pid
-	 * @param zid
-	 * @param channel 
-	 * @param status 
-	 * @param orderTimeExpire 
-	 * @return
-	 */
-	String getChargeId(@Param("uid")Integer uid, @Param("channel")String channel, @Param("status")byte status, @Param("orderTimeExpire")Integer orderTimeExpire);
+	int updatePayStatusByChargeId(@Param("chargeId")String chargeId, @Param("status")Byte status);
 
 }

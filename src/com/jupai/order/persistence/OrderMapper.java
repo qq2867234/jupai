@@ -19,4 +19,10 @@ public interface OrderMapper {
 
 	List<Map<String, Object>> getOrderList(@Param("openid")String openid);
 
+	Map<String, Object> getOrderInfo(@Param("orderId")String orderId);
+
+	Map<String, Object> getCheckInGuide(@Param("roomId")Integer roomId);
+
+	int updateRoomStatusByOrderId(@Param("orderId")String orderId);
+
 }

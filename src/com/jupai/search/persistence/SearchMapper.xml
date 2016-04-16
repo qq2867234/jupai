@@ -4,18 +4,19 @@
 <mapper namespace="com.jupai.search.persistence.SearchMapper">
 	
 	<select id="searchRooms" resultType="HashMap">
-		SELECT id, name, location_name, price, url, default_pic, address, lng, lat 
+		SELECT id, name, price, default_pic, lng, lat 
 		FROM room 
-		WHERE published = 1 
-		<if test="location != null">
-			AND instr(location_name, #{location})
-		</if>
-		<if test="lng != null and lat != null">
-			AND round(12742000*asin(sqrt(pow(sin((lat-#{lat})*0.017453)/2,2)+cos(lat*0.017453)*cos(#{lat}*0.017453)*pow(sin((lng-#{lng})*0.017453)/2,2)))) <![CDATA[ < ]]> 2000
-		</if>
-		<if test="checkInDay != null and checkOutDay != null">
-			AND NOT EXISTS (SELECT id FROM roomstatus WHERE room.id = roomstatus.room_id AND date >= #{checkInDay} AND date <![CDATA[ < ]]> #{checkOutDay} AND is_rent = 0)
-		</if>
+		<trim prefix="WHERE" prefixOverrides="AND">
+	        <if test="location != null">
+				AND instr(keyword, #{location})
+			</if>
+			<if test="lng != null and lat != null">
+				AND round(12742000*asin(sqrt(pow(sin((lat-#{lat})*0.017453)/2,2)+cos(lat*0.017453)*cos(#{lat}*0.017453)*pow(sin((lng-#{lng})*0.017453)/2,2)))) <![CDATA[ < ]]> 2000
+			</if>
+			<if test="checkInDay != null and checkOutDay != null">
+				AND NOT EXISTS (SELECT id FROM roomstatus WHERE room.id = roomstatus.room_id AND date >= #{checkInDay} AND date <![CDATA[ < ]]> #{checkOutDay} AND is_rent = 0)
+			</if>
+	    </trim>
 		<if test="sort == 1">
 			order by price desc
 		</if>
@@ -28,16 +29,17 @@
 	<select id="countRooms" resultType="int">
 		select count(id) 
 		FROM room 
-		WHERE published = 1 
-		<if test="location != null">
-			AND instr(location_name, #{location})
-		</if>
-		<if test="lng != null and lat != null">
-			AND round(12742000*asin(sqrt(pow(sin((lat-#{lat})*0.017453)/2,2)+cos(lat*0.017453)*cos(#{lat}*0.017453)*pow(sin((lng-#{lng})*0.017453)/2,2)))) <![CDATA[ < ]]> 3000
-		</if>		
-		<if test="checkInDay != null and checkOutDay != null">
-			AND NOT EXISTS (SELECT id FROM roomstatus WHERE room.id = roomstatus.room_id AND date >= #{checkInDay} AND date <![CDATA[ < ]]> #{checkOutDay} AND is_rent = 0)
-		</if>
+		<trim prefix="WHERE" prefixOverrides="AND">
+	        <if test="location != null">
+				AND instr(keyword, #{location})
+			</if>
+			<if test="lng != null and lat != null">
+				AND round(12742000*asin(sqrt(pow(sin((lat-#{lat})*0.017453)/2,2)+cos(lat*0.017453)*cos(#{lat}*0.017453)*pow(sin((lng-#{lng})*0.017453)/2,2)))) <![CDATA[ < ]]> 2000
+			</if>
+			<if test="checkInDay != null and checkOutDay != null">
+				AND NOT EXISTS (SELECT id FROM roomstatus WHERE room.id = roomstatus.room_id AND date >= #{checkInDay} AND date <![CDATA[ < ]]> #{checkOutDay} AND is_rent = 0)
+			</if>
+	    </trim>
 	</select>
 	
 	<select id="getRoomDetail" resultType="HashMap">
@@ -49,7 +51,8 @@
 	</select>
 	
 	<select id="getRoomStatus" resultType="HashMap">
-		select date, price*100 price, is_rent isRent from roomstatus where room_id = #{roomId} and date >= #{startDate} and date <![CDATA[ < ]]> #{endDate}
+		select rs.date, r.price, rs.is_rent isRent from roomstatus rs, room r where rs.room_id = r.id and rs.room_id = #{roomId} and rs.date >= #{startDate} and rs.date <![CDATA[ < ]]> #{endDate}
+		<!-- select date, price, is_rent isRent from roomstatus where room_id = #{roomId} and date >= #{startDate} and date <![CDATA[ < ]]> #{endDate} -->
 	</select>
 	
 	

@@ -2,7 +2,7 @@ package com.jupai.order.domain;
 
 
 public class Order {
-	private String orderNo;
+	private String id;
 
 	private Integer uid;
 
@@ -13,6 +13,8 @@ public class Order {
 	private String name;
 
 	private String mobile;
+	
+	private String idNumber;
 
 	private String checkInDay;
 
@@ -28,12 +30,12 @@ public class Order {
 
 	private String chargeId;
 
-	public String getOrderNo() {
-		return orderNo;
+	public String getId() {
+		return id;
 	}
 
-	public void setOrderNo(String orderNo) {
-		this.orderNo = orderNo == null ? null : orderNo.trim();
+	public void setId(String id) {
+		this.id = id;
 	}
 
 	public Integer getUid() {
@@ -130,6 +132,14 @@ public class Order {
 
 	public void setChargeId(String chargeId) {
 		this.chargeId = chargeId == null ? null : chargeId.trim();
+	}
+
+	public String getIdNumber() {
+		return idNumber;
+	}
+
+	public void setIdNumber(String idNumber) {
+		this.idNumber = idNumber;
 	}
 
 }

@@ -5,25 +5,24 @@
 	<title>居派</title>
 	<!-- meta 以及 公用的css -->
 	<%@ include file="/WEB-INF/include/public.jsp" %>
-	<link rel="stylesheet" href="/css/index/
-	index.css">
+	<link rel="stylesheet" href="/css/index/index.css?v=321">
 </head>
 
-<body class=" hPC">
+<body class="hPC">
 
 	<input type="hidden" name="location" id="location" value=""/>
-	<input  type="hidden" name="checkInDay" id="checkInDay" value="" />
-	<input  type="hidden" name="checkOutDay" id="checkOutDay" value="" />
+	<input type="hidden" name="checkInDay" id="checkInDay" value="" />
+	<input type="hidden" name="checkOutDay" id="checkOutDay" value="" />
 
     <div id="indexPage">
-		<header class="mayi-top-search head">
-	    	<img class="head_left" src="/images/index/mayi_slogon.png">
-	        <a href="tel:400-069-6060" class="cancel_search" id="tel_server"><img src="/images/index/tel_icon.png"></a>		
+		<header class="jupai-top-search head">
+	    	<img class="head_left" src="/images/index/logo.png">
+	        <a href="tel:13810316841" class="cancel_search" id="tel_server"><img src="/images/index/tel_icon.png"></a>		
 		</header>    
 	    <div class="index_floor section">
 	    	<div class="search_calendar">
 		        <div class="search-form-box border-bottom">
-	                <div class="choice_city">
+	                <div class="choice_location">
 	                    <span class="location">选择目的地</span>
 	                </div>
 		        </div>
@@ -36,31 +35,31 @@
 			<div class="subparent" onclick="search();"><p>搜索</p></div>
 	    	<nav class="quick-entry-nav clearfix">
 	    		<a class="quick-entry-link" href="/Search.action?searchRooms&nearby=1"><img width="50" height="50" src="/images/index/near_house.png"><span>附近房源</span></a>
-	        	<a class="quick-entry-link" href="https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx5608af55575e414b&redirect_uri=http%3A%2F%2Fmountain.ngrok.cc%2FOrder.action%3FgoToOrderListPage&response_type=code&scope=snsapi_base&state=jp#wechat_redirect"><img width="50" height="50" src="/images/index/my_order.png"><span>我的订单</span></a>
-	        	<a class="quick-entry-link" href="/user/mycollection/"><img width="50" height="50" src="/images/index/my_collet.png"><span>订房指导</span></a>
-	        	<a class="quick-entry-link" href="/landlord/recruit"><img width="50" height="50" src="/images/index/fd_rect.png"><span>关于我们</span></a>
+	        	<a class="quick-entry-link" href="https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx5608af55575e414b&redirect_uri=http%3A%2F%2Fmountain.ngrok.cc%2FOrder.action%3FgoToOrderListPage&response_type=code&scope=snsapi_base&state=jp#wechat_redirect" onclick="showTip('跳转中...', 10)"><img width="50" height="50" src="/images/index/my_order.png"><span>我的订单</span></a>
+	        	<a class="quick-entry-link" href="/guide.jsp"><img width="50" height="50" src="/images/index/my_collet.png"><span>订房指导</span></a>
+	        	<a class="quick-entry-link" href="/aboutus.jsp"><img width="50" height="50" src="/images/index/fd_rect.png"><span>关于我们</span></a>
 	    	</nav>
 	    </div>
     
     	<aside class="i-aside">	
         	<ul>
        			<li>
-  					<a href="http://m.mayi.com/tp_findspring2016?s=wap">
+  					<a href="###">
 						<img src="/images/index/u38.jpg">
   					</a>
        			</li>	
        			<li>
-  					<a href="http://m.mayi.com/tp_womenday2016?s=wap">
+  					<a href="###">
 						<img src="/images/index/u40.jpg">
   					</a>
        			</li>	
        			<li>
- 					<a href="http://m.mayi.com/goodlodgeunit?s=wap">
+ 					<a href="###">
 						<img src="/images/index/u42.jpg">
  					</a>
        			</li>	
        			<li>
-  					<a href="http://m.mayi.com/tp_qingmingjie?s=wap">
+  					<a href="###">
 						<img src="/images/index/u36.jpg">
   					</a>
        			</li>	
@@ -70,13 +69,10 @@
 		<%@ include file="/WEB-INF/include/footer.jsp"%>
     </div>
     
-<script src="/scripts/index/jquery-1.9.1.min.js"></script>
-<script src="/scripts/index/main.js"></script>
-
-<script src="/scripts/index/moment.js"></script> 
-<script src="/scripts/index/c.js"></script>
-<script src="/scripts/index/daterangepicker.js"></script> 
-<script src="/scripts/index/backleft.js"></script>
+<script src="/scripts/public/jquery-1.9.1.min.js"></script>
+<script src="/scripts/public/moment.js"></script> 
+<script src="/scripts/public/common.js?v=1"></script>
+<script src="/scripts/public/daterangepicker.js"></script> 
 
 <!--搜索弹层-->
 <%@ include file="/WEB-INF/include/location.jsp"%>
@@ -85,7 +81,7 @@
 $(function() {
     recoverCondition();
     initCalendar();
-    $('.choice_city').click(function(){
+    $('.choice_location').click(function(){
     	$('.search_tan').show();
     	$('#indexPage').hide();
     });

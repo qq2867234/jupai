@@ -36,10 +36,10 @@
 
 <!--搜索弹层-->
 <div class="search_tan">
-		<header class="mayi-top-search head choose-location">
+		<header class="jupai-top-search head choose-location">
 		 	<a class="back left" rel="nofollow"></a>
 		 	<a rel="nofollow">选择位置</a>
-		    <!-- <div class="mayi-search-tb">		    		
+		    <!-- <div class="jupai-search-tb">		    		
 		        <div class="search-form-box">
 		    						<span class="search-form-icon"></span>
 		    				   		<input class="search-form-input" placeholder="名称、学校等" style="font-size:14px;" id="search-form-input">	

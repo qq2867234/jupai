@@ -17,9 +17,7 @@
 
   var hide = function() {
     $(".weui_mask_transparent").hide();
-    $(".weui_toast_visible").removeClass("weui_toast_visible").transitionEnd(function() {
-      $(this).remove();
-    });
+    $(".weui_toast_visible").removeClass("weui_toast_visible").remove();
   }
 
   $.toast = function(text, style) {

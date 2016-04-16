@@ -8,12 +8,16 @@ import org.springframework.stereotype.Service;
 
 import com.jupai.order.domain.Order;
 import com.jupai.order.persistence.OrderMapper;
+import com.jupai.pay.domain.Pay;
+import com.jupai.pay.persistence.PayMapper;
 
 @Service
 public class OrderService {
 
 	@Autowired
 	private OrderMapper orderMapper;
+	@Autowired
+	private PayMapper payMapper;
 	
 	/**
 	 * 获取订单详情
@@ -50,12 +54,58 @@ public class OrderService {
 		return orderMapper.getOrderAmount(roomId, checkInDay, checkOutDay);
 	}
 	
+	/**
+	 * 创建订单
+	 * @param order
+	 * @return
+	 */
 	public int createOrder(Order order) {
 		return orderMapper.createOrder(order);
 	}
 
+	/**
+	 * 获取订单列表
+	 * @param openid
+	 * @return
+	 */
 	public List<Map<String, Object>> getOrderList(String openid) {
 		return orderMapper.getOrderList(openid);
+	}
+
+	/**
+	 * 获取订单信息
+	 * @param orderId
+	 * @return
+	 */
+	public Map<String, Object> getOrderInfo(String orderId) {
+		return orderMapper.getOrderInfo(orderId);
+	}
+
+	/**
+	 * 获取入住指南
+	 * @param roomId
+	 * @return
+	 */
+	public Map<String, Object> getCheckInGuide(Integer roomId) {
+		return orderMapper.getCheckInGuide(roomId);
+	}
+
+	/**
+	 * 申请退订
+	 * @param orderId
+	 * @return
+	 */
+	public int applyRefund(String orderId) {
+		return payMapper.updatePayStatus(orderId, Pay.Status.REFUND_APPLY.value());
+	}
+	
+	/**
+	 * 根据订单号来更新房态（预定成功后将房间设为无房）
+	 * @param orderId
+	 * @return
+	 */
+	public int updateRoomStatusByOrderId(String orderId) {
+		return orderMapper.updateRoomStatusByOrderId(orderId);
 	}
 	
 }

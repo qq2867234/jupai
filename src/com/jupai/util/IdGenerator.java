@@ -13,8 +13,8 @@ import java.util.Random;
  */
 public class IdGenerator {
 	
-	public static String getOrderNo() {
-		return new StringBuilder(16).append(getDateTimeString()).append(random2()).append(random2()).toString();
+	public static String getOrderId() {
+		return new StringBuilder(16).append(getDateTimeString()).append(random3()).toString();
 	}
 	
 	public static String getDateTimeString(){

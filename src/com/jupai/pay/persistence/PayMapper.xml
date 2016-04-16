@@ -4,16 +4,16 @@
 
 	<!-- 更新支付状态 -->
 	<update id="updatePayStatus">
-		update `order` set pay_status = #{status} where order_no = #{orderNo}
+		update `order` set pay_status = #{status} where id = #{orderId}
+	</update>
+	
+	<!-- 根据chargeId更新支付状态 -->
+	<update id="updatePayStatusByChargeId">
+		update `order` set pay_status = #{status} where charge_id = #{chargeId}
 	</update>
 	
 	<select id="isCharged" parameterType="String" resultType="Integer">
-		select pay_status from `order` where order_no = #{orderNo}
-	</select>
-	
-	<select id="getChargeId" resultType="String">
-		select charge_id from `order` where uid = #{uid} and status = #{status}
-		and TIMESTAMPDIFF( MINUTE, createdtime, now()) <![CDATA[<= ]]> #{orderTimeExpire} and channel = #{channel}
+		select pay_status from `order` where id = #{orderId}
 	</select>
 	
 </mapper>

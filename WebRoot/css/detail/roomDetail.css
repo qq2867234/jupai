@@ -60,7 +60,7 @@ p.title{text-align:center;color:#333;font-size:18px;margin-bottom:10px;}
   z-index: -1;
 } 
 .table-condensed tr td {
-    line-height: normal;
+    line-height: inherit;
 }
 header nav{ background:#2eb657;}
 

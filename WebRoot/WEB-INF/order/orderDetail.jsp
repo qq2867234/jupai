@@ -5,7 +5,7 @@
 	<title>订单详情 - 居派</title>
 	<!-- meta 以及 公用的css -->
 	<%@ include file="/WEB-INF/include/public.jsp" %>
-	<link href="/css/order/orderDetial.css" rel="stylesheet" type="text/css">
+	<link href="/css/order/orderDetial.css" rel="stylesheet">
 </head>
 
 <body>
@@ -14,16 +14,15 @@
 
 	<input type="hidden" id="csrfToken" value="${sessionScope.csrfToken }">
 	<input type="hidden" id="roomId" value="${roomId }"> 
-	<input type="hidden" id="openid" value="${openid }"> 
 	
 	<!--共公共头部-->
-	 <header class="mayi-top head ellipsis">
+	 <header class="jupai-top head ellipsis">
 	       <a class="back left" rel="nofollow" href="javascript:backleft();"></a>订单详情
 	   </header>
 	<!--共公头部结束-->
 	
 	<article class="order-vc">
-		<aside class="list title"><b class="vc-b ">${orderDetail.name }</b></aside>
+		<aside class="list title"><b class="vc-b ">房间名：《${orderDetail.name }》</b></aside>
 	    <aside class="list room map" id="reportrange" >
 	    	<div class="btn" style="display: inline-block; cursor: pointer; width:100%; padding:0px; text-align:left;">
 	            <span>
@@ -51,6 +50,9 @@
 	    	</aside>
 	    	<aside class="adultsName borbott">
 	  			<b>手机号：<input name="mobile" id="mobile" type="text" value="" class="text-xm" placeholder="请输入手机号" style="background:none; border:none;"></b>
+	      	</aside>
+	    	<aside class="adultsName borbott">
+	  			<b>身份证：<input name="idNumber" id="idNumber" type="text" value="" class="text-xm" placeholder="请输入身份证号" style="background:none; border:none;"></b>
 	      	</aside>
 	    </aside>
 	    <aside class="tuikuan room">
@@ -96,28 +98,15 @@
 	</article>
 	
 </div>
-<div class="surTanc" id="surTanc">
-	<div class="surveYY"></div> 	
-	<div class="offmax" id="offmax">
-		<div class="dp_header">提示</div>
-		<div class="dp_daypicker">
-			<p id="coupon_tips"></p>			
-		</div> 
-		<a class="makeSure" href="javascript:closeDiv();">我知道了</a>     
-	</div>
-</div>
 </article>
 
-<script src="/scripts/index/jquery-1.9.1.min.js"></script>
-<script src="/scripts/order/bootstrap.min.js"></script>
-<script src="/scripts/index/c.js"></script>
-<script src="/scripts/index/moment.js"></script> 
-<script src="/scripts/index/daterangepicker.js"></script> 
-<script src="/scripts/index/backleft.js"></script>
-<script src="/scripts/index/main.js"></script>
+<script src="/scripts/public/jquery-1.9.1.min.js"></script>
+<script src="/scripts/public/common.js?v=2"></script>
+<script src="/scripts/public/moment.js"></script> 
+<script src="/scripts/public/daterangepicker.js"></script> 
 <script src="/scripts/pay/ap.js"></script>
 <script src="/scripts/pay/pingpp.js"></script>
-<script src="/scripts/detail/orderDetail.js?v=2"></script>
+<script src="/scripts/detail/orderDetail.js?v=32121"></script>
 <script src="/scripts/detail/roomStateCalendar.js"></script>
 
 </body>

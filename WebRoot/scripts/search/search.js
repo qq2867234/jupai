@@ -43,25 +43,57 @@ $(function() {
 		// 取消附近搜索
 		if($lng.val() != "" && $lat.val() != "") {
 			showTip("取消附近搜索", 3);
+			$(".js-nearby").attr("disabled", "true");
 			$lng.val("");
 			$lat.val("");
 			search();
-			return ;
+			return;
 		}
-		// 附近搜索
+		// 微信初始化完成
 		if(wxReadyStatus) {
-			showTip("定位中...", 10);
+			nearbyDisabled(true);
 			wx.getLocation({
 				type: 'wgs84', // 默认为wgs84的gps坐标，如果要返回直接给openLocation用的火星坐标，可传入'gcj02'
 				success: function (res) {
 					nearbySearch(res.longitude, res.latitude);
 				},
 				fail: function() {
-					showTip("定位失败", 2);
+					nearbyDisabled(false);
+					showTip("定位失败");
 				}
 			});
-		} else {
-			showTip("定位失败，请重试", 2);
+		} 
+		// 微信初始化失败
+		else if(wxReadyStatus == false) {
+			showTip("定位失败，请返回重试");
+			nearbyDisabled(false);
+		} 
+		// 微信还未初始化，等待两秒
+		else {
+			nearbyDisabled(true);
+			// 定时判断微信定位是否初始化完成
+			var t = setInterval(function() {
+				// 初始化完成
+				if(wxReadyStatus) {
+					t && clearInterval(t);
+					wx.getLocation({
+						type: 'wgs84', // 默认为wgs84的gps坐标，如果要返回直接给openLocation用的火星坐标，可传入'gcj02'
+						success: function (res) {
+							nearbySearch(res.longitude, res.latitude);
+						},
+						fail: function() {
+							nearbyDisabled(false);
+							showTip("定位失败");
+						}
+					});
+				} 
+				// 初始化失败
+				else if(wxReadyStatus == false){
+					showTip("定位失败，请返回重试");
+					nearbyDisabled(false);
+					t && clearInterval(t);
+				} 
+			}, 1000);
 		}
 		event.stopPropagation();
 	});
@@ -74,16 +106,26 @@ $(function() {
 	
 	$(".cont a").click(function(event) {
 		if($checkInDay.val() != "" && $checkOutDay.val() != "") {
-			window.location.href=$(this).attr("url")+"&checkInDay="+$checkInDay.val()+"&checkOutDay="+$checkOutDay.val();
+			window.location.href=$(this).attr("href")+"&checkInDay="+$checkInDay.val()+"&checkOutDay="+$checkOutDay.val();
 		} else {
-			window.location.href=$(this).attr("url");
+			window.location.href=$(this).attr("href");
 		}
 		event.stopPropagation();
+		return false;
 	});
 	
     initCalendar();   
 });
 
+function nearbyDisabled(state) {
+	if(state) {
+		$(".js-nearby span").text("定位中...");
+		$(".js-nearby").attr("disabled", "true");
+	} else {
+		$(".js-nearby span").text("附近");
+		$(".js-nearby").removeAttr("disabled");
+	}
+}	
 
 function search(){
 	var location = $location.val();

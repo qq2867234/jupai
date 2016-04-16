@@ -1,51 +1,46 @@
-<%@ page pageEncoding="UTF-8"%>
-<%@ taglib prefix="stripes" uri="http://stripes.sourceforge.net/stripes.tld" %>
+<%@ page pageEncoding="UTF-8" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
 <head>
-<title>关于我们-真格租房</title>
-<meta name="keywords" content="北京房屋出租，北京房屋租赁，真格租房，房地产，房产网，租房，出租，整租，合租，别墅，住宅，租金，房东，经纪人，中介"/>
-<meta name="description" content="简单好用的房产网。提供可信的房地产租售信息，帮您轻松获得专业服务，让房产
-租售事半功倍"/>
-<link rel="stylesheet" type="text/css" href="/css/css/terms.css">
+	<title>关于我们 - 居派</title>
+	<!-- meta 以及 公用的css -->
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+	<meta name="keywords" content="居派，短租，住宿"/>
+	<meta name="description" content="居派青年空间是带有移动互联网属性的短期住宿产品，是可链接各类外部服务的集“自助入住退房、主题化风格、创意家居植入、空间社交”于一身的点式微生活中心。"/>
 
-<script type="text/javascript" src="/scripts/home/home.js"></script>
+	<link href="/css/public/commom.css" rel="stylesheet" >
+	<style type="text/css">
+	.section {
+	    margin:15px;
+	}
+	p {
+		padding-bottom: 5px;
+		font-size:16px;
+		line-height: 24px;
+	}
+	#common_footer{
+		position: fixed;
+    	bottom: 0px;
+	}
+	</style>
 </head>
 
 <body>
-<!--#include virtual="/zinclude/header.html"-->
+<div id="indexPage">
 
-<div id="main" class="shortPage">
-<div class="container">
-	
-		<h2>关于我们</h2>
-    <div class='content'>
-		<p>真格租房www.zhengor.com隶属于北京真格在线科技有限公司。</p>
-		<p>我们是实名会员租房平台，在租客、房东、经纪人间建立可信连接，让人住得安心！</p>
+    <header class="jupai-top">
+        <a class="back left" rel="nofollow" href="javascript:backleft();"></a>关于我们
+    </header>
+    <div class='section'>
+		<p>“住在外 找居派”！居派青年空间是带有移动互联网属性的短期住宿产品，是可链接各类外部服务的集“自助入住退房、主题化风格、创意家居植入、空间社交”于一身的点式微生活中心。</p>
+		<p>追求全新住宿方式的年轻人形成了“居派族群”，创造着不同以往的快乐。</p>
 	</div>
+	
+	<%@ include file="/WEB-INF/include/footer.jsp"%>
 </div>
-</div>
-<!-- <div id="bottomer">
-    <div class="container">
-        <ul style="width:80%; margin-left:10%;">
-            <li>©2015 真格在线</li>
-            <li>|</li>
-            <li>京公网安备11010802015377号</li>
-            <li>|</li>
-            <li><a href="http://www.miibeian.gov.cn/">京ICP备15018423号</a></li>
-            <li><a href="/zinclude/terms.jsp">使用条款</a></li>
-            <li>|</li>
-            <li><a href="mailto:service@BBBBigPig.com" target="_new">service@BBBBigPig.com</a></li>
-            <li>|</li>
-            <li><a href="#" target="_new">客服电话:4006-918-600</a></li>  
-
-            <li>|</li>
-            <li class='chat clearfix'><span>客服：</span><a target="_blank" href="http://sighttp.qq.com/authd?IDKEY=b486893bb72d14361fffdcd243828fb9baca48a5d9e44646"><img border="0" src="/images/public/qqjt.gif" alt="有任何问题请直接和我联系。" title="有任何问题请直接和我联系。"></a></li>
-        </ul>
-  </div>
-</div>bottomer end -->
-<!--#include virtual="/zinclude/bottom.html"-->
-
-
+<script src="/scripts/public/jquery-1.9.1.min.js"></script>
+<script src="/scripts/public/common.js"></script>
 </body>
 </html>

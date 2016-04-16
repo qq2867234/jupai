@@ -5,10 +5,8 @@ var $roomId = $("#roomId"),
 	special;
 
 $(function() {
-    
-    // 获取房态信息，并生成房态日历。需要点击才能显示房态日历
+	// 获取房态信息，并生成房态日历。需要点击才能显示房态日历
 	generateCalendar();
-	
 });     
 
 var detailPageScrollTop;
@@ -31,7 +29,8 @@ function generateCalendar() {
             function showPrice(d) {
                 var special = new Object;
                 for (var i = 0; i < d.length; i++) {
-                    (d[i].stock <= 0 || !d[i].isRent)  ? special[d[i].date] = {"price":"￥"+(d[i].price/100),"value":(d[i].price/100),"state":"无房","show":true}:special[d[i].date] ={"price":"￥"+(d[i].price/100),"value":(d[i].price/100),"state":"","show":false};
+                    (!d[i].isRent)  ? special[d[i].date] = {"price":"￥"+(d[i].price),"value":(d[i].price),"state":"无房","show":true}:special[d[i].date] ={"price":"","value":(d[i].price),"state":"","show":false};
+//                    (!d[i].isRent)  ? special[d[i].date] = {"price":"￥"+(d[i].price),"value":(d[i].price),"state":"无房","show":true}:special[d[i].date] ={"price":"￥"+(d[i].price),"value":(d[i].price),"state":"","show":false};
                 }
                 return special;
             }
@@ -48,7 +47,7 @@ function generateCalendar() {
 function showClendar(){
 	var options = {
 	   startDate: $checkInDay.text() != "选择日期" ? $checkInDay.text() : "",
- 	   endDate: $checkInDay.text() != "选择日期" ? $checkInDay.text() : "",
+ 	   endDate: $checkOutDay.text() != "选择日期" ? $checkOutDay.text() : "",
  	   veiwType:'view',
 // 	   mindays:1, // 最少入住天数
  	   special:special,
@@ -77,7 +76,7 @@ function showClendar(){
  	};
 	
 	// 初始化房态日历
-	$('#reportrange').daterangepicker(options,selectdate);
+	$('#reportrange').daterangepicker(options, selectdate);
 }
 
 //日历日期选择后日期与晚数赋值

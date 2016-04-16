@@ -3,11 +3,10 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>房间名：《鸟语花香》 - 居派</title>
+	<title>房间名：《${room.name }》 - 居派</title>
 	<!-- meta 以及 公用的css -->
 	<%@ include file="/WEB-INF/include/public.jsp" %>
-	<link rel="stylesheet" href="/css/public/weui.min.css">
-	<link rel="stylesheet" href="/css/public/jquery-weui.css">
+	<link rel="stylesheet" href="/css/public/swiper-weui.css">
 	<link rel="stylesheet" href="/css/detail/roomDetail.css">
 </head>
 
@@ -18,7 +17,7 @@
 	<input type="hidden" id="appid" value="${appid }"> 
 	<input type="hidden" id="domain" value="${domain }"> 
 	
-    <header class="mayi-top">
+    <header class="jupai-top">
         <a class="back left" rel="nofollow" href="javascript:backleft();"></a>房间详情
     </header>
     
@@ -89,8 +88,7 @@
 	</div> 
 </div>
 
-<script src="/scripts/index/jquery-1.9.1.min.js"></script>
-<script src="/scripts/public/jquery-weui.js"></script>
+<script src="/scripts/public/jquery-1.9.1.min.js"></script>
 <script src="/scripts/public/swiper.js"></script>
 <script>
   $(".swiper-container").swiper({
@@ -99,13 +97,11 @@
   });
 </script>
 
-<script src="/scripts/index/main.js"></script>
-<script src="/scripts/index/c.js"></script>
-<script src="/scripts/index/moment.js"></script> 
-<script src="/scripts/index/daterangepicker.js"></script> 
-<script src="/scripts/index/backleft.js"></script>
+<script src="/scripts/public/common.js"></script>
+<script src="/scripts/public/moment.js"></script> 
+<script src="/scripts/public/daterangepicker.js"></script> 
 
-<script src="/scripts/detail/roomDetail.js?v=3"></script>
+<script src="/scripts/detail/roomDetail.js?v=4"></script>
 <script src="/scripts/detail/roomStateCalendar.js"></script>
 </body>
 </html>
